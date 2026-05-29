@@ -1,0 +1,4 @@
+{
+  "PERCYJACKSON-COMBO.title": "Combo",
+  "PERCYJACKSON-COMBO.description": "An effect is unlocked after playing at least [blue]{Combo:diff()}[/blue] {Combo:plural:attack|consecutive attacks} or Combo {Combo:plural:card|cards} this turn."
+}

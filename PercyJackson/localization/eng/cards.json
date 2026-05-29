@@ -1,0 +1,4 @@
+{
+  "PERCYJACKSON-DISARM.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Combo[/gold] {Combo:diff()}: Enemy loses {StrengthLoss:diff()} [gold]Strength[/gold] this turn.",
+  "PERCYJACKSON-DISARM.title": "Disarm"
+}
