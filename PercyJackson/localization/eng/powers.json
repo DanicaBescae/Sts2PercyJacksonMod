@@ -1,3 +1,5 @@
 {
-  
+  "PERCYJACKSON-NO_SWEAT_POWER.description": "Whenever you end a [gold]Combo[/gold], gain [gold]Energy[/gold].",
+  "PERCYJACKSON-NO_SWEAT_POWER.smartDescription": "Whenever you end a [gold]Combo[/gold], gain [blue]{Amount}[/blue] [gold]Energy[/gold].",
+  "PERCYJACKSON-NO_SWEAT_POWER.title": "No Sweat"
 }

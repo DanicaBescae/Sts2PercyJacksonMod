@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace PercyJackson.PercyJacksonCode.Cards;
+namespace PercyJackson.PercyJacksonCode.Cards.Basic;
 
 public class Disarm : PercyJacksonCard
 {

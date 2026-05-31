@@ -3,11 +3,15 @@ using BaseLib.Extensions;
 using BaseLib.Patches.Content;
 using BaseLib.Utils;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
 using PercyJackson.PercyJacksonCode.Character;
 using PercyJackson.PercyJacksonCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.DynamicVars;
 using PercyJackson.PercyJacksonCode.Models;
@@ -21,8 +25,11 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     [CustomEnum] 
     public static CardTag ComboTag;
 
-    private int ComboNeeded { get; set; } = 0;
-    private bool NeedComboToPlay { get; set; } = false;
+    private int ComboNeeded { get; set; }
+    private bool NeedComboToPlay { get; set; }
+    
+    private List<TemporaryCardCost> TemporaryCombos = [];
+    public TemporaryCardCost? TemporaryCombo => TemporaryCombos.LastOrDefault();
     
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
@@ -37,17 +44,36 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     public override string PortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
     public override string BetaPortraitPath => $"beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
 
+    public void SetComboThisTurn(int combo)
+    {
+        AddTemporaryCombo(TemporaryCardCost.ThisTurn(combo));
+    }
+
+    private void AddTemporaryCombo(TemporaryCardCost combo)
+    {
+        AssertMutable();
+        TemporaryCombos.Add(combo);
+        // ComboChanged?.Invoke();
+    }
+
+    public int RemoveEndOfTurnCombo()
+    {
+        return TemporaryCombos.RemoveAll(c => c.ClearsWhenTurnEnds);
+    }
+
     /// <summary>
     /// Generates a DynamicVar with base values and sets up this card for Combos.
     /// </summary>
     /// <param name="baseVal">Combo needed to unlock effects pre-upgrade.</param>
     /// <param name="upgrade">Combo needed to unlock effects post-upgrade.</param>
+    /// <param name="needCombo">Does this card need the combo to be played at all?</param>
     /// <returns></returns>
-    protected PercyJacksonCard WithCombo(int baseVal, int upgrade = 0)
+    protected PercyJacksonCard WithCombo(int baseVal, int upgrade = 0, bool needCombo=false)
     {
         WithVar(new ComboVar(baseVal).WithUpgrade(upgrade));
         WithTags(ComboTag);
         this.ComboNeeded = this.IsUpgraded ? upgrade : baseVal;
+        this.NeedComboToPlay = needCombo;
         return this;
     }
 
@@ -58,9 +84,13 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     protected static bool IsComboComplete(CardModel card)
     {
         if (card is not PercyJacksonCard thisCard) return true;
-        if (!thisCard.Tags.Contains(ComboTag) || thisCard.ComboNeeded <= 0) return true;
-        return ComboManager.CurrentComboCount >= thisCard.ComboNeeded;
+        int comboNeededThisTurn =
+            thisCard.TemporaryCombos.Count > 0 ? thisCard.TemporaryCombos.Min().Cost : thisCard.ComboNeeded;
+        if (!thisCard.Tags.Contains(ComboTag) || comboNeededThisTurn <= 0) return true;
+        return ComboManager.CurrentComboCount >= comboNeededThisTurn;
     }
+
+    protected override bool ShouldGlowGoldInternal => Tags.Contains(ComboTag) && IsComboComplete(this);
 
     public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
     {

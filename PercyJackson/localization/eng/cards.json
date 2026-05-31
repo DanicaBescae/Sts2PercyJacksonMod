@@ -1,4 +1,18 @@
 {
   "PERCYJACKSON-DISARM.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Combo[/gold] {Combo:diff()}: Enemy loses {StrengthLoss:diff()} [gold]Strength[/gold] this turn.",
-  "PERCYJACKSON-DISARM.title": "Disarm"
+  "PERCYJACKSON-DISARM.title": "Disarm",
+  "PERCYJACKSON-ONE_TWO_STAB.description": "[gold]Combo[/gold] {Combo:diff()}: Deal {Damage:diff()} damage.",
+  "PERCYJACKSON-ONE_TWO_STAB.title": "One-Two Stab",
+  "PERCYJACKSON-NOBODY_TOUCH_HER.description": "Deal {Damage:diff()} damage to ALL enemies.\n[gold]Combo[/gold] {Combo:diff()}: Deal {Damage:diff()} damage to ALL enemies again.",
+  "PERCYJACKSON-NOBODY_TOUCH_HER.title": "Nobody Touch Her!",
+  "PERCYJACKSON-QUICK_PARRY.description": "[gold]Combo[/gold] {Combo:diff()}: Gain {Block:diff()} [gold]Block[/gold].",
+  "PERCYJACKSON-QUICK_PARRY.title": "Quick Parry",
+  "PERCYJACKSON-UNEXPECTED_STRATEGY.description": "Add a random [gold]Combo[/gold] card to your hand. It is free to play this turn.",
+  "PERCYJACKSON-UNEXPECTED_STRATEGY.title": "Unexpected Strategy",
+  "PERCYJACKSON-PEN_CAP.description": "Deal {Damage:diff()} damage.\nThis card ALWAYS returns to your hand at the start of your turn, no matter where it is.",
+  "PERCYJACKSON-PEN_CAP.title": "Pen Cap",
+  "PERCYJACKSON-SEAS_EMBRACE.description": "Clear all stackable debuffs.\nGain {VigorPower:diff()} [gold]Vigor[/gold].",
+  "PERCYJACKSON-SEAS_EMBRACE.title": "Embrace of the Sea",
+  "PERCYJACKSON-NO_SWEAT.description": "Whenever you end a [gold]Combo[/gold], gain {Energy:diff()} [gold]Energy[/gold].",
+  "PERCYJACKSON-NO_SWEAT.title": "No Sweat"
 }
