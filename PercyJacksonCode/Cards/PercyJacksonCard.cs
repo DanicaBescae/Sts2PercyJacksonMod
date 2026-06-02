@@ -24,12 +24,15 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
 {
     [CustomEnum] 
     public static CardTag ComboTag;
+    
+    [CustomEnum]
+    public static CardKeyword TideKeyword;
 
     private int ComboNeeded { get; set; }
     private bool NeedComboToPlay { get; set; }
     
-    private List<TemporaryCardCost> TemporaryCombos = [];
-    public TemporaryCardCost? TemporaryCombo => TemporaryCombos.LastOrDefault();
+    private readonly List<TemporaryCardCost> _temporaryCombos = [];
+    public TemporaryCardCost? TemporaryCombo => _temporaryCombos.LastOrDefault();
     
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
@@ -52,17 +55,17 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     private void AddTemporaryCombo(TemporaryCardCost combo)
     {
         AssertMutable();
-        TemporaryCombos.Add(combo);
+        _temporaryCombos.Add(combo);
         // ComboChanged?.Invoke();
     }
 
     public int RemoveEndOfTurnCombo()
     {
-        return TemporaryCombos.RemoveAll(c => c.ClearsWhenTurnEnds);
+        return _temporaryCombos.RemoveAll(c => c.ClearsWhenTurnEnds);
     }
 
     /// <summary>
-    /// Generates a DynamicVar with base values and sets up this card for Combos.
+    /// Generates a DynamicVar with base values, adds tooltip, and sets up this card for Combos.
     /// </summary>
     /// <param name="baseVal">Combo needed to unlock effects pre-upgrade.</param>
     /// <param name="upgrade">Combo needed to unlock effects post-upgrade.</param>
@@ -76,6 +79,18 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
         this.NeedComboToPlay = needCombo;
         return this;
     }
+    
+    /// <summary>
+    /// Adds Tide keyword to card and generates a DynamicVar with base values.
+    /// </summary>
+    /// <returns></returns>
+    protected PercyJacksonCard WithTide(int baseVal, int upgrade = 0, bool negative=false)
+    {
+        // TODO: safer way to set negative?
+        WithVar(new DynamicVar("TideChange", negative ? baseVal : baseVal * -1).WithUpgrade(upgrade));
+        WithKeyword(TideKeyword);
+        return this;
+    }
 
     /// <summary>
     /// Check if the minimum Combo count has been reached for this card.
@@ -85,7 +100,7 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     {
         if (card is not PercyJacksonCard thisCard) return true;
         int comboNeededThisTurn =
-            thisCard.TemporaryCombos.Count > 0 ? thisCard.TemporaryCombos.Min().Cost : thisCard.ComboNeeded;
+            thisCard._temporaryCombos.Count > 0 ? thisCard._temporaryCombos.Min().Cost : thisCard.ComboNeeded;
         if (!thisCard.Tags.Contains(ComboTag) || comboNeededThisTurn <= 0) return true;
         return ComboManager.CurrentComboCount >= comboNeededThisTurn;
     }

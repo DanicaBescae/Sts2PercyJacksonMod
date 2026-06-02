@@ -60,6 +60,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="PercyJacksonCode\Commands\" />
         <Folder Include="PercyJackson\images\card_portraits\big\"/>
         <Folder Include="PercyJackson\images\powers\big\"/>
         <Folder Include="PercyJackson\images\relics\big\"/>
