@@ -28,5 +28,5 @@ project/assembly_name="PercyJackson"
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.0923724, 0.122398, 0.116929, 1)

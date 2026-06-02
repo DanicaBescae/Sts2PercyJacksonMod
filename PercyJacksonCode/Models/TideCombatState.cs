@@ -17,24 +17,33 @@ public class TideCombatState: AbstractModel, ICustomModel
 
     private int _currentTide;
     
-    public decimal CurrentTide => _currentTide;
-
-    private Player? _player;
+    public event Action<decimal, decimal>? TideChanged;
+    
+    public decimal CurrentTide         {
+        get;
+        private set
+        {
+            if (field == value) return;
+            var tide = field;
+            field = value;
+            TideChanged?.Invoke(tide, field);
+        }
+    } = 0;
     
     public Player Owner
     {
         get
         {
             AssertMutable();
-            return _player;
+            return field;
         }
         set
         {
             AssertMutable();
-            if (_player != null && value != null && value != _player)
+            if (field != null && value != null && value != field)
                 throw new InvalidOperationException("Rune " + Id.Entry + " already has an owner.");
 
-            _player = value;
+            field = value;
         }
     }
 

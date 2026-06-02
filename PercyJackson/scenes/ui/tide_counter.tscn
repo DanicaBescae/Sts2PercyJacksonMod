@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://oi1a00s0axbp"]
+
+[ext_resource type="Script" uid="uid://c3l3otdsgt0ki" path="res://PercyJacksonCode/Nodes/NTideCounter.cs" id="1_fbo3m"]
+[ext_resource type="Texture2D" uid="uid://cyb6wwklss3ck" path="res://PercyJackson/images/ui/tide_background.png" id="2_nolvr"]
+
+[node name="TideCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1740.0
+offset_bottom = -900.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fbo3m")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nolvr")
+expand_mode = 4
+
+[node name="TextContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10

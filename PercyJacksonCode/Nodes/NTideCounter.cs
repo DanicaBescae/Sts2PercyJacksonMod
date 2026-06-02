@@ -1,0 +1,205 @@
+using Godot;
+using MegaCrit.Sts2.addons.mega_text;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Nodes.HoverTips;
+using PercyJackson.PercyJacksonCode.Extensions;
+
+namespace PercyJackson.PercyJacksonCode.Nodes;
+
+public partial class NTideCounter: Control
+{
+	private static readonly StringName _v = new("v");
+	private static readonly StringName _s = new("s");
+
+	private static readonly (Color, Color, Color) BlueFontColor = (new Color("e3e3ff"), new Color("00000030"),
+		new Color("111154"));
+	
+	private Player? _player;
+	
+	private float _velocity1;
+	
+	private decimal _displayedTideCount = 0;
+	private MegaLabel _label = new();
+	private float _lerpingTideCount;
+	private TextureRect _icon = null;
+	private ShaderMaterial _hsv = null;
+	private Tween? _hsvTween;
+	
+	private bool _isListeningToCombatState;
+	
+	private HoverTip _hoverTip;
+	
+	public void Initialize(Player player)
+	{
+		_player = player;
+		ConnectTideChangedSignal();
+		RefreshVisibility();
+	}
+
+	public override void _Ready()
+	{
+		var control = this;
+
+		_icon = GetNode<TextureRect>("%Icon");
+		_hsv = (ShaderMaterial)_icon.Material;
+		
+		_label = CreateLabel(BlueFontColor);
+		GetNode<MarginContainer>("%TextContainer").AddChild(_label);
+		
+		var locString = new LocString("card_keywords", "PERCYJACKSON-TIDEKEYWORD.description");
+		locString.Add("elements", 0);
+		_hoverTip = new HoverTip(new LocString("card_keywords", "PERCYJACKSON-TIDEKEYWORD.title"), locString,
+			ResourceLoader.Load<Texture2D>("res:/images/tide_background.png"));
+		
+		Connect(Control.SignalName.MouseEntered, Callable.From(OnHovered));
+		Connect(Control.SignalName.MouseExited, Callable.From(OnUnhovered));
+		
+		SetTideCountText(0M, true);
+		Visible = false;
+	}
+
+	private static MegaLabel CreateLabel((Color, Color, Color) fontColor)
+	{
+		var label = new MegaLabel();
+		label.MaxFontSize = 28;
+		label.AutoSizeEnabled = false;
+		label.HorizontalAlignment = HorizontalAlignment.Center;
+		label.VerticalAlignment = VerticalAlignment.Center;
+		label.AddThemeColorOverride("font_color", fontColor.Item1);
+		label.AddThemeColorOverride("font_shadow_color", fontColor.Item2);
+		label.AddThemeColorOverride("font_outline_color", fontColor.Item3);
+		label.AddThemeConstantOverride("shadow_offset_x", 3);
+		label.AddThemeConstantOverride("shadow_offset_y", 3);
+		label.AddThemeConstantOverride("outline_size", 15);
+		label.AddThemeConstantOverride("shadow_outline_size", 15);
+		label.AddThemeFontSizeOverride("font_size", 28);
+		label.Text = "0";
+
+		return label;
+	}
+	
+	public override void _EnterTree()
+	{
+		base._EnterTree();
+		ConnectTideChangedSignal();
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		if (_player != null && _isListeningToCombatState)
+		{
+			var tideCombatState = _player.PlayerCombatState?.Tide();
+			tideCombatState?.TideChanged -= OnTideChanged;
+			_isListeningToCombatState = false;
+		}
+	}
+	
+	private void ConnectTideChangedSignal()
+	{
+		if (_player == null || _isListeningToCombatState) return;
+		
+		var tideCombatState = _player.PlayerCombatState?.Tide();
+		tideCombatState?.TideChanged += OnTideChanged;
+		_isListeningToCombatState = true;
+	}
+	
+	private void OnHovered()
+	{
+		var nHoverTipSet = NHoverTipSet.CreateAndShow(this, _hoverTip);
+		nHoverTipSet?.GlobalPosition = GlobalPosition + new Vector2(-70, -240);
+	}
+	
+	private void OnUnhovered()
+	{
+		NHoverTipSet.Remove(this);
+	}
+	
+	private void OnTideChanged(decimal oldTide, decimal newTide)
+	{
+		UpdateTideCount(oldTide, newTide);
+		RefreshVisibility();
+	}
+	
+	public override void _Process(double delta)
+	{
+		if (_player == null) return;
+		var tide = GetPlayerTide(_player);
+
+		_lerpingTideCount =
+			MathHelper.SmoothDamp(_lerpingTideCount, (float)tide, ref _velocity1, 0.1f, (float)delta);
+		SetTideCountText((decimal)_lerpingTideCount);
+	}
+	
+	private static decimal GetPlayerTide(Player player)
+	{
+		var tide = player.PlayerCombatState?.Tide().CurrentTide ?? 0M;
+		return tide;
+	}
+	
+	private void UpdateTideCount(decimal oldCount, decimal newCount)
+	{
+		// Tide should only go up or down together so there shouldn't be a case where 1 element go up and another go down 
+		if (newCount < oldCount)
+		{
+			_hsvTween?.Kill();
+			_hsv.SetShaderParameter(_v, 1f);
+			_lerpingTideCount = (float)newCount;
+			SetTideCountText(newCount);
+		}
+		else if (newCount > oldCount)
+		{
+			_hsvTween?.Kill();
+			_hsvTween = CreateTween();
+			_hsvTween.TweenMethod(Callable.From<float>(UpdateShaderV), 2f, 1f, 0.2);
+			//TODO vfx gain tide
+		}
+	}
+	
+	private void SetTideCountText(decimal tide, bool initSetup = false)
+	{
+		if (initSetup || _displayedTideCount != tide)
+		{
+			_displayedTideCount = tide;
+			var label = _label;
+			var fontColor = BlueFontColor.Item1;
+
+			label.AddThemeColorOverride(ThemeConstants.Label.FontColor, tide == 0 ? StsColors.red : fontColor);
+			label.SetTextAutoSize(tide.ToString());
+
+			if (tide == 0)
+			{
+				_hsv.SetShaderParameter(_s, 0.5f);
+				_hsv.SetShaderParameter(_v, 0.85f);
+			}
+			else
+			{
+				_hsv.SetShaderParameter(_s, 1f);
+				_hsv.SetShaderParameter(_v, 1f);
+			}
+		}
+	}
+
+	private void UpdateShaderV(float value)
+	{
+		_hsv.SetShaderParameter(_v, value);
+	}
+	
+	private void RefreshVisibility()
+	{
+		if (_player == null)
+		{
+			Visible = false;
+			return;
+		}
+
+		var tide = GetPlayerTide(_player);
+
+		var shouldAlwaysShowTide = _player.Character is PercyJackson.PercyJacksonCode.Character.PercyJackson;
+
+		Visible = Visible || shouldAlwaysShowTide || tide > 0;
+	}
+}
