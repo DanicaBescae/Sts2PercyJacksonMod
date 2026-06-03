@@ -84,10 +84,9 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     /// Adds Tide keyword to card and generates a DynamicVar with base values.
     /// </summary>
     /// <returns></returns>
-    protected PercyJacksonCard WithTide(int baseVal, int upgrade = 0, bool negative=false)
+    protected PercyJacksonCard WithTide(int baseVal, int upgrade = 0)
     {
-        // TODO: safer way to set negative?
-        WithVar(new DynamicVar("Tide", negative ? baseVal * -1 : baseVal).WithUpgrade(upgrade));
+        WithVar(new DynamicVar("Tide", baseVal).WithUpgrade(upgrade));
         WithKeyword(TideKeyword);
         return this;
     }

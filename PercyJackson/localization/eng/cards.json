@@ -16,5 +16,13 @@
   "PERCYJACKSON-NO_SWEAT.description": "Whenever you end a [gold]Combo[/gold], gain {Energy:diff()} [gold]Energy[/gold].",
   "PERCYJACKSON-NO_SWEAT.title": "No Sweat",
   "PERCYJACKSON-INCOMING_WAVE.description": "Raise the [gold]Tide[/gold] by {Tide:diff()}.\nDeal damage equal to the new [gold]Tide[/gold].\n(Deals {CalculatedDamage:diff()} damage)",
-  "PERCYJACKSON-INCOMING_WAVE.title": "IncomingWave"
+  "PERCYJACKSON-INCOMING_WAVE.title": "Incoming Wave",
+  "PERCYJACKSON-RIDE_THE_WAVE.description": "Gain {Tide:diff()} [gold]Tide[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
+  "PERCYJACKSON-RIDE_THE_WAVE.title": "Ride The Wave",
+  "PERCYJACKSON-ST_LOUIS_ARCH.description": "Lose {Tide:diff()} [gold]Tide[/gold].\nGain {Block:diff()} [gold]Block[/gold].",
+  "PERCYJACKSON-ST_LOUIS_ARCH.title": "St Louis' Arch",
+  "PERCYJACKSON-HIGH_TIDE.description": "Raise the maximum [gold]Tide[/gold] by {Tide:diff()} this turn.",
+  "PERCYJACKSON-HIGH_TIDE.title": "High Tide",
+  "PERCYJACKSON-RAISING_THE_TIBER.description": "At the start of your turn, raise the maximum [gold]Tide[/gold] by {Tide:diff()}.",
+  "PERCYJACKSON-RAISING_THE_TIBER.title": "Raising The Tiber"
 }

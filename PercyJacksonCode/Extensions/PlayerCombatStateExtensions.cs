@@ -32,15 +32,26 @@ public static class PlayerCombatStateExtensions
         } = 0;
         
         public int MaxTide         {
+            get => TempMaxTide > 0 ? TempMaxTide : field;
+            set
+            {
+                if (field == value) return;
+                var maxTide = field;
+                field = value;
+                MaxTideChanged?.Invoke(maxTide, field);
+            }
+        } = 6;
+        
+        public int TempMaxTide         {
             get;
             set
             {
                 if (field == value) return;
                 var maxTide = field;
                 field = value;
-                //TideChanged?.Invoke(tide, field);
+                MaxTideChanged?.Invoke(maxTide, field);
             }
-        } = 4;
+        } = 0;
 
         public Player Owner
         {
@@ -55,6 +66,7 @@ public static class PlayerCombatStateExtensions
         }
 
         public event Action<decimal, decimal>? TideChanged;
+        public event Action<int, int>? MaxTideChanged;
     }
     
     public static TideCombatState Tide(this PlayerCombatState playerCombatState)

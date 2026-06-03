@@ -24,7 +24,7 @@ public class IncomingWave: PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        TideManager.UpdateTide(Owner, DynamicVars["Tide"].IntValue);
+        await TideManager.UpdateTide(Owner, DynamicVars["Tide"].IntValue);
         await CommonActions.CardAttack(this, play.Target, calculatedDamage: DynamicVars.CalculatedDamage,
             vfx: "vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
     }

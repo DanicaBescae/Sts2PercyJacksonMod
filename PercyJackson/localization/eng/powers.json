@@ -1,5 +1,8 @@
 {
   "PERCYJACKSON-NO_SWEAT_POWER.description": "Whenever you end a [gold]Combo[/gold], gain [gold]Energy[/gold].",
   "PERCYJACKSON-NO_SWEAT_POWER.smartDescription": "Whenever you end a [gold]Combo[/gold], gain [blue]{Amount}[/blue] [gold]Energy[/gold].",
-  "PERCYJACKSON-NO_SWEAT_POWER.title": "No Sweat"
+  "PERCYJACKSON-NO_SWEAT_POWER.title": "No Sweat",
+  "PERCYJACKSON-RAISING_THE_TIBER_POWER.description": "At the start of your turn, raise the maximum [gold]Tide[/gold].",
+  "PERCYJACKSON-RAISING_THE_TIBER_POWER.smartDescription": "At the start of your turn, raise the maximum [gold]Tide[/gold] by [blue]{Amount}[/blue].",
+  "PERCYJACKSON-RAISING_THE_TIBER_POWER.title": "Raising The Tiber"
 }

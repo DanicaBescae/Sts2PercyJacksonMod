@@ -18,7 +18,18 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
     {
         return side != CombatSide.Player ? Task.CompletedTask : ApplyVigorFromTideToAll(choiceContext, combatState.Players);
     }
-    
+
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    {
+        if (side != CombatSide.Player) return Task.CompletedTask;
+        foreach (var player in participants.LastOrDefault().CombatState.Players)
+        {
+            ClearTempMaxTide(player);
+        }
+
+        return Task.CompletedTask;
+    }
+
     private static async Task ApplyVigorFromTideToAll(PlayerChoiceContext choiceContext, IReadOnlyList<Player> players)
     {
         foreach (var player in players)
@@ -29,10 +40,23 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         }
     }
 
-    public static void UpdateTide(Player player, int tideChange)
+    public static async Task UpdateTide(Player player, int tideChange, bool negative = false)
     {
-        if(tideChange >= 0) RaiseTide(player, tideChange);
-        else LowerTide(player, tideChange);
+        if(!negative) RaiseTide(player, tideChange);
+        else await LowerTide(player, tideChange);
+    }
+
+    public static void UpdateMaxTide(Player player, int tideChange, bool temporary = false)
+    {
+        if (temporary)
+            player.PlayerCombatState.Tide().TempMaxTide = player.PlayerCombatState.Tide().MaxTide + tideChange;
+        else player.PlayerCombatState.Tide().MaxTide += tideChange;
+    }
+
+    private static Task ClearTempMaxTide(Player player)
+    {
+        player.PlayerCombatState.Tide().TempMaxTide = 0;
+        return Task.CompletedTask;
     }
 
     private static void RaiseTide(Player player, int tideChange)
@@ -42,20 +66,20 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         else player.PlayerCombatState.Tide().CurrentTide += tideChange;
     }
 
-    private static void LowerTide(Player player, int tideChange)
+    private static async Task LowerTide(Player player, int tideChange)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
-        if (tideCombatState.CurrentTide + tideChange < 0) LoseHpFromTide(player, tideChange);
-        else player.PlayerCombatState.Tide().CurrentTide += tideChange;
+        if (tideCombatState.CurrentTide - tideChange < 0) await LoseHpFromTide(player, tideChange);
+        else player.PlayerCombatState.Tide().CurrentTide -= tideChange;
     }
     
-    private static void LoseHpFromTide(Player player, int tideChange)
+    private static async Task LoseHpFromTide(Player player, int tideChange)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
         var tide = (int)tideCombatState.CurrentTide + tideChange;
         for (var i = 0; i < tide; i++)
         {
-            CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), player.Creature,
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), player.Creature,
                 new DamageVar(2, ValueProp.Unblockable), player.Creature);
         }
     }

@@ -92,6 +92,7 @@ public partial class NTideCounter: Control
 		
 		var tideCombatState = _player.PlayerCombatState?.Tide();
 		tideCombatState?.TideChanged -= OnTideChanged;
+		tideCombatState?.MaxTideChanged -= OnMaxTideChanged;
 		_isListeningToCombatState = false;
 	}
 	
@@ -101,6 +102,7 @@ public partial class NTideCounter: Control
 		
 		var tideCombatState = _player.PlayerCombatState?.Tide();
 		tideCombatState?.TideChanged += OnTideChanged;
+		tideCombatState?.MaxTideChanged += OnMaxTideChanged;
 		_isListeningToCombatState = true;
 	}
 	
@@ -118,6 +120,12 @@ public partial class NTideCounter: Control
 	private void OnTideChanged(decimal oldTide, decimal newTide)
 	{
 		UpdateTideCount(oldTide, newTide);
+		RefreshVisibility();
+	}
+	
+	private void OnMaxTideChanged(int oldMax, int newMax)
+	{
+		UpdateMaxTide(oldMax, newMax);
 		RefreshVisibility();
 	}
 	
@@ -160,6 +168,23 @@ public partial class NTideCounter: Control
 			_hsvTween = CreateTween();
 			_hsvTween.TweenMethod(Callable.From<float>(UpdateShaderV), 2f, 1f, 0.2);
 			//TODO vfx gain tide
+		}
+	}
+	
+	private void UpdateMaxTide(int oldMax, int newMax)
+	{
+		if (newMax < oldMax)
+		{
+			_hsvTween?.Kill();
+			_hsv.SetShaderParameter(_v, 1f);
+			_lerpingMaxTideCount = (float)newMax;
+			SetTideCountText((int)GetPlayerTide(_player), newMax);
+		}
+		else if (newMax > oldMax)
+		{
+			_hsvTween?.Kill();
+			_hsvTween = CreateTween();
+			_hsvTween.TweenMethod(Callable.From<float>(UpdateShaderV), 2f, 1f, 0.2);
 		}
 	}
 	
