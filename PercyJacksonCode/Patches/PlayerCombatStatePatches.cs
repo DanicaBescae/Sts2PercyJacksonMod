@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Models;
+using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Fields;
 using PercyJackson.PercyJacksonCode.Models;
 
@@ -14,10 +16,8 @@ public class PlayerCombatStatePatches
         [HarmonyPostfix]
         public static void Postfix(Player player, PlayerCombatState __instance)
         {
-            PercyJacksonFields.TideCombatState[__instance] = new TideCombatState
-            {
-                Owner = player
-            };
+            PercyJacksonFields.TideCombatState[__instance] =
+                new PlayerCombatStateExtensions.TideCombatState(__instance);
         }
     }
 }

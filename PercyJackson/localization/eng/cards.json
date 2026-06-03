@@ -15,6 +15,6 @@
   "PERCYJACKSON-SEAS_EMBRACE.title": "Embrace of the Sea",
   "PERCYJACKSON-NO_SWEAT.description": "Whenever you end a [gold]Combo[/gold], gain {Energy:diff()} [gold]Energy[/gold].",
   "PERCYJACKSON-NO_SWEAT.title": "No Sweat",
-  "PERCYJACKSON-INCOMING_WAVE.description": "Raise the [gold]Tide[/gold] by {Tide:diff()}.\nDeal damage equal to the [gold]Tide[/gold]\n(Deals {CalculatedDamage:diff()} damage)",
+  "PERCYJACKSON-INCOMING_WAVE.description": "Raise the [gold]Tide[/gold] by {Tide:diff()}.\nDeal damage equal to the new [gold]Tide[/gold].\n(Deals {CalculatedDamage:diff()} damage)",
   "PERCYJACKSON-INCOMING_WAVE.title": "IncomingWave"
 }

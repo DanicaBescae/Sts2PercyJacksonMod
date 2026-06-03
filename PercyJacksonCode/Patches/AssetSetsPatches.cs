@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Assets;
 using PercyJackson.PercyJacksonCode.Utils;
 

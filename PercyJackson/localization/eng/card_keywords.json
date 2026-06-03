@@ -1,4 +1,4 @@
 {
-  "PERCYJACKSON-TIDEKEYWORD.description": "At the end of your turn, gain Vigor equal to Tide. Gain 1 Strength when Tide reaches its maximum. Lose 2 HP when Tide falls below 0.",
+  "PERCYJACKSON-TIDEKEYWORD.description": "At the end of your turn, gain [gold]Vigor[/gold] equal to Tide.\nGain 1 [gold]Strength[/gold] when Tide goes over its maximum.\nLose 2 HP when Tide falls below 0.",
   "PERCYJACKSON-TIDEKEYWORD.title": "Tide"
 }

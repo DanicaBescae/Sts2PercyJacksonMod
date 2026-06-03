@@ -21,11 +21,12 @@ public partial class NTideCounter: Control
 	
 	private float _velocity1;
 	
-	private decimal _displayedTideCount = 0;
-	private MegaLabel _label = new();
+	private decimal _displayedTideCount;
+	private MegaLabel? _label;
 	private float _lerpingTideCount;
-	private TextureRect _icon = null;
-	private ShaderMaterial _hsv = null;
+	private float _lerpingMaxTideCount;
+	private TextureRect _icon = null!;
+	private ShaderMaterial _hsv = null!;
 	private Tween? _hsvTween;
 	
 	private bool _isListeningToCombatState;
@@ -41,8 +42,6 @@ public partial class NTideCounter: Control
 
 	public override void _Ready()
 	{
-		var control = this;
-
 		_icon = GetNode<TextureRect>("%Icon");
 		_hsv = (ShaderMaterial)_icon.Material;
 		
@@ -50,14 +49,13 @@ public partial class NTideCounter: Control
 		GetNode<MarginContainer>("%TextContainer").AddChild(_label);
 		
 		var locString = new LocString("card_keywords", "PERCYJACKSON-TIDEKEYWORD.description");
-		locString.Add("elements", 0);
-		_hoverTip = new HoverTip(new LocString("card_keywords", "PERCYJACKSON-TIDEKEYWORD.title"), locString,
-			ResourceLoader.Load<Texture2D>("res:/images/tide_background.png"));
+		locString.Add("tide", 0);
+		_hoverTip = new HoverTip(new LocString("card_keywords", "PERCYJACKSON-TIDEKEYWORD.title"), locString);
 		
 		Connect(Control.SignalName.MouseEntered, Callable.From(OnHovered));
 		Connect(Control.SignalName.MouseExited, Callable.From(OnUnhovered));
 		
-		SetTideCountText(0M, true);
+		SetTideCountText(0, GetPlayerMaxTide(_player), true);
 		Visible = false;
 	}
 
@@ -90,12 +88,11 @@ public partial class NTideCounter: Control
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		if (_player != null && _isListeningToCombatState)
-		{
-			var tideCombatState = _player.PlayerCombatState?.Tide();
-			tideCombatState?.TideChanged -= OnTideChanged;
-			_isListeningToCombatState = false;
-		}
+		if (_player == null || !_isListeningToCombatState) return;
+		
+		var tideCombatState = _player.PlayerCombatState?.Tide();
+		tideCombatState?.TideChanged -= OnTideChanged;
+		_isListeningToCombatState = false;
 	}
 	
 	private void ConnectTideChangedSignal()
@@ -128,10 +125,12 @@ public partial class NTideCounter: Control
 	{
 		if (_player == null) return;
 		var tide = GetPlayerTide(_player);
+		var maxTide = GetPlayerMaxTide(_player);
 
 		_lerpingTideCount =
 			MathHelper.SmoothDamp(_lerpingTideCount, (float)tide, ref _velocity1, 0.1f, (float)delta);
-		SetTideCountText((decimal)_lerpingTideCount);
+		_lerpingMaxTideCount = MathHelper.SmoothDamp(_lerpingMaxTideCount, maxTide, ref _velocity1, 0.1f, (float)delta);
+		SetTideCountText((int)MathF.Round(_lerpingTideCount), (int)MathF.Round(_lerpingMaxTideCount));
 	}
 	
 	private static decimal GetPlayerTide(Player player)
@@ -140,15 +139,20 @@ public partial class NTideCounter: Control
 		return tide;
 	}
 	
+	private static int GetPlayerMaxTide(Player player)
+	{
+		var tide = player.PlayerCombatState?.Tide().MaxTide ?? 0;
+		return tide;
+	}
+	
 	private void UpdateTideCount(decimal oldCount, decimal newCount)
 	{
-		// Tide should only go up or down together so there shouldn't be a case where 1 element go up and another go down 
 		if (newCount < oldCount)
 		{
 			_hsvTween?.Kill();
 			_hsv.SetShaderParameter(_v, 1f);
 			_lerpingTideCount = (float)newCount;
-			SetTideCountText(newCount);
+			SetTideCountText((int)newCount, GetPlayerMaxTide(_player));
 		}
 		else if (newCount > oldCount)
 		{
@@ -159,27 +163,26 @@ public partial class NTideCounter: Control
 		}
 	}
 	
-	private void SetTideCountText(decimal tide, bool initSetup = false)
+	private void SetTideCountText(int tide, int maxTide, bool initSetup = false)
 	{
-		if (initSetup || _displayedTideCount != tide)
+		if (!initSetup && _displayedTideCount == tide) return;
+		
+		_displayedTideCount = tide;
+		var label = _label;
+		var fontColor = BlueFontColor.Item1;
+
+		label.AddThemeColorOverride(ThemeConstants.Label.FontColor, tide == 0 ? StsColors.red : fontColor);
+		label.SetTextAutoSize(tide + "/" + maxTide);
+
+		if (tide == 0)
 		{
-			_displayedTideCount = tide;
-			var label = _label;
-			var fontColor = BlueFontColor.Item1;
-
-			label.AddThemeColorOverride(ThemeConstants.Label.FontColor, tide == 0 ? StsColors.red : fontColor);
-			label.SetTextAutoSize(tide.ToString());
-
-			if (tide == 0)
-			{
-				_hsv.SetShaderParameter(_s, 0.5f);
-				_hsv.SetShaderParameter(_v, 0.85f);
-			}
-			else
-			{
-				_hsv.SetShaderParameter(_s, 1f);
-				_hsv.SetShaderParameter(_v, 1f);
-			}
+			_hsv.SetShaderParameter(_s, 0.5f);
+			_hsv.SetShaderParameter(_v, 0.85f);
+		}
+		else
+		{
+			_hsv.SetShaderParameter(_s, 1f);
+			_hsv.SetShaderParameter(_v, 1f);
 		}
 	}
 

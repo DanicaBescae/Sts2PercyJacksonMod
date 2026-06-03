@@ -87,7 +87,7 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     protected PercyJacksonCard WithTide(int baseVal, int upgrade = 0, bool negative=false)
     {
         // TODO: safer way to set negative?
-        WithVar(new DynamicVar("TideChange", negative ? baseVal : baseVal * -1).WithUpgrade(upgrade));
+        WithVar(new DynamicVar("Tide", negative ? baseVal * -1 : baseVal).WithUpgrade(upgrade));
         WithKeyword(TideKeyword);
         return this;
     }
