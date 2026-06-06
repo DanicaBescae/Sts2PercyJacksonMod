@@ -11,7 +11,7 @@ public class PenCap : PercyJacksonCard
 {
     public PenCap() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
-        WithDamage(2, 4);
+        WithDamage(2, 2);
     }
     
     protected override async Task OnPlay(

@@ -1,18 +1,17 @@
 ﻿using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using PercyJackson.PercyJacksonCode.Cards;
 using PercyJackson.PercyJacksonCode.Extensions;
+using PercyJackson.PercyJacksonCode.Models;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
+namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
-public class CaptureTheFlag: PercyJacksonCard
+public class HighTide: PercyJacksonCard
 {
-    public CaptureTheFlag() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public HighTide() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithCalculatedDamage(0, (card, _) => card.Owner.PlayerCombatState.Tide().MaxTide, bonusUpgrade: 2);
+        WithCalculatedDamage(0, (card, _) => 2 * card.Owner.PlayerCombatState.Tide().MaxTide, bonusUpgrade: 2);
     }
 
     protected override async Task OnPlay(

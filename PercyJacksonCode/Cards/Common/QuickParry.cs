@@ -8,8 +8,8 @@ public class QuickParry : PercyJacksonCard
 {
     public QuickParry() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithBlock(4, 6);
-        WithCombo(1, 1, true);
+        WithBlock(4, 2);
+        WithCombo(1, needCombo: true);
     }
 
     protected override async Task OnPlay(

@@ -14,7 +14,7 @@ public class SeasEmbrace : PercyJacksonCard
 {
     public SeasEmbrace() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithPower<VigorPower>(2, 4);
+        WithPower<VigorPower>(2, 2);
     }
     
     protected override async Task OnPlay(

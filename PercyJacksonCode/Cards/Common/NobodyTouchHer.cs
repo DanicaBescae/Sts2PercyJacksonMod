@@ -8,8 +8,8 @@ public class NobodyTouchHer : PercyJacksonCard
 {
     public NobodyTouchHer() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        WithDamage(4, 8);
-        WithCombo(1, 1);
+        WithDamage(4, 2);
+        WithCombo(1);
     }
 
     protected override async Task OnPlay(

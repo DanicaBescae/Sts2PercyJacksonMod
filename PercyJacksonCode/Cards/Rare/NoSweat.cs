@@ -8,10 +8,10 @@ namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
 public class NoSweat : PercyJacksonCard
 {
-    public NoSweat() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public NoSweat() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithEnergy(1);
-        WithKeyword(CardKeyword.Ethereal);
+        WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
     }
     
     protected override async Task OnPlay(

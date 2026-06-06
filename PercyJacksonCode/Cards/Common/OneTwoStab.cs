@@ -8,8 +8,8 @@ public class OneTwoStab : PercyJacksonCard
 {
     public OneTwoStab() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(16, 20);
-        WithCombo(2, 2, true);
+        WithDamage(16, 4);
+        WithCombo(2, needCombo: true);
     }
 
     protected override async Task OnPlay(
