@@ -1,4 +1,5 @@
 ﻿using BaseLib.Abstracts;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -39,6 +40,13 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
             await PowerCmd.Apply<VigorPower>(choiceContext, player.Creature, tide, player.Creature, null);
         }
     }
+    
+    public static int GetNewTide(Player player, int tideChange, bool negative = false)
+    {
+        var tideCombatState = player.PlayerCombatState.Tide();
+        var tide = tideCombatState.CurrentTide;
+        return negative ? Math.Max(tide - tideChange, 0) : Mathf.PosMod(tideChange + tide, tideCombatState.MaxTide);
+    }
 
     public static async Task UpdateTide(Player player, int tideChange, bool negative = false)
     {
@@ -76,7 +84,7 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
     private static async Task LoseHpFromTide(Player player, int tideChange)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
-        var tide = (int)tideCombatState.CurrentTide + tideChange;
+        var tide = tideCombatState.CurrentTide + tideChange;
         for (var i = 0; i < tide; i++)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), player.Creature,

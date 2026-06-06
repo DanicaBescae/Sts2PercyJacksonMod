@@ -14,6 +14,7 @@ public class RaisingTheTiberPower: PercyJacksonPower
 
     public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        if (side != CombatSide.Player) return Task.CompletedTask;
         Flash();
         TideManager.UpdateMaxTide(Owner.Player, Amount);
         return Task.CompletedTask;

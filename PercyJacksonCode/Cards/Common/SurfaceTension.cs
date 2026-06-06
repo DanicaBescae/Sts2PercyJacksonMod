@@ -5,11 +5,11 @@ using PercyJackson.PercyJacksonCode.Models;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
-public class HighTide: PercyJacksonCard
+public class SurfaceTension: PercyJacksonCard
 {
-    public HighTide() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public SurfaceTension() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithTide(3, 5);
+        WithTide(3, 2);
     }
 
     protected override async Task OnPlay(
@@ -17,5 +17,6 @@ public class HighTide: PercyJacksonCard
         CardPlay play)
     {
         TideManager.UpdateMaxTide(Owner, DynamicVars["Tide"].IntValue, true);
+        await Task.CompletedTask;
     }
 }

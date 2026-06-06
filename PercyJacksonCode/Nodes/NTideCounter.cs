@@ -20,8 +20,10 @@ public partial class NTideCounter: Control
 	private Player? _player;
 	
 	private float _velocity1;
+	private float _velocity2;
 	
-	private decimal _displayedTideCount;
+	private decimal _displayedTideCount = -1;
+	private int _displayedMaxTideCount = -1;
 	private MegaLabel? _label;
 	private float _lerpingTideCount;
 	private float _lerpingMaxTideCount;
@@ -74,7 +76,7 @@ public partial class NTideCounter: Control
 		label.AddThemeConstantOverride("outline_size", 15);
 		label.AddThemeConstantOverride("shadow_outline_size", 15);
 		label.AddThemeFontSizeOverride("font_size", 28);
-		label.Text = "0";
+		label.Text = "0/0";
 
 		return label;
 	}
@@ -117,7 +119,7 @@ public partial class NTideCounter: Control
 		NHoverTipSet.Remove(this);
 	}
 	
-	private void OnTideChanged(decimal oldTide, decimal newTide)
+	private void OnTideChanged(int oldTide, int newTide)
 	{
 		UpdateTideCount(oldTide, newTide);
 		RefreshVisibility();
@@ -136,14 +138,14 @@ public partial class NTideCounter: Control
 		var maxTide = GetPlayerMaxTide(_player);
 
 		_lerpingTideCount =
-			MathHelper.SmoothDamp(_lerpingTideCount, (float)tide, ref _velocity1, 0.1f, (float)delta);
-		_lerpingMaxTideCount = MathHelper.SmoothDamp(_lerpingMaxTideCount, maxTide, ref _velocity1, 0.1f, (float)delta);
+			MathHelper.SmoothDamp(_lerpingTideCount, tide, ref _velocity1, 0.5f, (float)delta);
+		_lerpingMaxTideCount = MathHelper.SmoothDamp(_lerpingMaxTideCount, maxTide, ref _velocity2, 0.5f, (float)delta);
 		SetTideCountText((int)MathF.Round(_lerpingTideCount), (int)MathF.Round(_lerpingMaxTideCount));
 	}
 	
-	private static decimal GetPlayerTide(Player player)
+	private static int GetPlayerTide(Player player)
 	{
-		var tide = player.PlayerCombatState?.Tide().CurrentTide ?? 0M;
+		var tide = player.PlayerCombatState?.Tide().CurrentTide ?? 0;
 		return tide;
 	}
 	
@@ -153,14 +155,14 @@ public partial class NTideCounter: Control
 		return tide;
 	}
 	
-	private void UpdateTideCount(decimal oldCount, decimal newCount)
+	private void UpdateTideCount(int oldCount, int newCount)
 	{
 		if (newCount < oldCount)
 		{
 			_hsvTween?.Kill();
 			_hsv.SetShaderParameter(_v, 1f);
-			_lerpingTideCount = (float)newCount;
-			SetTideCountText((int)newCount, GetPlayerMaxTide(_player));
+			_lerpingTideCount = newCount;
+			SetTideCountText(newCount, GetPlayerMaxTide(_player));
 		}
 		else if (newCount > oldCount)
 		{
@@ -177,8 +179,8 @@ public partial class NTideCounter: Control
 		{
 			_hsvTween?.Kill();
 			_hsv.SetShaderParameter(_v, 1f);
-			_lerpingMaxTideCount = (float)newMax;
-			SetTideCountText((int)GetPlayerTide(_player), newMax);
+			_lerpingMaxTideCount = newMax;
+			SetTideCountText(GetPlayerTide(_player), newMax);
 		}
 		else if (newMax > oldMax)
 		{
@@ -190,9 +192,10 @@ public partial class NTideCounter: Control
 	
 	private void SetTideCountText(int tide, int maxTide, bool initSetup = false)
 	{
-		if (!initSetup && _displayedTideCount == tide) return;
+		if (!initSetup && _displayedTideCount == tide && _displayedMaxTideCount == maxTide) return;
 		
 		_displayedTideCount = tide;
+		_displayedMaxTideCount = maxTide;
 		var label = _label;
 		var fontColor = BlueFontColor.Item1;
 
@@ -224,10 +227,8 @@ public partial class NTideCounter: Control
 			return;
 		}
 
-		var tide = GetPlayerTide(_player);
+		var shouldAlwaysShowTide = _player.Character is Character.PercyJackson;
 
-		var shouldAlwaysShowTide = _player.Character is PercyJackson.PercyJacksonCode.Character.PercyJackson;
-
-		Visible = Visible || shouldAlwaysShowTide || tide > 0;
+		Visible = Visible || shouldAlwaysShowTide || GetPlayerMaxTide(_player) > 0;
 	}
 }

@@ -10,9 +10,9 @@ public class Disarm : PercyJacksonCard
 {
     public Disarm() : base(1, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithBlock(5, 7);
-        WithVar("StrengthLoss", 1, 1);
-        WithCombo(1, 1);
+        WithBlock(5, 2);
+        WithVar("StrengthLoss", 1);
+        WithCombo(1);
     }
 
     protected override async Task OnPlay(

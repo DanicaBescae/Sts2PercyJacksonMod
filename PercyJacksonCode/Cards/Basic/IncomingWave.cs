@@ -15,8 +15,10 @@ public class IncomingWave: PercyJacksonCard
 {
     public IncomingWave() : base(0, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithTide(1, 2);
-        WithCalculatedDamage((IsUpgraded ? 2 : 1),
+        WithTide(1, 1);
+        WithCalculatedVar("CalculatedNewDamage", 1,
+            (c, _) => TideManager.GetNewTide(c.Owner, c.DynamicVars["Tide"].IntValue));
+        WithCalculatedDamage(1,
             (card, _) => card.Owner.PlayerCombatState.Tide().CurrentTide);
     }
 

@@ -20,7 +20,7 @@ public static class PlayerCombatStateExtensions
 {
     public class TideCombatState(PlayerCombatState playerCombatState)
     {
-        public decimal CurrentTide         {
+        public int CurrentTide         {
             get;
             set
             {
@@ -65,7 +65,7 @@ public static class PlayerCombatStateExtensions
             }
         }
 
-        public event Action<decimal, decimal>? TideChanged;
+        public event Action<int, int>? TideChanged;
         public event Action<int, int>? MaxTideChanged;
     }
     

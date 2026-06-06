@@ -10,7 +10,7 @@ public class StLouisArch: PercyJacksonCard
     public StLouisArch() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithTide(1);
-        WithBlock(15, 19);
+        WithBlock(15, 5);
     }
 
     protected override async Task OnPlay(
