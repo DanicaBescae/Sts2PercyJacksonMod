@@ -35,4 +35,14 @@ public static class PercyJacksonHooks
         return Dispatch<IAfterComboStarted>(combatState, choiceContext,
             model => model.AfterComboStarted(choiceContext, card));
     }
+    
+    public static bool ShouldGainTide(ICombatState combatState, PlayerChoiceContext choiceContext, Player player)
+    {
+        foreach (var model in combatState.IterateHookListeners().OfType<IShouldGainTide>())
+        {
+            if (!model.ShouldGainTide(choiceContext, player)) return false;
+        }
+
+        return true;
+    }
 }

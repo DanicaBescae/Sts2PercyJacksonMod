@@ -13,6 +13,7 @@ public class Disarm : PercyJacksonCard
         WithBlock(5, 2);
         WithVar("StrengthLoss", 1);
         WithCombo(1);
+        WithTip(typeof(StrengthPower));
     }
 
     protected override async Task OnPlay(

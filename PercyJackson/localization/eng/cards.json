@@ -30,5 +30,13 @@
   "PERCYJACKSON-SURFING_LESSONS.description": "Deal {Damage:diff()} damage.\nRaise the [gold]Tide[/gold] by the unblocked damage dealt.",
   "PERCYJACKSON-SURFING_LESSONS.title": "Surfing Lessons",
   "PERCYJACKSON-HYDROGENESIS.description": "Exhaust {Cards:diff()} {Cards:plural:card|cards}{IfUpgraded:.| at random.}\nGain [gold]Tide[/gold] equal to the exhausted {Cards:plural:card's|cards'} cost.",
-  "PERCYJACKSON-HYDROGENESIS.title": "Hydrogenesis"
+  "PERCYJACKSON-HYDROGENESIS.title": "Hydrogenesis",
+  "PERCYJACKSON-CAPTURE_THE_FLAG.description": "Deal {Damage:diff()} damage to a random enemy {HitCount:diff()} {HitCount:plural:time|times}.\nRaise the [gold]Tide[/gold] by {Tide:diff()} for each enemy hit.",
+  "PERCYJACKSON-CAPTURE_THE_FLAG.title": "Capture The Flag",
+  "PERCYJACKSON-STORMBRINGER.description": "Raise the [gold]Tide[/gold] by X{PlusDamage:cond:>0?.| + {PlusDamage:diff()}.}",
+  "PERCYJACKSON-STORMBRINGER.title": "Stormbringer",
+  "PERCYJACKSON-EYE_OF_THE_STORM.description": "Gain {BlockAmt:diff()} [gold]Block[/gold] for every level of [gold]Tide[/gold].\nNext turn, gain the same amount of [gold]Block[/gold].\nYou cannot raise the [gold]Tide[/gold] next turn.",
+  "PERCYJACKSON-EYE_OF_THE_STORM.title": "Eye Of The Storm",
+  "PERCYJACKSON-GETTING_SERIOUS.description": "Convert {IfUpgraded:|half of }your [gold]Vigor[/gold] into [gold]Strength[/gold].",
+  "PERCYJACKSON-GETTING_SERIOUS.title": "Getting Serious"
 }

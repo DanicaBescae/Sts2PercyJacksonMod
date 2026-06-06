@@ -4,5 +4,8 @@
   "PERCYJACKSON-NO_SWEAT_POWER.title": "No Sweat",
   "PERCYJACKSON-RAISING_THE_TIBER_POWER.description": "At the start of your turn, raise the maximum [gold]Tide[/gold].",
   "PERCYJACKSON-RAISING_THE_TIBER_POWER.smartDescription": "At the start of your turn, raise the maximum [gold]Tide[/gold] by [blue]{Amount}[/blue].",
-  "PERCYJACKSON-RAISING_THE_TIBER_POWER.title": "Raising The Tiber"
+  "PERCYJACKSON-RAISING_THE_TIBER_POWER.title": "Raising The Tiber",
+  "PERCYJACKSON-NO_TIDE_GAIN_POWER.description": "You may not raise the [gold]Tide[/gold] this turn.",
+  "PERCYJACKSON-NO_TIDE_GAIN_POWER.smartDescription": "You may not raise the [gold]Tide[/gold] this turn.",
+  "PERCYJACKSON-NO_TIDE_GAIN_POWER.title": "No Tide"
 }

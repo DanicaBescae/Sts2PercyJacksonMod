@@ -14,7 +14,7 @@ public class Hydrogenesis : PercyJacksonCard
     public Hydrogenesis() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithKeyword(TideKeyword);
-        WithKeyword(CardKeyword.Exhaust);
+        WithTip(CardKeyword.Exhaust);
         WithCards(1);
     }
 

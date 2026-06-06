@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Extensions;
+using PercyJackson.PercyJacksonCode.Hooks;
 
 namespace PercyJackson.PercyJacksonCode.Models;
 
@@ -50,8 +51,10 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
 
     public static async Task UpdateTide(Player player, int tideChange, bool negative = false)
     {
-        if(!negative) RaiseTide(player, tideChange);
-        else await LowerTide(player, tideChange);
+        var shouldGainTide =
+            PercyJacksonHooks.ShouldGainTide(player.Creature.CombatState, new ThrowingPlayerChoiceContext(), player);
+        if (!negative && shouldGainTide) RaiseTide(player, tideChange);
+        else if (negative) await LowerTide(player, tideChange);
     }
 
     public static void UpdateMaxTide(Player player, int tideChange, bool temporary = false)
