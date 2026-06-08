@@ -2,18 +2,12 @@
 using BaseLib.Extensions;
 using BaseLib.Patches.Content;
 using BaseLib.Utils;
-using HarmonyLib;
-using MegaCrit.Sts2.Core.Combat;
-using PercyJackson.PercyJacksonCode.Character;
-using PercyJackson.PercyJacksonCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Events;
-using MegaCrit.Sts2.Core.ValueProps;
+using PercyJackson.PercyJacksonCode.Character;
 using PercyJackson.PercyJacksonCode.DynamicVars;
+using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Models;
 
 namespace PercyJackson.PercyJacksonCode.Cards;
@@ -27,6 +21,12 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     
     [CustomEnum]
     public static CardKeyword TideKeyword;
+    
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.Before)]
+    public static CardKeyword ComboStarter;
+    
+    [CustomEnum]
+    public static CardKeyword ComboKeyword;
 
     private int ComboNeeded { get; set; }
     private bool NeedComboToPlay { get; set; }
@@ -64,6 +64,14 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
         return _temporaryCombos.RemoveAll(c => c.ClearsWhenTurnEnds);
     }
 
+    protected PercyJacksonCard WithComboStarter()
+    {
+        WithKeyword(ComboStarter);
+        WithKeyword(ComboKeyword);
+        WithTags(ComboTag);
+        return this;
+    }
+
     /// <summary>
     /// Generates a DynamicVar with base values, adds tooltip, and sets up this card for Combos.
     /// </summary>
@@ -75,8 +83,8 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     {
         WithVar(new ComboVar(baseVal).WithUpgrade(upgrade));
         WithTags(ComboTag);
-        this.ComboNeeded = this.IsUpgraded ? upgrade : baseVal;
-        this.NeedComboToPlay = needCombo;
+        ComboNeeded = IsUpgraded ? upgrade : baseVal;
+        NeedComboToPlay = needCombo;
         return this;
     }
     
@@ -98,7 +106,7 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     protected static bool IsComboComplete(CardModel card)
     {
         if (card is not PercyJacksonCard thisCard) return true;
-        int comboNeededThisTurn =
+        var comboNeededThisTurn =
             thisCard._temporaryCombos.Count > 0 ? thisCard._temporaryCombos.Min().Cost : thisCard.ComboNeeded;
         if (!thisCard.Tags.Contains(ComboTag) || comboNeededThisTurn <= 0) return true;
         return ComboManager.CurrentComboCount >= comboNeededThisTurn;
@@ -109,6 +117,7 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
     {
         if (card is not PercyJacksonCard thisCard) return true;
+        if (thisCard.Keywords.Contains(ComboStarter)) return ComboManager.CurrentComboCount == 0;
         // Check for Combo count
         return IsComboComplete(thisCard) || !thisCard.NeedComboToPlay;
     }

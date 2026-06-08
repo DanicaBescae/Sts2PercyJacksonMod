@@ -36,6 +36,12 @@ public static class PercyJacksonHooks
             model => model.AfterComboStarted(choiceContext, card));
     }
     
+    public static Task OnTideOverflowed(ICombatState combatState, PlayerChoiceContext choiceContext, Player player)
+    {
+        return Dispatch<IOnTideOverflowed>(combatState, choiceContext,
+            model => model.OnTideOverflowed(choiceContext, player));
+    }
+    
     public static bool ShouldGainTide(ICombatState combatState, PlayerChoiceContext choiceContext, Player player)
     {
         foreach (var model in combatState.IterateHookListeners().OfType<IShouldGainTide>())

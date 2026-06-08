@@ -6,7 +6,7 @@ namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
 public class QuickParry : PercyJacksonCard
 {
-    public QuickParry() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public QuickParry() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithBlock(4, 2);
         WithCombo(1, needCombo: true);

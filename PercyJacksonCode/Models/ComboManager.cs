@@ -17,7 +17,7 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
     public static int CurrentComboCount { get; private set; }
 
     private static readonly List<CardPlay> ComboHistory = [];
-    
+
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatManager.Instance.IsOverOrEnding || cardPlay.Card.Owner.Creature.CombatState == null)
@@ -25,10 +25,15 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         
         var combatState = cardPlay.Card.Owner.Creature.CombatState;
         
+        // End combo if this is not an attack or combo card
         if (cardPlay.Card.Type != CardType.Attack && !cardPlay.Card.Tags.Contains(PercyJacksonCard.ComboTag))
         {
             return ClearCombo(choiceContext, combatState);
         }
+        
+        // If we haven't started a combo, and this isn't a combo starter, we can't continue a combo
+        if (!cardPlay.Card.Keywords.Contains(PercyJacksonCard.ComboStarter) && CurrentComboCount == 0)
+            return Task.CompletedTask;
 
         return UpdateCombo(choiceContext, combatState, cardPlay);
     }

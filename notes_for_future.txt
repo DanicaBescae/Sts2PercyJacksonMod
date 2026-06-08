@@ -1,0 +1,4 @@
+﻿To add new localization file: 
+`CustomLocTableManager.Register("blah");` will load `blah.json`, add to main file initialize
+
+Godot incompatible with some common Windows drivers; switch to gl-compatibility if this issue pops up

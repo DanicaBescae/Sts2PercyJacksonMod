@@ -1,4 +1,5 @@
 ﻿using BaseLib.Abstracts;
+using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -15,10 +16,15 @@ namespace PercyJackson.PercyJacksonCode.Models;
 
 public class TideManager(): CustomSingletonModel(HookType.Combat)
 {
-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants,
+    private const int BlockGainOnOverflow = 3;
+
+    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
+        IReadOnlyList<Creature> participants,
         ICombatState combatState)
     {
-        return side != CombatSide.Player ? Task.CompletedTask : ApplyVigorFromTideToAll(choiceContext, combatState.Players);
+        return side != CombatSide.Player
+            ? Task.CompletedTask
+            : ApplyVigorFromTideToAll(choiceContext, combatState.Players);
     }
 
     public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
@@ -41,11 +47,12 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
             await PowerCmd.Apply<VigorPower>(choiceContext, player.Creature, tide, player.Creature, null);
         }
     }
-    
-    public static int GetNewTide(Player player, int tideChange, bool negative = false)
+
+    public static int GetNewTide(Player player, int tideChange, out int numOverflowed, bool negative = false)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
         var tide = tideCombatState.CurrentTide;
+        numOverflowed = negative ? 0 : Mathf.FloorToInt((tideChange + tide) / tideCombatState.MaxTide);
         return negative ? Math.Max(tide - tideChange, 0) : Mathf.PosMod(tideChange + tide, tideCombatState.MaxTide);
     }
 
@@ -53,7 +60,7 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
     {
         var shouldGainTide =
             PercyJacksonHooks.ShouldGainTide(player.Creature.CombatState, new ThrowingPlayerChoiceContext(), player);
-        if (!negative && shouldGainTide) RaiseTide(player, tideChange);
+        if (!negative && shouldGainTide) await RaiseTide(player, tideChange);
         else if (negative) await LowerTide(player, tideChange);
     }
 
@@ -70,11 +77,13 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         return Task.CompletedTask;
     }
 
-    private static void RaiseTide(Player player, int tideChange)
+    private static async Task RaiseTide(Player player, int tideChange)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
-        if (tideCombatState.CurrentTide + tideChange > tideCombatState.MaxTide) ApplyStrengthFromTide(player, tideChange);
-        else player.PlayerCombatState.Tide().CurrentTide += tideChange;
+        if (tideCombatState.CurrentTide + tideChange > tideCombatState.MaxTide)
+            await GainBlockFromTide(player, tideChange);
+        else tideCombatState.CurrentTide += tideChange;
+        tideCombatState.TideGainedThisCombat += tideChange;
     }
 
     private static async Task LowerTide(Player player, int tideChange)
@@ -95,11 +104,18 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         }
     }
 
-    private static void ApplyStrengthFromTide(Player player, int tideChange)
+    private static async Task GainBlockFromTide(Player player, int tideChange)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
         var tide = tideCombatState.CurrentTide;
-        PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), player.Creature, 1, player.Creature, null);
-        tideCombatState.CurrentTide = (tide + tideChange) % tideCombatState.MaxTide;
+        var newTide = GetNewTide(player, tideChange, out var overflowed);
+        for (var i = 0; i < overflowed; i++)
+        {
+            await CreatureCmd.GainBlock(player.Creature, BlockGainOnOverflow, ValueProp.Unpowered, null);
+            await PercyJacksonHooks.OnTideOverflowed(player.Creature.CombatState, new ThrowingPlayerChoiceContext(),
+                player);
+        }
+
+        tideCombatState.CurrentTide = newTide;
     }
 }

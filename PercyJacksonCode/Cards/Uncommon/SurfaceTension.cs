@@ -3,7 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using PercyJackson.PercyJacksonCode.Models;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Common;
+namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class SurfaceTension: PercyJacksonCard
 {

@@ -12,7 +12,7 @@ public class Disarm : PercyJacksonCard
     {
         WithBlock(5, 2);
         WithVar("StrengthLoss", 1);
-        WithCombo(1);
+        WithComboStarter();
         WithTip(typeof(StrengthPower));
     }
 
@@ -21,10 +21,7 @@ public class Disarm : PercyJacksonCard
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        if (IsComboComplete(this))
-        {
-            await PowerCmd.Apply<DarkShacklesPower>(choiceContext, play.Target, DynamicVars["StrengthLoss"].BaseValue,
+        await PowerCmd.Apply<DarkShacklesPower>(choiceContext, play.Target, DynamicVars["StrengthLoss"].BaseValue,
                 Owner.Creature, this);
-        }
     }
 }

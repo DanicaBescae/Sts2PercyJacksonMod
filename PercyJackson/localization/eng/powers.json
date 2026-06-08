@@ -7,5 +7,14 @@
   "PERCYJACKSON-RAISING_THE_TIBER_POWER.title": "Raising The Tiber",
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.description": "You may not raise the [gold]Tide[/gold] this turn.",
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.smartDescription": "You may not raise the [gold]Tide[/gold] this turn.",
-  "PERCYJACKSON-NO_TIDE_GAIN_POWER.title": "No Tide"
+  "PERCYJACKSON-NO_TIDE_GAIN_POWER.title": "No Tide",
+  "PERCYJACKSON-WATER_WALKING_POWER.description": "Whenever you play a card this turn, gain [gold]Tide[/gold].",
+  "PERCYJACKSON-WATER_WALKING_POWER.smartDescription": "Whenever you play a card this turn, gain [blue]{Amount}[/blue] [gold]Tide[/gold].",
+  "PERCYJACKSON-WATER_WALKING_POWER.title": "Walking on Water",
+  "PERCYJACKSON-BUBBLE_POWER.description": "Whenever you overflow the [gold]Tide[/gold], gain extra [gold]Block[/gold].",
+  "PERCYJACKSON-BUBBLE_POWER.smartDescription": "Whenever you overflow the [gold]Tide[/gold], gain [blue]{Amount}[/blue] extra [gold]Block[/gold].",
+  "PERCYJACKSON-BUBBLE_POWER.title": "Bubbled",
+  "PERCYJACKSON-POSEIDONS_BLESSING_POWER.description": "The first few times you consume [gold]Vigor[/gold] each turn, reapply the lost [gold]Vigor[/gold].",
+  "PERCYJACKSON-POSEIDONS_BLESSING_POWER.smartDescription": "The first [blue]{Amount}[/blue] time{Amount:plural:|s} you consume [gold]Vigor[/gold] each turn, reapply the lost [gold]Vigor[/gold].",
+  "PERCYJACKSON-POSEIDONS_BLESSING_POWER.title": "Poseidon's Blessing"
 }

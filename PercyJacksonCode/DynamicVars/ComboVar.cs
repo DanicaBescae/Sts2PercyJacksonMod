@@ -5,7 +5,7 @@ namespace PercyJackson.PercyJacksonCode.DynamicVars;
 
 public class ComboVar : DynamicVar
 {
-    public const string Key = "Combo";
+    public const string Key = "ComboX";
 
     public ComboVar(decimal comboCount) : base(Key, comboCount)
     {

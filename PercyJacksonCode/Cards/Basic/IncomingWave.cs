@@ -17,7 +17,7 @@ public class IncomingWave: PercyJacksonCard
     {
         WithTide(1, 1);
         WithCalculatedVar("CalculatedNewDamage", 1,
-            (c, _) => TideManager.GetNewTide(c.Owner, c.DynamicVars["Tide"].IntValue));
+            (c, _) => TideManager.GetNewTide(c.Owner, c.DynamicVars["Tide"].IntValue, out var _));
         WithCalculatedDamage(1,
             (card, _) => card.Owner.PlayerCombatState.Tide().CurrentTide);
     }
