@@ -229,6 +229,6 @@ public partial class NTideCounter: Control
 
 		var shouldAlwaysShowTide = _player.Character is Character.PercyJackson;
 
-		Visible = Visible || shouldAlwaysShowTide || GetPlayerMaxTide(_player) > 0;
+		Visible = Visible || shouldAlwaysShowTide || GetPlayerTide(_player) > 0;
 	}
 }

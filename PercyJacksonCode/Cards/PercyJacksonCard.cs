@@ -9,6 +9,7 @@ using PercyJackson.PercyJacksonCode.Character;
 using PercyJackson.PercyJacksonCode.DynamicVars;
 using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Models;
+using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards;
 
@@ -16,9 +17,6 @@ namespace PercyJackson.PercyJacksonCode.Cards;
 public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarity, TargetType target) :
     ConstructedCardModel(cost, type, rarity, target)
 {
-    [CustomEnum] 
-    public static CardTag ComboTag;
-    
     [CustomEnum]
     public static CardKeyword TideKeyword;
     
@@ -68,7 +66,6 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     {
         WithKeyword(ComboStarter);
         WithKeyword(ComboKeyword);
-        WithTags(ComboTag);
         return this;
     }
 
@@ -82,8 +79,8 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     protected PercyJacksonCard WithCombo(int baseVal, int upgrade = 0, bool needCombo=false)
     {
         WithVar(new ComboVar(baseVal).WithUpgrade(upgrade));
-        WithTags(ComboTag);
         ComboNeeded = IsUpgraded ? upgrade : baseVal;
+        //MainFile.Logger.Info("Combo needed in WithCombo function: " + ComboNeeded + " for card: " + this);
         NeedComboToPlay = needCombo;
         return this;
     }
@@ -105,20 +102,24 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     /// <returns></returns>
     protected static bool IsComboComplete(CardModel card)
     {
+        if (card.Owner.HasPower<ImprovisingPower>()) return true;
         if (card is not PercyJacksonCard thisCard) return true;
         var comboNeededThisTurn =
             thisCard._temporaryCombos.Count > 0 ? thisCard._temporaryCombos.Min().Cost : thisCard.ComboNeeded;
-        if (!thisCard.Tags.Contains(ComboTag) || comboNeededThisTurn <= 0) return true;
+        //MainFile.Logger.Info("Combo needed in IsComboComplete function: " + comboNeededThisTurn + " for card: " + card);
+        if (!ComboManager.IsComboChainCard(card) || comboNeededThisTurn <= 0) return true;
         return ComboManager.CurrentComboCount >= comboNeededThisTurn;
     }
 
-    protected override bool ShouldGlowGoldInternal => Tags.Contains(ComboTag) && IsComboComplete(this);
+    protected override bool ShouldGlowGoldInternal => ComboManager.IsComboChainCard(this) && IsComboComplete(this);
 
     public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
     {
-        if (card is not PercyJacksonCard thisCard) return true;
-        if (thisCard.Keywords.Contains(ComboStarter)) return ComboManager.CurrentComboCount == 0;
-        // Check for Combo count
-        return IsComboComplete(thisCard) || !thisCard.NeedComboToPlay;
+        if (card.Owner.HasPower<ImprovisingPower>()) return true;
+        if (card.Keywords.Contains(ComboStarter)) return ComboManager.CurrentComboCount == 0;
+        if (!ComboManager.IsComboChainCard(card)) return true;
+        
+        if (card is PercyJacksonCard pjoCard) return IsComboComplete(pjoCard) || !pjoCard.NeedComboToPlay;
+        return IsComboComplete(card);
     }
 }

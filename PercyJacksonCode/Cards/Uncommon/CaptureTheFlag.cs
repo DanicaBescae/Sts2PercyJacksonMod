@@ -6,11 +6,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Models;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Common;
+namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class CaptureTheFlag: PercyJacksonCard
 {
-    public CaptureTheFlag() : base(1, CardType.Attack, CardRarity.Common, TargetType.RandomEnemy)
+    public CaptureTheFlag() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy)
     {
         WithDamage(5,7);
         WithTide(1);

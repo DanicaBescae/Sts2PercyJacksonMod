@@ -14,21 +14,23 @@ public class SeasEmbrace : PercyJacksonCard
 {
     public SeasEmbrace() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithPower<VigorPower>(2, 2);
+        WithPower<VigorPower>(2, 1);
     }
-    
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        var debuffsToRemove = Owner.Creature.Powers.Where(p => p is { Type: PowerType.Debuff, StackType: PowerStackType.Counter });
+        var debuffsToRemove =
+            Owner.Creature.Powers.Where(p => p is { Type: PowerType.Debuff, StackType: PowerStackType.Counter });
         var powerModels = debuffsToRemove as PowerModel[] ?? debuffsToRemove.ToArray();
         var totalDebuffs = powerModels.Length;
         for (var i = 0; i < totalDebuffs; i++)
         {
-            await PowerCmd.Remove(powerModels.ElementAt(0));
+            await PowerCmd.Decrement(powerModels.ElementAt(0));
         }
 
-        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["VigorPower"].BaseValue,
+            Owner.Creature, this);
     }
 }

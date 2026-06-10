@@ -6,9 +6,9 @@ using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
-public class PoseidonsBlessing: PercyJacksonCard
+public class Unwavering: PercyJacksonCard
 {
-    public PoseidonsBlessing() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public Unwavering() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithTip(typeof(VigorPower));
         WithVar("Times", 1, 1);
@@ -18,7 +18,7 @@ public class PoseidonsBlessing: PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<PoseidonsBlessingPower>(choiceContext, Owner.Creature, DynamicVars["Times"].BaseValue,
+        await PowerCmd.Apply<UnwaveringPower>(choiceContext, Owner.Creature, DynamicVars["Times"].BaseValue,
             Owner.Creature,
             this);
     }

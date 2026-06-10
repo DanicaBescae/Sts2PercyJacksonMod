@@ -4,14 +4,14 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using PercyJackson.PercyJacksonCode.Powers;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Rare;
+namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class NoSweat : PercyJacksonCard
 {
-    public NoSweat() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public NoSweat() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithEnergy(1);
-        WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
+        WithCostUpgradeBy(-1);
     }
     
     protected override async Task OnPlay(

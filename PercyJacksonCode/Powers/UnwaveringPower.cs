@@ -10,7 +10,7 @@ using PercyJackson.PercyJacksonCode.Cards;
 
 namespace PercyJackson.PercyJacksonCode.Powers;
 
-public class PoseidonsBlessingPower() : PercyJacksonPower
+public class UnwaveringPower() : PercyJacksonPower
 {
     public override PowerType Type =>
         PowerType.Buff;
@@ -33,7 +33,7 @@ public class PoseidonsBlessingPower() : PercyJacksonPower
         [HarmonyPostfix]
         private static void Postfix(VigorPower __instance, PlayerChoiceContext choiceContext, AttackCommand command)
         {
-            var blessingPower = __instance.Owner.GetPower<PoseidonsBlessingPower>();
+            var blessingPower = __instance.Owner.GetPower<UnwaveringPower>();
             if (blessingPower == null) return;
 
             var data = __instance.GetInternalData<VigorPower.Data>();

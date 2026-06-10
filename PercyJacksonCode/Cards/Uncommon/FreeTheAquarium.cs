@@ -1,4 +1,5 @@
-﻿using MegaCrit.Sts2.Core.CardSelection;
+﻿using BaseLib.Utils;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -22,20 +23,26 @@ public class FreeTheAquarium: PercyJacksonCard
         CardPlay play)
     {
         await TideManager.UpdateTide(Owner, DynamicVars["Tide"].IntValue, true);
-        
+
         var prefs = new CardSelectorPrefs(new LocString("cards", "PERCYJACKSON-FREE_THE_AQUARIUM.selectionPrompt"),
             DynamicVars.Cards.IntValue);
-        var cards = await CardSelectCmd.FromHand(choiceContext, Owner, prefs,
-            (card) => !card.CanPlay(), this);
-        
-        if (cards.Count() == 0)
+        var cards = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs,
+            (card) => !card.CanPlay(), this)).ToList();
+
+        if (cards.Count == 0)
             return;
 
-        foreach (var card in cards)
+        var copiesMade = new CardPileAddResult[cards.Count];
+
+        for (var i = 0; i < cards.Count; i++)
         {
-            var cardClone = card.CreateClone();
+            var cardClone = cards[i].CreateClone();
             cardClone.EnergyCost.SetUntilPlayed(0);
-            await CardPileCmd.AddGeneratedCardToCombat(cardClone, PileType.Draw, Owner, CardPilePosition.Random);
+            copiesMade[i] =
+                await CardPileCmd.AddGeneratedCardToCombat(cardClone, PileType.Draw, Owner, CardPilePosition.Random);
         }
+
+        CardCmd.PreviewCardPileAdd(copiesMade);
+        await Cmd.Wait(0.1f);
     }
 }

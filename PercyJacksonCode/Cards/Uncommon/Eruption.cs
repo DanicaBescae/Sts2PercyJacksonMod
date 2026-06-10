@@ -8,9 +8,9 @@ using PercyJackson.PercyJacksonCode.Models;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
-public class WaveCrash : PercyJacksonCard
+public class Eruption : PercyJacksonCard
 {
-    public WaveCrash() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
+    public Eruption() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithTide(4);
         WithDamage(30, 6);
