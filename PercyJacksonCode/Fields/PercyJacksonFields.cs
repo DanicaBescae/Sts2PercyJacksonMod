@@ -13,6 +13,7 @@ namespace PercyJackson.PercyJacksonCode.Fields;
 public class PercyJacksonFields
 {
     public static readonly SpireField<PlayerCombatState, PlayerCombatStateExtensions.TideCombatState> TideCombatState = new(()=>null);
+    public static readonly SpireField<PlayerCombatState, PlayerCombatStateExtensions.ComboCombatState> ComboCombatState = new(()=>null);
     public static readonly AddedNode<NCombatUi, NTideCounter> TideCounter = new((ui) =>
     {
         var tideCounter = PreloadManager.Cache.GetScene(PercyJacksonResource.NTideCounterPath)

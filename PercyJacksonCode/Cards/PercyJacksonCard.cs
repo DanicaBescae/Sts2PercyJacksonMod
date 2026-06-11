@@ -108,7 +108,7 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
             thisCard._temporaryCombos.Count > 0 ? thisCard._temporaryCombos.Min().Cost : thisCard.ComboNeeded;
         //MainFile.Logger.Info("Combo needed in IsComboComplete function: " + comboNeededThisTurn + " for card: " + card);
         if (!ComboManager.IsComboChainCard(card) || comboNeededThisTurn <= 0) return true;
-        return ComboManager.CurrentComboCount >= comboNeededThisTurn;
+        return card.Owner.PlayerCombatState.Combo().CurrentComboCount >= comboNeededThisTurn;
     }
 
     protected override bool ShouldGlowGoldInternal => ComboManager.IsComboChainCard(this) && IsComboComplete(this);
@@ -116,7 +116,7 @@ public abstract class PercyJacksonCard(int cost, CardType type, CardRarity rarit
     public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
     {
         if (card.Owner.HasPower<ImprovisingPower>()) return true;
-        if (card.Keywords.Contains(ComboStarter)) return ComboManager.CurrentComboCount == 0;
+        if (card.Keywords.Contains(ComboStarter)) return card.Owner.PlayerCombatState.Combo().CurrentComboCount == 0;
         if (!ComboManager.IsComboChainCard(card)) return true;
         
         if (card is PercyJacksonCard pjoCard) return IsComboComplete(pjoCard) || !pjoCard.NeedComboToPlay;

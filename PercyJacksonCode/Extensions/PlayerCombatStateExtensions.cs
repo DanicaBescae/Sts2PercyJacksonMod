@@ -5,6 +5,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -71,8 +72,43 @@ public static class PlayerCombatStateExtensions
         public event Action<int, int>? MaxTideChanged;
     }
     
+    public class ComboCombatState(PlayerCombatState playerCombatState)
+    {
+        public int CurrentComboCount { get; set; }
+        public List<CardPlay> ComboHistory = [];
+
+        public Player Owner
+        {
+            get;
+            set
+            {
+                if (field != null && value != null && value != field)
+                    throw new InvalidOperationException("Tide already has an owner.");
+
+                field = value;
+            }
+        }
+
+        public void AddToCombo(CardPlay cardPlay)
+        {
+            ComboHistory.Add(cardPlay);
+            CurrentComboCount = ComboHistory.Count;
+        }
+        
+        public void ClearCombo()
+        {
+            ComboHistory.Clear();
+            CurrentComboCount = 0;
+        }
+    }
+    
     public static TideCombatState Tide(this PlayerCombatState playerCombatState)
     {
         return PercyJacksonFields.TideCombatState[playerCombatState];
+    }
+    
+    public static ComboCombatState Combo(this PlayerCombatState playerCombatState)
+    {
+        return PercyJacksonFields.ComboCombatState[playerCombatState];
     }
 }

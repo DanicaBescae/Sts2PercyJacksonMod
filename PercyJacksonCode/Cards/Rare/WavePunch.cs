@@ -7,9 +7,9 @@ using PercyJackson.PercyJacksonCode.Models;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
-public class SonOfNeptune: PercyJacksonCard
+public class WavePunch: PercyJacksonCard
 {
-    public SonOfNeptune() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public WavePunch() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithVar("TideMult", 3, 1);
         WithCalculatedDamage(12, (card, _) => card.Owner.PlayerCombatState.Tide().TideGainedThisCombat * card.DynamicVars["TideMult"].IntValue);

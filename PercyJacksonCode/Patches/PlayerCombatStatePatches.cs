@@ -18,6 +18,8 @@ public class PlayerCombatStatePatches
         {
             PercyJacksonFields.TideCombatState[__instance] =
                 new PlayerCombatStateExtensions.TideCombatState(__instance);
+            PercyJacksonFields.ComboCombatState[__instance] =
+                new PlayerCombatStateExtensions.ComboCombatState(__instance);
         }
     }
 }
