@@ -41,7 +41,7 @@ public static class PlayerCombatStateExtensions
                 field = value;
                 MaxTideChanged?.Invoke(maxTide, field);
             }
-        } = 6;
+        } = 1;
         
         public int TempMaxTide         {
             get;

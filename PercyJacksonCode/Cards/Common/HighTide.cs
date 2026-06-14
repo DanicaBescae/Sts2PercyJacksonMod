@@ -9,7 +9,7 @@ namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
 public class HighTide: PercyJacksonCard
 {
-    public HighTide() : base(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
+    public HighTide() : base(0, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
     {
         WithTide(2, 1);
         WithCalculatedDamage(0, (card, _) => 2 * card.Owner.PlayerCombatState.Tide().MaxTide);

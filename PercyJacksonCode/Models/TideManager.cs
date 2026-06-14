@@ -16,21 +16,22 @@ namespace PercyJackson.PercyJacksonCode.Models;
 
 public class TideManager(): CustomSingletonModel(HookType.Combat)
 {
-    private const int BlockGainOnOverflow = 3;
-
-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
+    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
         IReadOnlyList<Creature> participants,
         ICombatState combatState)
     {
-        return side != CombatSide.Player
-            ? Task.CompletedTask
-            : ApplyVigorFromTideToAll(choiceContext, combatState.Players);
+        if (side != CombatSide.Player) return;
+        await ApplyVigorFromTideToAll(choiceContext, combatState.Players);
+        foreach (var player in participants.OfType<Player>())
+        {
+            await ClearTempMaxTide(player);
+        }
     }
 
     public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side != CombatSide.Player) return Task.CompletedTask;
-        foreach (var player in participants.LastOrDefault().CombatState.Players)
+        foreach (var player in participants.OfType<Player>())
         {
             ClearTempMaxTide(player);
         }
@@ -81,7 +82,7 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
         if (tideCombatState.CurrentTide + tideChange > tideCombatState.MaxTide)
-            await GainBlockFromTide(player, tideChange);
+            await IncreaseMaxTideFromOverflow(player, tideChange);
         else tideCombatState.CurrentTide += tideChange;
         tideCombatState.TideGainedThisCombat += tideChange;
     }
@@ -89,33 +90,26 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
     private static async Task LowerTide(Player player, int tideChange)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
-        if (tideCombatState.CurrentTide - tideChange < 0) await LoseHpFromTide(player, tideChange);
-        else player.PlayerCombatState.Tide().CurrentTide -= tideChange;
-    }
-    
-    private static async Task LoseHpFromTide(Player player, int tideChange)
-    {
-        var tideCombatState = player.PlayerCombatState.Tide();
-        var tide = tideCombatState.CurrentTide + tideChange;
-        for (var i = 0; i < tide; i++)
-        {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), player.Creature,
-                new DamageVar(2, ValueProp.Unblockable), player.Creature);
-        }
+        if (tideCombatState.CurrentTide - tideChange > 0) player.PlayerCombatState.Tide().CurrentTide -= tideChange;
+        await Task.CompletedTask;
     }
 
-    private static async Task GainBlockFromTide(Player player, int tideChange)
+    private static async Task IncreaseMaxTideFromOverflow(Player player, int tideChange)
     {
         var tideCombatState = player.PlayerCombatState.Tide();
-        var tide = tideCombatState.CurrentTide;
-        var newTide = GetNewTide(player, tideChange, out var overflowed);
-        for (var i = 0; i < overflowed; i++)
+        var previousTide = tideCombatState.CurrentTide;
+        var maxTide = tideCombatState.MaxTide;
+        var tideLeft = previousTide + tideChange;
+
+        while (tideLeft > maxTide) // hoo boy
         {
-            await CreatureCmd.GainBlock(player.Creature, BlockGainOnOverflow, ValueProp.Unpowered, null);
+            tideLeft -= maxTide;
+            tideCombatState.MaxTide += 1;
             await PercyJacksonHooks.OnTideOverflowed(player.Creature.CombatState, new ThrowingPlayerChoiceContext(),
                 player);
+            maxTide = tideCombatState.MaxTide;
         }
 
-        tideCombatState.CurrentTide = newTide;
+        tideCombatState.CurrentTide = tideLeft;
     }
 }
