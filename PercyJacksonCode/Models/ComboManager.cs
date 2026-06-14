@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Cards;
 using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Fields;
@@ -21,41 +22,92 @@ namespace PercyJackson.PercyJacksonCode.Models;
 /// </summary>
 public class ComboManager(): CustomSingletonModel(HookType.Combat)
 {
-    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    private const int ComboForMult = 3;
+    private CardModel _cardToIncrease;
+    private decimal _comboMult = 1.25M;
+    
+    public override Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+        if (!WillIncreaseCombo(cardPlay.Card) || cardPlay.Card.Keywords.Contains(PercyJacksonCard.ComboStarter))
+            return Task.CompletedTask;
+        
+        var playerCombo = cardPlay.Card.Owner.PlayerCombatState.Combo();
+
+        if (playerCombo.CurrentComboCount % ComboForMult == 2)
+        {
+            _cardToIncrease = cardPlay.Card;
+        }
+        return Task.CompletedTask;
+    }
+
+    public override decimal ModifyDamageMultiplicative(
+        Creature? target,
+        decimal amount,
+        ValueProp props,
+        Creature? dealer,
+        CardModel? cardSource)
+    {
+        if (!props.IsPoweredAttack() || cardSource == null ||
+            dealer != cardSource.Owner.Creature && dealer != cardSource.Owner.Osty)
+            return 1M;
+        
+        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? _comboMult : 1M;
+        
+        var pile = cardSource.Pile;
+        var combo = cardSource.Owner.PlayerCombatState.Combo();
+        return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
+               combo.CurrentComboCount % ComboForMult == 2
+            ? _comboMult
+            : 1M;
+    }
+    
+    public override decimal ModifyBlockMultiplicative(
+        Creature target,
+        decimal block,
+        ValueProp props,
+        CardModel? cardSource,
+        CardPlay? cardPlay)
+    {
+        if (props != ValueProp.Move || cardSource == null)
+            return 1M;
+
+        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? _comboMult : 1M;
+        
+        var pile = cardSource.Pile;
+        var combo = cardSource.Owner.PlayerCombatState.Combo();
+        return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
+               combo.CurrentComboCount % ComboForMult == 2
+            ? _comboMult
+            : 1M;
+    }
+
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatManager.Instance.IsOverOrEnding || cardPlay.Card.Owner.Creature.CombatState == null)
-            return Task.CompletedTask;
+            return;
 
         var combatState = cardPlay.Card.Owner.Creature.CombatState;
         var playerCombo = cardPlay.Card.Owner.PlayerCombatState.Combo();
-        
-        // If we have the improvising power, we can increase our combo no matter what
-        if (cardPlay.Card.Owner.HasPower<ImprovisingPower>()) return UpdateCombo(choiceContext, combatState, cardPlay, playerCombo);
 
-        // End combo if this is not an attack or combo card
-        if (cardPlay.Card.Type != CardType.Attack && !IsComboCard(cardPlay.Card))
+        // If we have the improvising power, we can increase our combo no matter what
+        if (cardPlay.Card.Owner.HasPower<ImprovisingPower>())
         {
-            return ClearCombo(choiceContext, combatState, playerCombo);
+            await UpdateCombo(choiceContext, combatState, cardPlay, playerCombo);
+        }
+        // End combo if this card can't increase combo
+        else if (!WillIncreaseCombo(cardPlay.Card))
+        {
+            await ClearCombo(choiceContext, combatState, playerCombo);
+        }
+        // We can increase the combo if we're starting a combo or if we already started one
+        else if (StartsCombo(cardPlay.Card, playerCombo.CurrentComboCount) || playerCombo.CurrentComboCount > 0)
+        {
+            await UpdateCombo(choiceContext, combatState, cardPlay, playerCombo);
         }
 
-        // If we haven't started a combo, and this isn't a combo starter, we can't continue a combo
-        if (!cardPlay.Card.Keywords.Contains(PercyJacksonCard.ComboStarter) && playerCombo.CurrentComboCount == 0)
-            return Task.CompletedTask;
-
-        return UpdateCombo(choiceContext, combatState, cardPlay, playerCombo);
+        if (_cardToIncrease != null && cardPlay.Card == _cardToIncrease) _cardToIncrease = null;
     }
-
-    public static bool IsComboChainCard(CardModel card)
-    {
-        return card.DynamicVars.ContainsKey("ComboX");
-    }
-
-    public static bool IsComboCard(CardModel card)
-    {
-        return IsComboChainCard(card) || card.Keywords.Contains(PercyJacksonCard.ComboStarter) ||
-               card.Owner.HasPower<ImprovisingPower>();
-    }
-
+    
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (CombatManager.Instance.IsOverOrEnding || side != CombatSide.Player) return;
@@ -67,6 +119,23 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
             var combo = player.PlayerCombatState.Combo();
             await ClearCombo(choiceContext, combatState, combo);
         }
+    }
+
+    public static bool IsComboChainCard(CardModel card)
+    {
+        return card.DynamicVars.ContainsKey("ComboX");
+    }
+
+    private static bool WillIncreaseCombo(CardModel card)
+    {
+        return card.Type == CardType.Attack || IsComboChainCard(card) ||
+               card.Keywords.Contains(PercyJacksonCard.ComboStarter) ||
+               card.Owner.HasPower<ImprovisingPower>();
+    }
+
+    private static bool StartsCombo(CardModel card, int currentCombo)
+    {
+        return card.Keywords.Contains(PercyJacksonCard.ComboStarter) && currentCombo == 0;
     }
 
     private static async Task UpdateCombo(PlayerChoiceContext choiceContext, ICombatState combatState,

@@ -74,7 +74,18 @@ public static class PlayerCombatStateExtensions
     
     public class ComboCombatState(PlayerCombatState playerCombatState)
     {
-        public int CurrentComboCount { get; set; }
+        public int CurrentComboCount
+        {
+            get;
+            private set
+            {
+                if (field == value) return;
+                var combo = field;
+                field = value;
+                ComboChanged?.Invoke(combo, field);
+            }
+        }
+
         public List<CardPlay> ComboHistory = [];
 
         public Player Owner
@@ -93,6 +104,7 @@ public static class PlayerCombatStateExtensions
         {
             ComboHistory.Add(cardPlay);
             CurrentComboCount = ComboHistory.Count;
+            NewCardInCombo?.Invoke(cardPlay);
         }
         
         public void ClearCombo()
@@ -100,6 +112,9 @@ public static class PlayerCombatStateExtensions
             ComboHistory.Clear();
             CurrentComboCount = 0;
         }
+        
+        public event Action<int, int>? ComboChanged;
+        public event Action<CardPlay>? NewCardInCombo;
     }
     
     public static TideCombatState Tide(this PlayerCombatState playerCombatState)

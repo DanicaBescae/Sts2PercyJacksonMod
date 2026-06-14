@@ -21,4 +21,11 @@ public class PercyJacksonFields
         ui.AddChildSafely(tideCounter);
         return tideCounter;
     });
+    public static readonly AddedNode<NCombatUi, NComboDisplay> ComboDisplay = new((ui) =>
+    {
+        var comboDisplay = PreloadManager.Cache.GetScene(PercyJacksonResource.NComboDisplayPath)
+            .Instantiate<NComboDisplay>();
+        ui.AddChildSafely(comboDisplay);
+        return comboDisplay;
+    });
 }

@@ -1,4 +1,4 @@
 {
   "PERCYJACKSON-COMBO_X.title": "Combo",
-  "PERCYJACKSON-COMBO_X.description": "Unlock an effect after playing at least [blue]{ComboX:diff()}[/blue] {ComboX:plural:attack|consecutive attacks} or Combo {ComboX:plural:card|cards} this turn."
+  "PERCYJACKSON-COMBO_X.description": "Unlock an effect after playing at least [blue]{ComboX:diff()}[/blue] {ComboX:plural:attack|consecutive attacks} or Combo {ComboX:plural:card|cards} this turn. Every 3rd Combo card has 25% extra damage or block."
 }

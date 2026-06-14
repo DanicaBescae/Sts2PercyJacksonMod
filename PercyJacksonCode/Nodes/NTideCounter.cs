@@ -51,7 +51,6 @@ public partial class NTideCounter: Control
 		GetNode<MarginContainer>("%TextContainer").AddChild(_label);
 		
 		var locString = new LocString("card_keywords", "PERCYJACKSON-TIDEKEYWORD.description");
-		locString.Add("tide", 0);
 		_hoverTip = new HoverTip(new LocString("card_keywords", "PERCYJACKSON-TIDEKEYWORD.title"), locString);
 		
 		Connect(Control.SignalName.MouseEntered, Callable.From(OnHovered));
@@ -71,6 +70,7 @@ public partial class NTideCounter: Control
 		label.AddThemeColorOverride("font_color", fontColor.Item1);
 		label.AddThemeColorOverride("font_shadow_color", fontColor.Item2);
 		label.AddThemeColorOverride("font_outline_color", fontColor.Item3);
+		label.AddThemeFontOverride("font", new SystemFont());
 		label.AddThemeConstantOverride("shadow_offset_x", 3);
 		label.AddThemeConstantOverride("shadow_offset_y", 3);
 		label.AddThemeConstantOverride("outline_size", 15);
@@ -145,12 +145,14 @@ public partial class NTideCounter: Control
 	
 	private static int GetPlayerTide(Player player)
 	{
+		if (player.PlayerCombatState == null) return 0;
 		var tide = player.PlayerCombatState?.Tide().CurrentTide ?? 0;
 		return tide;
 	}
 	
 	private static int GetPlayerMaxTide(Player player)
 	{
+		if (player.PlayerCombatState == null) return 0;
 		var tide = player.PlayerCombatState?.Tide().MaxTide ?? 0;
 		return tide;
 	}
@@ -169,7 +171,6 @@ public partial class NTideCounter: Control
 			_hsvTween?.Kill();
 			_hsvTween = CreateTween();
 			_hsvTween.TweenMethod(Callable.From<float>(UpdateShaderV), 2f, 1f, 0.2);
-			//TODO vfx gain tide
 		}
 	}
 	
