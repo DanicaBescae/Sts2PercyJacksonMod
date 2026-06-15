@@ -1,25 +1,28 @@
 ﻿using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Models;
+using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
 public class WavePunch: PercyJacksonCard
 {
-    public WavePunch() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public WavePunch() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        WithVar("TideMult", 3, 1);
-        WithCalculatedDamage(12, (card, _) => card.Owner.PlayerCombatState.Tide().TideGainedThisCombat * card.DynamicVars["TideMult"].IntValue);
+        WithTide(0, 3);
+        WithPower<WavePunchPower>(1);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play.Target, DynamicVars.CalculatedDamage, ValueProp.Move,
-            vfx: "vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
+        if (IsUpgraded) await TideManager.UpdateTide(Owner, 3);
+        await PowerCmd.Apply<WavePunchPower>(choiceContext, Owner.Creature, DynamicVars["WavePunchPower"].BaseValue,
+            Owner.Creature, this);
     }
 }

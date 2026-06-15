@@ -15,7 +15,7 @@ public class FreeTheAquarium: PercyJacksonCard
         WithKeyword(CardKeyword.Exhaust);
         WithCards(1);
         WithVar("Copies", 1, 1);
-        WithTide(2);
+        WithTide(1);
     }
 
     protected override async Task OnPlay(

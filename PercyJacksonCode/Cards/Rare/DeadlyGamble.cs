@@ -11,7 +11,7 @@ public class DeadlyGamble: PercyJacksonCard
 {
     public DeadlyGamble() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
-        WithCards(3, 2);
+        WithCards(2, 1);
         WithPower<IntangiblePower>(2);
         WithPower<PoisonPower>(5);
         WithKeyword(CardKeyword.Exhaust);

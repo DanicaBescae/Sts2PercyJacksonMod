@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Models;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Common;
+namespace PercyJackson.PercyJacksonCode.Cards.Ancient;
 
 public class HighTide: PercyJacksonCard
 {

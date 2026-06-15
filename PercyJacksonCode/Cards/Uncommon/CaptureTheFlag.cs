@@ -10,7 +10,7 @@ namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class CaptureTheFlag: PercyJacksonCard
 {
-    public CaptureTheFlag() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy)
+    public CaptureTheFlag() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithDamage(5,7);
         WithTide(1);
@@ -20,14 +20,8 @@ public class CaptureTheFlag: PercyJacksonCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        for (var i = 0; i < (int)DynamicVars["HitCount"].BaseValue; i++)
-        {
-            var enemy = Owner.RunState.Rng.CombatTargets.NextItem(CombatState.HittableEnemies);
-            if (enemy == null)
-                return;
-            await CommonActions.CardAttack(this, enemy, DynamicVars.Damage.BaseValue, ValueProp.Move).Execute(choiceContext);
-            await TideManager.UpdateTide(Owner, 1);
-        }
+        await CommonActions.CardAttack(this, cardPlay.Target, DynamicVars.Damage.BaseValue, ValueProp.Move,
+            DynamicVars["HitCount"].IntValue).Execute(choiceContext);
         DynamicVars["HitCount"].BaseValue += DynamicVars["HitIncrease"].IntValue;
     }
 }

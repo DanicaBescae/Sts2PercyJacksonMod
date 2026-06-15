@@ -126,7 +126,7 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         return card.DynamicVars.ContainsKey("ComboX");
     }
 
-    private static bool WillIncreaseCombo(CardModel card)
+    public static bool WillIncreaseCombo(CardModel card)
     {
         return card.Type == CardType.Attack || IsComboChainCard(card) ||
                card.Keywords.Contains(PercyJacksonCard.ComboStarter) ||
@@ -149,7 +149,7 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         PlayerCombatStateExtensions.ComboCombatState combo)
     {
         if (combo.ComboHistory.Count > 0)
-            await PercyJacksonHooks.AfterComboEnded(combatState, choiceContext, combo.ComboHistory.Count);
+            await PercyJacksonHooks.AfterComboEnded(combatState, choiceContext, combo.Owner, combo.ComboHistory.Count);
         combo.ClearCombo();
     }
 }

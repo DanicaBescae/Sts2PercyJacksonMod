@@ -9,9 +9,9 @@ using PercyJackson.PercyJacksonCode.Models;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
-public class Hydrogenesis : PercyJacksonCard
+public class Absorb : PercyJacksonCard
 {
-    public Hydrogenesis() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public Absorb() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithKeyword(TideKeyword);
         WithTip(CardKeyword.Exhaust);

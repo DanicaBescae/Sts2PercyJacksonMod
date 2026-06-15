@@ -1,4 +1,5 @@
 ﻿using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -12,7 +13,7 @@ public class NoSweatPower : PercyJacksonPower, IAfterComboEnded
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public Task AfterComboEnded(PlayerChoiceContext choiceContext, int combo)
+    public Task AfterComboEnded(PlayerChoiceContext choiceContext, Player player, int combo)
     {
         Flash();
         return PlayerCmd.GainEnergy(Amount, Owner.Player);

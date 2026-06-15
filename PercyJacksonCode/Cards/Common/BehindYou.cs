@@ -12,7 +12,7 @@ public class BehindYou: PercyJacksonCard
 {
     public BehindYou() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(6);
+        WithDamage(4);
         WithPower<VulnerablePower>(1, 1);
         WithPower<WeakPower>(1, 1);
         WithKeyword(CardKeyword.Exhaust);

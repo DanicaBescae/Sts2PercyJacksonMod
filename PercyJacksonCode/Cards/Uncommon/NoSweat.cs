@@ -11,13 +11,15 @@ public class NoSweat : PercyJacksonCard
     public NoSweat() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithEnergy(1);
-        WithCostUpgradeBy(-1);
+        WithKeyword(ComboStarter, UpgradeType.Add);
+        WithKeyword(ComboKeyword);
     }
-    
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<NoSweatPower>(choiceContext, Owner.Creature, DynamicVars.Energy.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<NoSweatPower>(choiceContext, Owner.Creature, DynamicVars.Energy.BaseValue, Owner.Creature,
+            this);
     }
 }

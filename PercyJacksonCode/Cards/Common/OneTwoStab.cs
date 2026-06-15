@@ -8,7 +8,7 @@ public class OneTwoStab : PercyJacksonCard
 {
     public OneTwoStab() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(12, 2);
+        WithDamage(12, 3);
         WithCombo(2, needCombo: true);
     }
 

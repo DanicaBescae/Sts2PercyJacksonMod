@@ -24,10 +24,10 @@ public static class PercyJacksonHooks
         }
     }
     
-    public static Task AfterComboEnded(ICombatState combatState, PlayerChoiceContext choiceContext, int combo)
+    public static Task AfterComboEnded(ICombatState combatState, PlayerChoiceContext choiceContext, Player player, int combo)
     {
         return Dispatch<IAfterComboEnded>(combatState, choiceContext,
-            model => model.AfterComboEnded(choiceContext, combo));
+            model => model.AfterComboEnded(choiceContext, player, combo));
     }
     
     public static Task AfterComboStarted(ICombatState combatState, PlayerChoiceContext choiceContext, CardModel card)

@@ -11,7 +11,7 @@ public class MiniOffering: PercyJacksonCard
     public MiniOffering() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithEnergy(2);
-        WithCards(3, 2);
+        WithCards(3, 1);
         WithTide(2);
         WithKeyword(CardKeyword.Exhaust);
     }
