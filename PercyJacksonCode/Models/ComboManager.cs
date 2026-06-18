@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Cards;
 using PercyJackson.PercyJacksonCode.Extensions;
@@ -24,7 +25,7 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
 {
     private const int ComboForMult = 3;
     private CardModel _cardToIncrease;
-    private decimal _comboMult = 1.25M;
+    private decimal _baseComboMult = 1.25M;
     
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
@@ -50,17 +51,22 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         if (!props.IsPoweredAttack() || cardSource == null ||
             dealer != cardSource.Owner.Creature && dealer != cardSource.Owner.Osty)
             return 1M;
+
+        var currentComboMult = _baseComboMult;
+        var masteryPower = dealer.GetPower<SwordMasteryPower>();
+        if (masteryPower != null)
+            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, props, dealer, cardSource);
         
-        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? _comboMult : 1M;
+        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
         
         var pile = cardSource.Pile;
         var combo = cardSource.Owner.PlayerCombatState.Combo();
         return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
                combo.CurrentComboCount % ComboForMult == 2
-            ? _comboMult
+            ? currentComboMult
             : 1M;
     }
-    
+
     public override decimal ModifyBlockMultiplicative(
         Creature target,
         decimal block,
@@ -71,13 +77,19 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         if (props != ValueProp.Move || cardSource == null)
             return 1M;
 
-        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? _comboMult : 1M;
-        
+        var currentComboMult = _baseComboMult;
+        var masteryPower = cardSource.Owner.Creature.GetPower<SwordMasteryPower>();
+        if (masteryPower != null)
+            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, props,
+                cardSource.Owner.Creature, cardSource);
+
+        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
+
         var pile = cardSource.Pile;
         var combo = cardSource.Owner.PlayerCombatState.Combo();
         return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
                combo.CurrentComboCount % ComboForMult == 2
-            ? _comboMult
+            ? currentComboMult
             : 1M;
     }
 
@@ -141,7 +153,8 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
     private static async Task UpdateCombo(PlayerChoiceContext choiceContext, ICombatState combatState,
         CardPlay cardPlay, PlayerCombatStateExtensions.ComboCombatState combo)
     {
-        await PercyJacksonHooks.AfterComboStarted(combatState, choiceContext, cardPlay.Card);
+        if (combo.CurrentComboCount == 0)
+            await PercyJacksonHooks.AfterComboStarted(combatState, choiceContext, cardPlay.Card);
         combo.AddToCombo(cardPlay);
     }
 

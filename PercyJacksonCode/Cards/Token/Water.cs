@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using PercyJackson.PercyJacksonCode.Hooks;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Token;
 
@@ -32,10 +33,12 @@ public class Water: PercyJacksonCard
 
     private async Task Activate(PlayerChoiceContext choiceContext)
     {
+        await PercyJacksonHooks.BeforeWaterActivated(CombatState, choiceContext, this);
         await CommonActions.Draw(this, choiceContext);
         await CardCmd.Discard(choiceContext,
             await CardSelectCmd.FromHandForDiscard(choiceContext, Owner,
                 new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, DynamicVars["Discard"].IntValue), null,
                 this));
+        await PercyJacksonHooks.AfterWaterActivated(CombatState, choiceContext, this);
     }
 }

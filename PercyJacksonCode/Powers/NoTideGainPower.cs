@@ -23,7 +23,7 @@ public class NoTideGainPower: PercyJacksonPower, IShouldGainTide
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (!participants.Contains(Owner)) return;
+        if (!participants.Contains(Owner) || side != Owner.Side) return;
         await PowerCmd.Remove(this);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Assets;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat.History;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
@@ -12,6 +14,7 @@ namespace PercyJackson.PercyJacksonCode.Fields;
 
 public class PercyJacksonFields
 {
+    public static readonly SpireField<CombatHistory, int> ShufflesThisCombat;
     public static readonly SpireField<PlayerCombatState, PlayerCombatStateExtensions.TideCombatState> TideCombatState = new(()=>null);
     public static readonly SpireField<PlayerCombatState, PlayerCombatStateExtensions.ComboCombatState> ComboCombatState = new(()=>null);
     public static readonly AddedNode<NCombatUi, NTideCounter> TideCounter = new((ui) =>

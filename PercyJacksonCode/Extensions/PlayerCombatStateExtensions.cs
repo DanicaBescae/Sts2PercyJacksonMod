@@ -14,20 +14,31 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using PercyJackson.PercyJacksonCode.Fields;
+using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Extensions;
 
 public static class PlayerCombatStateExtensions
 {
-    public class TideCombatState(PlayerCombatState playerCombatState)
+    public class TideCombatState
     {
+        public TideCombatState(PlayerCombatState playerCombatState)
+        {
+            Owner = playerCombatState._player;
+        }
+        
         public int CurrentTide         {
             get;
             set
             {
                 if (field == value) return;
                 var tide = field;
-                field = value;
+                var tideChange = value - field;
+                if (Owner.HasPower<SonOfNeptunePower>())
+                {
+                    tideChange *= Owner.Creature.GetPowerAmount<SonOfNeptunePower>();
+                }
+                field = Math.Max(0, field + tideChange);
                 TideChanged?.Invoke(tide, field);
             }
         } = 0;
@@ -38,7 +49,12 @@ public static class PlayerCombatStateExtensions
             {
                 if (field == value) return;
                 var maxTide = field;
-                field = value;
+                var tideChange = value - field;
+                if (Owner.HasPower<SonOfNeptunePower>())
+                {
+                    tideChange *= Owner.Creature.GetPowerAmount<SonOfNeptunePower>();
+                }
+                field = Math.Max(0, field + tideChange);
                 MaxTideChanged?.Invoke(maxTide, field);
             }
         } = 1;
@@ -49,15 +65,20 @@ public static class PlayerCombatStateExtensions
             {
                 if (field == value) return;
                 var maxTide = field;
-                field = value;
+                var tideChange = value - field;
+                if (Owner.HasPower<SonOfNeptunePower>())
+                {
+                    tideChange *= Owner.Creature.GetPowerAmount<SonOfNeptunePower>();
+                }
+                field = Math.Max(0, field + tideChange);
                 MaxTideChanged?.Invoke(maxTide, field);
             }
         } = 0;
 
-        public Player Owner
+        private Player Owner
         {
             get;
-            set
+            init
             {
                 if (field != null && value != null && value != field)
                     throw new InvalidOperationException("Tide already has an owner.");
@@ -72,8 +93,12 @@ public static class PlayerCombatStateExtensions
         public event Action<int, int>? MaxTideChanged;
     }
     
-    public class ComboCombatState(PlayerCombatState playerCombatState)
+    public class ComboCombatState
     {
+        public ComboCombatState(PlayerCombatState playerCombatState)
+        {
+            Owner = playerCombatState._player;
+        }
         public int CurrentComboCount
         {
             get;
@@ -91,7 +116,7 @@ public static class PlayerCombatStateExtensions
         public Player Owner
         {
             get;
-            set
+            private set
             {
                 if (field != null && value != null && value != field)
                     throw new InvalidOperationException("Tide already has an owner.");

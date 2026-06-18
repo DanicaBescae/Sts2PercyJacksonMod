@@ -65,11 +65,14 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         else if (negative) await LowerTide(player, tideChange);
     }
 
-    public static void UpdateMaxTide(Player player, int tideChange, bool temporary = false)
+    public static void UpdateMaxTide(Player player, int tideChange, bool temporary = false, bool negative = false)
     {
-        if (temporary)
-            player.PlayerCombatState.Tide().TempMaxTide = player.PlayerCombatState.Tide().MaxTide + tideChange;
-        else player.PlayerCombatState.Tide().MaxTide += tideChange;
+        var tide = player.PlayerCombatState.Tide();
+        
+        if (negative && tide.CurrentTide == tide.MaxTide) tide.CurrentTide -= 1;
+        
+        if (temporary) tide.TempMaxTide = tide.MaxTide + tideChange;
+        else tide.MaxTide += tideChange;
     }
 
     private static Task ClearTempMaxTide(Player player)

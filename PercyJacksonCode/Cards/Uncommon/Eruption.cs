@@ -18,16 +18,14 @@ public class Eruption : PercyJacksonCard
     public Eruption() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithPower<WoundedPower>(4);
-        WithDamage(20, 5);
+        WithDamage(10, 3);
+        WithVar("HitCount", 2);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play.Target, DynamicVars.Damage.BaseValue, ValueProp.Move,
-            vfx: "vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
-        
         foreach (var enemy in CombatState.HittableEnemies)
         {
             await PowerCmd.Apply<WeakPower>(choiceContext, enemy, DynamicVars["WoundedPower"].BaseValue, Owner.Creature,
@@ -39,5 +37,9 @@ public class Eruption : PercyJacksonCard
             await PowerCmd.Apply<WeakPower>(choiceContext, player, DynamicVars["WoundedPower"].BaseValue,
                 Owner.Creature, this);
         }
+
+        await CommonActions.CardAttack(this, play.Target, DynamicVars.Damage.BaseValue, ValueProp.Move,
+            hitCount: DynamicVars["HitCount"].IntValue,
+            vfx: "vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
     }
 }

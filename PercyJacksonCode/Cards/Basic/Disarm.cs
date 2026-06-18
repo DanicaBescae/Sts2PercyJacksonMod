@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
+using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Basic;
 
@@ -21,7 +22,7 @@ public class Disarm : PercyJacksonCard
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        await PowerCmd.Apply<DarkShacklesPower>(choiceContext, play.Target, DynamicVars["StrengthLoss"].BaseValue,
+        await PowerCmd.Apply<DisarmPower>(choiceContext, play.Target, DynamicVars["StrengthLoss"].BaseValue,
                 Owner.Creature, this);
     }
 }

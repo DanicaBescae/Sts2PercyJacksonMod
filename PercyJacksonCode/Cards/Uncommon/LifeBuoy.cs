@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Common;
+namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class LifeBuoy: PercyJacksonCard
 {

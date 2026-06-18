@@ -2,43 +2,108 @@
   "PERCYJACKSON-NO_SWEAT_POWER.description": "Whenever you end a [gold]Combo[/gold], gain [gold]Energy[/gold].",
   "PERCYJACKSON-NO_SWEAT_POWER.smartDescription": "Whenever you end a [gold]Combo[/gold], gain {Amount:energyIcons()}.",
   "PERCYJACKSON-NO_SWEAT_POWER.title": "No Sweat",
+  
   "PERCYJACKSON-RAISING_THE_TIBER_POWER.description": "At the start of your turn, raise the maximum [gold]Tide[/gold].",
   "PERCYJACKSON-RAISING_THE_TIBER_POWER.smartDescription": "At the start of your turn, raise the maximum [gold]Tide[/gold] by [blue]{Amount}[/blue].",
   "PERCYJACKSON-RAISING_THE_TIBER_POWER.title": "Raising The Tiber",
+  
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.description": "You may not raise the [gold]Tide[/gold] this turn.",
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.smartDescription": "You may not raise the [gold]Tide[/gold] this turn.",
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.title": "No Tide",
+  
   "PERCYJACKSON-WATER_WALKING_POWER.description": "Whenever you play a card this turn, gain [gold]Tide[/gold].",
   "PERCYJACKSON-WATER_WALKING_POWER.smartDescription": "Whenever you play a card this turn, gain [blue]{Amount}[/blue] [gold]Tide[/gold].",
   "PERCYJACKSON-WATER_WALKING_POWER.title": "Walking on Water",
+  
   "PERCYJACKSON-BUBBLE_POWER.description": "Whenever the [gold]Tide[/gold] goes over its maximum, gain [gold]Block[/gold].",
-  "PERCYJACKSON-BUBBLE_POWER.smartDescription": "Whenever the [gold]Tide[/gold] goes over its maximum, gain {Amount:diff()} [gold]Block[/gold].",
+  "PERCYJACKSON-BUBBLE_POWER.smartDescription": "Whenever the [gold]Tide[/gold] goes over its maximum, gain [blue]{Amount:diff()}[/blue] [gold]Block[/gold].",
   "PERCYJACKSON-BUBBLE_POWER.title": "Bubbled",
+  
   "PERCYJACKSON-UNWAVERING_POWER.description": "The first few times you consume [gold]Vigor[/gold] each turn, reapply the lost [gold]Vigor[/gold].",
   "PERCYJACKSON-UNWAVERING_POWER.smartDescription": "The first [blue]{Amount}[/blue] time{Amount:plural:|s} you consume [gold]Vigor[/gold] each turn, reapply the lost [gold]Vigor[/gold].",
   "PERCYJACKSON-UNWAVERING_POWER.title": "Unwavering",
+  
   "PERCYJACKSON-GREEK_STYLE_IMPROV_POWER.description": "For the next few turns, all cards are [gold]Combo[/gold] cards and ignore [gold]Combo[/gold] count restrictions.",
-  "PERCYJACKSON-GREEK_STYLE_IMPROV_POWER.smartDescription": "{Amount:plural:Next|For the next {Amount:diff()}} turn{Amount:plural:|s}, all cards are [gold]Combo[/gold] cards and ignore [gold]Combo[/gold] count restrictions.",
+  "PERCYJACKSON-GREEK_STYLE_IMPROV_POWER.smartDescription": "{Amount:plural:Next|For the next [blue]{Amount:diff()}[/blue]} turn{Amount:plural:|s}, all cards are [gold]Combo[/gold] cards and ignore [gold]Combo[/gold] count restrictions.",
   "PERCYJACKSON-GREEK_STYLE_IMPROV_POWER.title": "Greek-Style Improv",
+  
   "PERCYJACKSON-IMPROVISING_POWER.description": "This turn, all cards are [gold]Combo[/gold] cards and ignore [gold]Combo[/gold] count restrictions.",
   "PERCYJACKSON-IMPROVISING_POWER.smartDescription": "This turn, all cards are [gold]Combo[/gold] cards and ignore [gold]Combo[/gold] count restrictions.",
   "PERCYJACKSON-IMPROVISING_POWER.title": "Improvising",
+  
   "PERCYJACKSON-ACHILLES_HEEL_POWER.description": "Gain [gold]Energy[/gold] and clear all stackable debuffs at the start of your turn.\nYou take double attack damage.",
   "PERCYJACKSON-ACHILLES_HEEL_POWER.smartDescription": "Gain {Amount:energyIcons()} and clear all stackable debuffs at the start of your turn.\nYou take double attack damage.",
   "PERCYJACKSON-ACHILLES_HEEL_POWER.title": "Achilles' Heel",
+  
   "PERCYJACKSON-TORMENTED_POWER.description": "Tormented creatures take damage proportional to the sum of their debuffs at the start of their turn.",
-  "PERCYJACKSON-TORMENTED_POWER.smartDescription": "Takes damage equal to {Amount:plural:{Amount:diff()} x |}the sum of their debuffs at the start of their turn.",
+  "PERCYJACKSON-TORMENTED_POWER.smartDescription": "Takes damage equal to {Amount:plural:[blue]{Amount:diff()}[/blue] x |}the sum of their debuffs at the start of their turn.",
   "PERCYJACKSON-TORMENTED_POWER.title": "Tormented",
+  
   "PERCYJACKSON-GUILTY_POWER.description": "Shuffle a copy of [gold]Guilty[/gold] into your [gold]Draw Pile[/gold] whenever a creature that you are tormenting suffers from their torment.",
   "PERCYJACKSON-GUILTY_POWER.smartDescription": "Shuffle a copy of [gold]Guilty[/gold] into your [gold]Draw Pile[/gold] whenever a creature that you are tormenting suffers from their torment.",
   "PERCYJACKSON-GUILTY_POWER.title": "Guilty",
+  
   "PERCYJACKSON-WOUNDED_POWER.description": "Wounded creatures lose HP when taking unblocked attack damage. Each turn, Wounded is reduced by 1.",
   "PERCYJACKSON-WOUNDED_POWER.smartDescription": "Loses {Amount} HP when taking unblocked attack damage.",
   "PERCYJACKSON-WOUNDED_POWER.title": "Wounded",
+  
   "PERCYJACKSON-WAVE_PUNCH_POWER.description": "At the start of your turn, deal damage proportional to the total [gold]Tide[/gold] gained this combat to a random enemy.",
-  "PERCYJACKSON-WAVE_PUNCH_POWER.smartDescription": "At the start of your turn, deal damage equal to {Amount:plural:{Amount:diff()} x |} the total [gold]Tide[/gold] gained this combat to a random enemy.",
+  "PERCYJACKSON-WAVE_PUNCH_POWER.smartDescription": "At the start of your turn, deal damage equal to {Amount:plural:[blue]{Amount:diff()}[/blue] x |} the total [gold]Tide[/gold] gained this combat to a random enemy.",
   "PERCYJACKSON-WAVE_PUNCH_POWER.title": "Wave Punch",
+  
   "PERCYJACKSON-SWORD_SHARPENING_POWER.description": "All attacks in the following [gold]Combo[/gold] deal extra damage.",
   "PERCYJACKSON-SWORD_SHARPENING_POWER.smartDescription": "All attacks in the following [gold]Combo[/gold] deal {Amount:diff()} more damage.",
-  "PERCYJACKSON-SWORD_SHARPENING_POWER.title": "Sword Sharpening"
+  "PERCYJACKSON-SWORD_SHARPENING_POWER.title": "Sword Sharpening",
+  
+  "PERCYJACKSON-SWORD_MASTERY_POWER.description": "Every 3rd [gold]Combo[/gold] card now has extra effectiveness.",
+  "PERCYJACKSON-SWORD_MASTERY_POWER.smartDescription": "Every 3rd [gold]Combo[/gold] card now has [blue]{Amount:diff()}[/blue]% extra effectiveness instead of 25%.",
+  "PERCYJACKSON-SWORD_MASTERY_POWER.title": "Sword Mastery",
+  
+  "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.description": "Gain [gold]Vigor[/gold] next turn.",
+  "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.smartDescription": "Gain [blue]{Amount:diff()}[/blue] [gold]Vigor[/gold] next turn.",
+  "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.title": "Invigorated",
+  
+  "PERCYJACKSON-SURFACED_TREASURE_POWER.description": "Water draws extra cards.",
+  "PERCYJACKSON-SURFACED_TREASURE_POWER.smartDescription": "Water draws [blue]{Amount}[/blue] extra card{Amount:plural:|s}.",
+  "PERCYJACKSON-SURFACED_TREASURE_POWER.title": "Surfaced Treasure",
+
+  "PERCYJACKSON-PERMANENT_SCARRING_POWER.description": "[gold]Wounded[/gold] enemies take damage equal to their [gold]Wounded[/gold] at the start of the turn.",
+  "PERCYJACKSON-PERMANENT_SCARRING_POWER.smartDescription": "[gold]Wounded[/gold] enemies take damage equal to their [gold]Wounded[/gold] {Amount:plural:|[blue]{Amount:diff()}[/blue] times }at the start of the turn.",
+  "PERCYJACKSON-PERMANENT_SCARRING_POWER.title": "Permanent Scarring",
+
+  "PERCYJACKSON-PURE_DESTRUCTION_POWER.description": "Untargeted attacks deal additional damage.",
+  "PERCYJACKSON-PURE_DESTRUCTION_POWER.smartDescription": "Untargeted attacks deal {Amount:diff()} additional damage.",
+  "PERCYJACKSON-PURE_DESTRUCTION_POWER.title": "Pure Destruction",
+
+  "PERCYJACKSON-TETANUS_POWER.description": "Every [blue]3[/blue] times you apply [gold]Wounded[/gold], apply an equal amount of [gold]Poison[/gold].",
+  "PERCYJACKSON-TETANUS_POWER.smartDescription": "Every [blue]3[/blue] times you apply [gold]Wounded[/gold], apply an equal amount of [gold]Poison[/gold]{Amount:plural:| [blue]{Amount:diff()}[/blue] times}.",
+  "PERCYJACKSON-TETANUS_POWER.title": "Tetanus",
+
+  "PERCYJACKSON-TERRIFIED_ANTICIPATION_POWER.description": "The first time you start a [gold]Combo[/gold] each turn, deal damage to ALL enemies.",
+  "PERCYJACKSON-TERRIFIED_ANTICIPATION_POWER.smartDescription": "The first time you start a [gold]Combo[/gold] each turn, deal [blue]{Amount:diff()}[/blue] damage to ALL enemies.",
+  "PERCYJACKSON-TERRIFIED_ANTICIPATION_POWER.title": "Terrified Anticipation",
+
+  "PERCYJACKSON-HURRICANE_FORM_POWER.description": "Whenever you deal unblocked attack damage to an enemy, deal damage to a random enemy.",
+  "PERCYJACKSON-HURRICANE_FORM_POWER.smartDescription": "Whenever you deal unblocked attack damage to an enemy, deal [blue]{Amount:diff()}[/blue] damage to a random enemy.",
+  "PERCYJACKSON-HURRICANE_FORM_POWER.title": "Hurricane Form",
+
+  "PERCYJACKSON-TEAMWORK_POWER.description": "At the start of your turn, add a random [gold]Combo[/gold]-related card to your hand.",
+  "PERCYJACKSON-TEAMWORK_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a|[blue]{Amount:diff()}[/blue]} random [gold]Combo[/gold]-related card{Amount:plural:|s} to your hand.",
+  "PERCYJACKSON-TEAMWORK_POWER.title": "Teamwork",
+
+  "PERCYJACKSON-SON_OF_NEPTUNE_POWER.description": "All [gold]Tide[/gold] gain and maximum [gold]Tide[/gold] gain is increased. At the start of your turn, lower the maximum [gold]Tide[/gold].",
+  "PERCYJACKSON-SON_OF_NEPTUNE_POWER.smartDescription": "All [gold]Tide[/gold] gain and maximum [gold]Tide[/gold] gain is multiplied by [blue]{Amount:diff()}[/blue]. At the start of your turn, lower the maximum [gold]Tide[/gold] by [blue]{Amount:diff()}[/blue].",
+  "PERCYJACKSON-SON_OF_NEPTUNE_POWER.title": "Son Of Neptune",
+
+  "PERCYJACKSON-HYDROGENESIS_POWER.description": "At the start of your turn, shuffle [gold]Water[/gold] into your [gold]Draw Pile[/gold].",
+  "PERCYJACKSON-HYDROGENESIS_POWER.smartDescription": "At the start of your turn, shuffle [blue]{Amount:diff()}[/blue] [gold]Water[/gold] into your [gold]Draw Pile[/gold].",
+  "PERCYJACKSON-HYDROGENESIS_POWER.title": "Hydrogenesis",
+
+  "PERCYJACKSON-REINVIGORATION_POWER.description": "Whenever you activate [gold]Water[/gold], gain [gold]Strength[/gold].",
+  "PERCYJACKSON-REINVIGORATION_POWER.smartDescription": "Whenever you activate [gold]Water[/gold], gain [blue]{Amount:diff()}[/blue] [gold]Strength[/gold].",
+  "PERCYJACKSON-REINVIGORATION_POWER.title": "Reinvigoration",
+
+  "PERCYJACKSON-ANAKLUSMOS_POWER.description": "The first Attack you play each turn hits additional times.",
+  "PERCYJACKSON-ANAKLUSMOS_POWER.smartDescription": "The first Attack you play each turn hits [blue]{Amount:diff()}[/blue] additional time{Amount:plural:|s}.",
+  "PERCYJACKSON-ANAKLUSMOS_POWER.title": "Anaklusmos"
 }

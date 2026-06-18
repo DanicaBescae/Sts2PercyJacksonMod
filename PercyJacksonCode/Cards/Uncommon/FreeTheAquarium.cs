@@ -22,7 +22,7 @@ public class FreeTheAquarium: PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await TideManager.UpdateTide(Owner, DynamicVars["Tide"].IntValue, true);
+        TideManager.UpdateMaxTide(Owner, DynamicVars["Tide"].IntValue, negative: true);
 
         var prefs = new CardSelectorPrefs(new LocString("cards", "PERCYJACKSON-FREE_THE_AQUARIUM.selectionPrompt"),
             DynamicVars.Cards.IntValue);

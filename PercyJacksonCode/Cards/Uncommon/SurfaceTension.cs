@@ -7,16 +7,16 @@ namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class SurfaceTension: PercyJacksonCard
 {
-    public SurfaceTension() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public SurfaceTension() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        WithTide(3, 2);
+        WithTide(3, 1);
     }
 
-    protected override async Task OnPlay(
+    protected override Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        TideManager.UpdateMaxTide(Owner, DynamicVars["Tide"].IntValue, true);
-        await Task.CompletedTask;
+        TideManager.UpdateMaxTide(Owner, DynamicVars["Tide"].IntValue);
+        return Task.CompletedTask;
     }
 }

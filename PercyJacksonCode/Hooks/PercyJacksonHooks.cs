@@ -36,6 +36,18 @@ public static class PercyJacksonHooks
             model => model.AfterComboStarted(choiceContext, card));
     }
     
+    public static Task BeforeWaterActivated(ICombatState combatState, PlayerChoiceContext choiceContext, CardModel card)
+    {
+        return Dispatch<IBeforeWaterActivated>(combatState, choiceContext,
+            model => model.BeforeWaterActivated(choiceContext, card));
+    }
+    
+    public static Task AfterWaterActivated(ICombatState combatState, PlayerChoiceContext choiceContext, CardModel card)
+    {
+        return Dispatch<IAfterWaterActivated>(combatState, choiceContext,
+            model => model.AfterWaterActivated(choiceContext, card));
+    }
+    
     public static Task OnTideOverflowed(ICombatState combatState, PlayerChoiceContext choiceContext, Player player)
     {
         return Dispatch<IOnTideOverflowed>(combatState, choiceContext,
