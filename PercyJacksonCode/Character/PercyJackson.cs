@@ -6,6 +6,8 @@ using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
+using PercyJackson.PercyJacksonCode.Cards.Basic;
+using PercyJackson.PercyJacksonCode.Relics;
 
 namespace PercyJackson.PercyJacksonCode.Character;
 
@@ -17,26 +19,26 @@ public class PercyJackson : PlaceholderCharacterModel
     public static readonly Color Color = new("ffffff");
 
     public override Color NameColor => Color;
-    public override CharacterGender Gender => CharacterGender.Neutral;
-    public override int StartingHp => 70;
+    public override CharacterGender Gender => CharacterGender.Masculine;
+    public override int StartingHp => 78;
 
     public override IEnumerable<CardModel> StartingDeck =>
     [
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<DefendIronclad>()
+        ModelDb.Card<StrikePercy>(),
+        ModelDb.Card<StrikePercy>(),
+        ModelDb.Card<StrikePercy>(),
+        ModelDb.Card<StrikePercy>(),
+        ModelDb.Card<DefendPercy>(),
+        ModelDb.Card<DefendPercy>(),
+        ModelDb.Card<DefendPercy>(),
+        ModelDb.Card<DefendPercy>(),
+        ModelDb.Card<Disarm>(),
+        ModelDb.Card<IncomingWave>()
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
     [
-        ModelDb.Relic<BurningBlood>()
+        ModelDb.Relic<PoseidonsBlessing>()
     ];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<PercyJacksonCardPool>();

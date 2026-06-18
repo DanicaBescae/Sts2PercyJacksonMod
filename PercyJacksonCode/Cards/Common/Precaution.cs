@@ -4,23 +4,24 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
-using PercyJackson.PercyJacksonCode.Models;
-using PercyJackson.PercyJacksonCode.Powers;
+using PercyJackson.PercyJacksonCode.Cards;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
+namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
-public class Mythomagic: PercyJacksonCard
+public class Precaution : PercyJacksonCard
 {
-    public Mythomagic() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public Precaution() : base(1, CardType.Skill,
+        CardRarity.Common, TargetType.Self)
     {
-        WithCards(3, 1);
+        WithBlock(5, 3);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        var prefs = new CardSelectorPrefs(new LocString("cards", "PERCYJACKSON-MYTHOMAGIC.selectionScreenPrompt"),
+        await CommonActions.CardBlock(this, play);
+        var prefs = new CardSelectorPrefs(new LocString("cards", "PERCYJACKSON-PRECAUTION.selectionScreenPrompt"),
             1);
         var cards = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this)).ToList();
 
@@ -30,6 +31,5 @@ public class Mythomagic: PercyJacksonCard
         {
             await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Random);
         }
-        await CommonActions.Draw(this, choiceContext);
     }
 }

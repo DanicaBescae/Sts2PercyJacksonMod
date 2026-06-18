@@ -14,7 +14,7 @@ public class RefinedTechnique: PercyJacksonCard
     public RefinedTechnique() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithCombo(6, -1);
-        WithDamage(14);
+        WithDamage(10);
         WithCalculatedVar("HitCount", 0, (c, _) => c.Owner.PlayerCombatState.Combo().CurrentComboCount);
     }
 

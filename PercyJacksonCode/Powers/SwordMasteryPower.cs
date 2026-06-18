@@ -17,11 +17,14 @@ public class SwordMasteryPower() : PercyJacksonPower
     public decimal ModifyComboMultiplier(
         Creature target,
         decimal amount,
+        decimal comboCount,
         ValueProp props,
         Creature? dealer,
         CardModel? cardSource)
     {
-        return target == Owner || props != ValueProp.Move || dealer != Owner ? amount : amount + Amount / 100M;
+        return target == Owner || props != ValueProp.Move || dealer != Owner
+            ? amount
+            : amount + (Amount * comboCount) / 100M;
     }
 
     

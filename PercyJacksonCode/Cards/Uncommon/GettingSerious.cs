@@ -17,6 +17,7 @@ public class GettingSerious: PercyJacksonCard {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int strengthGain;
+        if (!Owner.Creature.HasPower<VigorPower>()) return;
         if (IsUpgraded)
         {
             strengthGain = Owner.Creature.GetPowerAmount<VigorPower>();

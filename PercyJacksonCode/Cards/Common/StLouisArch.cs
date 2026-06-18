@@ -17,7 +17,7 @@ public class StLouisArch: PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        TideManager.UpdateMaxTide(Owner, DynamicVars["Tide"].IntValue, true);
+        await TideManager.UpdateTide(Owner, DynamicVars["Tide"].IntValue, negative: true);
         await CommonActions.CardBlock(this, play);
     }
 }

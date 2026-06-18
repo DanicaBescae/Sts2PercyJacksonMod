@@ -22,18 +22,18 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
     {
         if (side != CombatSide.Player) return;
         await ApplyVigorFromTideToAll(choiceContext, combatState.Players);
-        foreach (var player in participants.OfType<Player>())
+        foreach (var player in participants.Where(c => c.IsPlayer))
         {
-            await ClearTempMaxTide(player);
+            await ClearTempMaxTide(player.Player);
         }
     }
 
     public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side != CombatSide.Player) return Task.CompletedTask;
-        foreach (var player in participants.OfType<Player>())
+        foreach (var player in participants.Where(c => c.IsPlayer))
         {
-            ClearTempMaxTide(player);
+            ClearTempMaxTide(player.Player);
         }
 
         return Task.CompletedTask;

@@ -18,11 +18,11 @@ public class TormentedPower() : PercyJacksonPower
     public override PowerStackType StackType =>
         PowerStackType.Counter;
 
-    public Creature tormentor;
+    public Creature? Tormentor;
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        tormentor = applier;
+        Tormentor = applier;
         return Task.CompletedTask;
     }
     
@@ -50,11 +50,11 @@ public class TormentedPower() : PercyJacksonPower
     {
         if (side != Owner.Side || !participants.Contains(Owner)) return;
 
-        await CreatureCmd.Damage(choiceContext, Owner, GetNumDebuffs() * Amount, ValueProp.Unpowered, tormentor);
+        await CreatureCmd.Damage(choiceContext, Owner, GetNumDebuffs() * Amount, ValueProp.Unpowered, Tormentor);
     }
 
     public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        return creature == tormentor ? PowerCmd.Remove(this) : Task.CompletedTask;
+        return creature == Tormentor ? PowerCmd.Remove(this) : Task.CompletedTask;
     }
 }

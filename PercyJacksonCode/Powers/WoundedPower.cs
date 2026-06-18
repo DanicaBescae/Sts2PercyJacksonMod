@@ -1,5 +1,6 @@
 ﻿using BaseLib.Hooks;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -35,11 +36,18 @@ public class WoundedPower() : PercyJacksonPower
         if (target != Owner || result.UnblockedDamage == 0 || !props.IsPoweredAttack() || dealer == Owner) return;
 
         await TriggerWounded(choiceContext, dealer);
-        await PowerCmd.Decrement(this);
+    }
+
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    {
+        if (side != Owner.Side) return;
+        if (Amount == 1) await PowerCmd.Remove(this);
+        await PowerCmd.ModifyAmount(choiceContext, this, -1 * (Amount / 2), Owner, null);
     }
 
     public async Task TriggerWounded(PlayerChoiceContext choiceContext, Creature dealer)
     {
         await CreatureCmd.Damage(choiceContext, Owner, Amount, ValueProp.Unpowered, dealer);
+        await PowerCmd.ModifyAmount(choiceContext, this, 1, dealer, null);
     }
 }

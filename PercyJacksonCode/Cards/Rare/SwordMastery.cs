@@ -10,7 +10,8 @@ public class SwordMastery : PercyJacksonCard
 {
     public SwordMastery() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        WithPower<SwordMasteryPower>(50, 25);
+        WithPower<SwordMasteryPower>(5);
+        WithCostUpgradeBy(-1);
     }
 
     protected override async Task OnPlay(

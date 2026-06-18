@@ -22,9 +22,11 @@ public class UnwaveringPower() : PercyJacksonPower
 
     private Task ReapplyVigor(PlayerChoiceContext choiceContext, int amt)
     {
+        if (_timesAlreadyApplied >= Amount) return Task.CompletedTask;
         Flash();
         PowerCmd.Apply<VigorPower>(choiceContext, Owner, amt, Owner, null);
-        return PowerCmd.Decrement(this);
+        _timesAlreadyApplied++;
+        return Task.CompletedTask;
     }
 
     [HarmonyPatch(typeof(VigorPower), nameof(VigorPower.AfterAttack))]

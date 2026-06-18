@@ -7,7 +7,7 @@ namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
 public class OpenedSores: PercyJacksonCard
 {
-    public OpenedSores() : base(1, CardType.Attack, CardRarity.Common, TargetType.RandomEnemy)
+    public OpenedSores() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithPower<WoundedPower>(4, 2);
     }

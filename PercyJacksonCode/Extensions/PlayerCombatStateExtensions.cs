@@ -1,18 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using BaseLib.Abstracts;
-using BaseLib.Extensions;
-using Godot;
-using MegaCrit.Sts2.Core.Assets;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
+﻿using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using PercyJackson.PercyJacksonCode.Fields;
 using PercyJackson.PercyJacksonCode.Powers;
 
@@ -31,7 +19,7 @@ public static class PlayerCombatStateExtensions
             get;
             set
             {
-                if (field == value) return;
+                if (field == value || Owner == null) return;
                 var tide = field;
                 var tideChange = value - field;
                 if (Owner.HasPower<SonOfNeptunePower>())
@@ -47,7 +35,7 @@ public static class PlayerCombatStateExtensions
             get => TempMaxTide > 0 ? TempMaxTide : field;
             set
             {
-                if (field == value) return;
+                if (field == value || Owner == null) return;
                 var maxTide = field;
                 var tideChange = value - field;
                 if (Owner.HasPower<SonOfNeptunePower>())
@@ -63,7 +51,7 @@ public static class PlayerCombatStateExtensions
             get;
             set
             {
-                if (field == value) return;
+                if (field == value || Owner == null) return;
                 var maxTide = field;
                 var tideChange = value - field;
                 if (Owner.HasPower<SonOfNeptunePower>())
@@ -75,7 +63,7 @@ public static class PlayerCombatStateExtensions
             }
         } = 0;
 
-        private Player Owner
+        private Player? Owner
         {
             get;
             init
@@ -111,9 +99,9 @@ public static class PlayerCombatStateExtensions
             }
         }
 
-        public List<CardPlay> ComboHistory = [];
+        public readonly List<CardPlay> ComboHistory = [];
 
-        public Player Owner
+        public Player? Owner
         {
             get;
             private set
@@ -142,13 +130,16 @@ public static class PlayerCombatStateExtensions
         public event Action<CardPlay>? NewCardInCombo;
     }
     
-    public static TideCombatState Tide(this PlayerCombatState playerCombatState)
+    extension(PlayerCombatState playerCombatState)
     {
-        return PercyJacksonFields.TideCombatState[playerCombatState];
-    }
-    
-    public static ComboCombatState Combo(this PlayerCombatState playerCombatState)
-    {
-        return PercyJacksonFields.ComboCombatState[playerCombatState];
+        public TideCombatState? Tide()
+        {
+            return PercyJacksonFields.TideCombatState[playerCombatState];
+        }
+
+        public ComboCombatState? Combo()
+        {
+            return PercyJacksonFields.ComboCombatState[playerCombatState];
+        }
     }
 }

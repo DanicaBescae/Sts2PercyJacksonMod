@@ -1,5 +1,5 @@
 {
-  "PERCYJACKSON-TIDEKEYWORD.description": "At the end of your turn, gain [gold]Vigor[/gold] equal to Tide.\n\nGain 3 [gold]Block[/gold] when Tide goes over its maximum.\n\nLose 2 HP when Tide falls below 0.",
+  "PERCYJACKSON-TIDEKEYWORD.description": "At the end of your turn, gain [gold]Vigor[/gold] equal to Tide. When the Tide goes over its maximum, raise the maximum Tide by 1.",
   "PERCYJACKSON-TIDEKEYWORD.title": "Tide",
   "PERCYJACKSON-COMBOSTARTER.description": "Must be played in order to start a Combo.",
   "PERCYJACKSON-COMBOSTARTER.title": "Combo Starter",

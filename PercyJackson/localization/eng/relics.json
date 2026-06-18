@@ -1,3 +1,9 @@
 {
-  
+  "PERCYJACKSON-POSEIDONS_BLESSING.description": "At the start of your turn, raise the [gold]Tide[/gold] by [blue]1[/blue].",
+  "PERCYJACKSON-POSEIDONS_BLESSING.flavor": "",
+  "PERCYJACKSON-POSEIDONS_BLESSING.title": "Poseidon's Blessing",
+
+  "PERCYJACKSON-TIDE_BREAKER.description": "At the start of your turn, raise the [gold]Tide[/gold] and maximum [gold]Tide[/gold] by [blue]1[/blue].",
+  "PERCYJACKSON-TIDE_BREAKER.flavor": "",
+  "PERCYJACKSON-TIDE_BREAKER.title": "Tidebreaker"
 }

@@ -21,7 +21,10 @@ public class Arc: PercyJacksonCard
     {
         await CommonActions.CardAttack(this, play.Target, DynamicVars.Damage.BaseValue, ValueProp.Move)
             .Execute(choiceContext);
-        await PowerCmd.Apply<WoundedPower>(choiceContext, play.Target, DynamicVars["WoundedPower"].BaseValue,
-            Owner.Creature, this);
+        foreach (var enemy in CombatState.HittableEnemies)
+        {
+            await PowerCmd.Apply<WoundedPower>(choiceContext, enemy, DynamicVars["WoundedPower"].BaseValue,
+                Owner.Creature, this);
+        }
     }
 }

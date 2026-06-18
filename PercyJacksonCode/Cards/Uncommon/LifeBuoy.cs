@@ -8,7 +8,7 @@ namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class LifeBuoy: PercyJacksonCard
 {
-    public LifeBuoy() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public LifeBuoy() : base(1, CardType.Attack, CardRarity.Common, TargetType.Self)
     {
         WithBlock(7, 3);
         WithCards(1);
@@ -23,6 +23,6 @@ public class LifeBuoy: PercyJacksonCard
     {
         if (card != this) return;
         if (Pile.Type != PileType.Draw || oldPileType == PileType.Draw) return;
-        await CommonActions.Draw(this, new ThrowingPlayerChoiceContext());
+        await CommonActions.Draw(this, new BlockingPlayerChoiceContext());
     }
 }

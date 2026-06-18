@@ -18,8 +18,6 @@ public class TeamworkPower() : PercyJacksonPower
     public override PowerStackType StackType =>
         PowerStackType.Counter;
 
-    private bool _isUpgraded;
-
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (player != Owner.Player) return;

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Cards;
 
@@ -25,6 +26,8 @@ public class CantSitStill : PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play, hitCount: DynamicVars["HitCount"].IntValue).Execute(choiceContext);
+        await CommonActions
+            .CardAttack(this, play, hitCount: (int)((CalculatedVar)DynamicVars["HitCount"]).Calculate(play.Target))
+            .Execute(choiceContext);
     }
 }

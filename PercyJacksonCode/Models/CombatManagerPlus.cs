@@ -7,7 +7,7 @@ namespace PercyJackson.PercyJacksonCode.Models;
 
 public class CombatManagerPlus(): CustomSingletonModel(HookType.Combat)
 {
-    private static Dictionary<Player, int> timesShuffledThisCombat;
+    private static Dictionary<Player, int> timesShuffledThisCombat = new();
 
     public static int GetTimesShuffledThisCombat(Player player)
     {

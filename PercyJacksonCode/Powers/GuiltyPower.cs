@@ -24,7 +24,7 @@ public class GuiltyPower: PercyJacksonPower
         return CombatState.HittableEnemies.Where( c =>
         {
             if (c.GetPower<TormentedPower>() == null) return false;
-            return c.GetPower<TormentedPower>().tormentor == Owner;
+            return c.GetPower<TormentedPower>().Tormentor == Owner;
         }).Count();
     }
     

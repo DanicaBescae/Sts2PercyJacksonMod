@@ -11,10 +11,11 @@ namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
 public class Flood : PercyJacksonCard
 {
-    public Flood() : base(1, CardType.Attack,
+    public Flood() : base(0, CardType.Attack,
         CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(11, 3);
+        WithDamage(10, 3);
+        WithCards(3);
         WithTip(typeof(Water));
     }
 
@@ -23,9 +24,8 @@ public class Flood : PercyJacksonCard
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play).Execute(choiceContext);
-        var num = CardPile.MaxCardsInHand - CardPile.GetCards(Owner, PileType.Hand).Count();
         var cards = new List<CardModel>();
-        for (var i = 0; i < num; i++)
+        for (var i = 0; i < DynamicVars["Cards"].IntValue; i++)
             cards.Add(CombatState.CreateCard<Water>(Owner));
         await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner);
     }

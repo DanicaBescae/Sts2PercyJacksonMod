@@ -23,18 +23,17 @@ namespace PercyJackson.PercyJacksonCode.Models;
 /// </summary>
 public class ComboManager(): CustomSingletonModel(HookType.Combat)
 {
-    private const int ComboForMult = 3;
-    private CardModel _cardToIncrease;
-    private decimal _baseComboMult = 1.25M;
+    private CardModel? _cardToIncrease;
+    private decimal _multPerCombo = 10M;
     
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (!WillIncreaseCombo(cardPlay.Card) || cardPlay.Card.Keywords.Contains(PercyJacksonCard.ComboStarter))
+        if (!WillIncreaseCombo(cardPlay.Card))
             return Task.CompletedTask;
         
         var playerCombo = cardPlay.Card.Owner.PlayerCombatState.Combo();
 
-        if (playerCombo.CurrentComboCount % ComboForMult == 2)
+        if (playerCombo.CurrentComboCount > 0)
         {
             _cardToIncrease = cardPlay.Card;
         }
@@ -49,20 +48,24 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         CardModel? cardSource)
     {
         if (!props.IsPoweredAttack() || cardSource == null ||
-            dealer != cardSource.Owner.Creature && dealer != cardSource.Owner.Osty)
+            dealer != cardSource.Owner.Creature && dealer != cardSource.Owner.Osty || dealer == null || target == null)
             return 1M;
 
-        var currentComboMult = _baseComboMult;
+        var combo = cardSource.Owner.PlayerCombatState.Combo();
+
+        if (combo == null) return 1M;
+
+        var currentComboMult = 1 + ((_multPerCombo * combo.CurrentComboCount) / 100);
         var masteryPower = dealer.GetPower<SwordMasteryPower>();
         if (masteryPower != null)
-            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, props, dealer, cardSource);
-        
+            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, combo.CurrentComboCount,
+                props, dealer, cardSource);
+
         if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
-        
+
         var pile = cardSource.Pile;
-        var combo = cardSource.Owner.PlayerCombatState.Combo();
         return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
-               combo.CurrentComboCount % ComboForMult == 2
+               combo.CurrentComboCount > 0 && WillIncreaseCombo(cardSource)
             ? currentComboMult
             : 1M;
     }
@@ -76,19 +79,22 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
     {
         if (props != ValueProp.Move || cardSource == null)
             return 1M;
+        
+        var combo = cardSource.Owner.PlayerCombatState.Combo();
 
-        var currentComboMult = _baseComboMult;
+        if (combo == null) return 1M;
+
+        var currentComboMult = 1 + ((_multPerCombo * combo.CurrentComboCount) / 100);
         var masteryPower = cardSource.Owner.Creature.GetPower<SwordMasteryPower>();
         if (masteryPower != null)
-            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, props,
-                cardSource.Owner.Creature, cardSource);
+            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, combo.CurrentComboCount,
+                props, cardSource.Owner.Creature, cardSource);
 
         if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
 
         var pile = cardSource.Pile;
-        var combo = cardSource.Owner.PlayerCombatState.Combo();
         return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
-               combo.CurrentComboCount % ComboForMult == 2
+               combo.CurrentComboCount > 0 && WillIncreaseCombo(cardSource)
             ? currentComboMult
             : 1M;
     }
@@ -124,11 +130,10 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
     {
         if (CombatManager.Instance.IsOverOrEnding || side != CombatSide.Player) return;
         
-        var players = participants.OfType<Player>();
-        foreach (var player in players)
+        foreach (var player in participants.Where(c => c.IsPlayer))
         {
-            var combatState = player.Creature.CombatState;
-            var combo = player.PlayerCombatState.Combo();
+            var combatState = player.CombatState;
+            var combo = player.Player.PlayerCombatState.Combo();
             await ClearCombo(choiceContext, combatState, combo);
         }
     }
@@ -147,7 +152,7 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
 
     private static bool StartsCombo(CardModel card, int currentCombo)
     {
-        return card.Keywords.Contains(PercyJacksonCard.ComboStarter) && currentCombo == 0;
+        return (card.Keywords.Contains(PercyJacksonCard.ComboStarter) || IsComboChainCard(card)) && currentCombo == 0;
     }
 
     private static async Task UpdateCombo(PlayerChoiceContext choiceContext, ICombatState combatState,

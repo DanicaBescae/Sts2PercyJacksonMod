@@ -13,7 +13,7 @@ public class Liquefy: PercyJacksonCard
 {
     public Liquefy() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(13, 2);
+        WithDamage(17, 3);
         WithCards(1);
         WithTip(typeof(Water));
     }
