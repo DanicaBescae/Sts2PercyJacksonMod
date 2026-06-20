@@ -10,14 +10,14 @@ public class StLouisArch: PercyJacksonCard
     public StLouisArch() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithTide(1);
-        WithBlock(15, 5);
+        WithBlock(15, 3);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await TideManager.UpdateTide(Owner, DynamicVars["Tide"].IntValue, negative: true);
+        TideManager.UpdateMaxTide(Owner, DynamicVars["Tide"].IntValue);
         await CommonActions.CardBlock(this, play);
     }
 }

@@ -21,8 +21,8 @@ public class HiddenReservoir : PercyJacksonCard
     public HiddenReservoir() : base(1, CardType.Attack,
         CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(10);
-        WithVar("DamageIncrease", 5, 7);
+        WithDamage(9);
+        WithVar("DamageIncrease", 5, 2);
     }
 
     protected override async Task OnPlay(

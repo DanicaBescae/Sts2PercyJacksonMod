@@ -11,8 +11,8 @@ public class RideTheWave: PercyJacksonCard
 {
     public RideTheWave() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithTide(2, 1);
-        WithCards(1);
+        WithTide(2, 2);
+        WithCards(2);
     }
 
     protected override async Task OnPlay(

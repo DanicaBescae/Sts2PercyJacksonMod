@@ -12,7 +12,9 @@ public class HighTide: PercyJacksonCard
     public HighTide() : base(0, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
     {
         WithTide(2, 1);
-        WithCalculatedDamage(0, (card, _) => 2 * card.Owner.PlayerCombatState.Tide().MaxTide);
+        WithVar("Mult", 3);
+        WithCalculatedDamage(0,
+            (card, _) => card.DynamicVars["Mult"].BaseValue * card.Owner.PlayerCombatState.Tide().MaxTide);
     }
 
     protected override async Task OnPlay(

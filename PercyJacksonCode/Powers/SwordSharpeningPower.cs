@@ -1,4 +1,5 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -10,7 +11,7 @@ using PercyJackson.PercyJacksonCode.Models;
 
 namespace PercyJackson.PercyJacksonCode.Powers;
 
-public class SwordSharpeningPower: PercyJacksonPower, IAfterComboEnded
+public class SwordSharpeningPower: PercyJacksonPower
 {
     public override PowerType Type =>
         PowerType.Buff;
@@ -23,12 +24,12 @@ public class SwordSharpeningPower: PercyJacksonPower, IAfterComboEnded
     {
         if (!props.IsPoweredAttack() || cardSource == null || dealer != Owner)
             return 0M;
-        return ComboManager.WillIncreaseCombo(cardSource) ? Amount : 0M;
+        return Amount;
     }
 
-    public async Task AfterComboEnded(PlayerChoiceContext choiceContext, Player player, int combo)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (player.Creature != Owner) return;
+        if (side != Owner.Side) return;
         await PowerCmd.Remove(this);
     }
 }

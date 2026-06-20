@@ -12,7 +12,7 @@ public class SonOfNeptune : PercyJacksonCard
         CardRarity.Ancient, TargetType.Self)
     {
         WithVar("Mult", 2);
-        WithVar("Decrease", Math.Max(0, DynamicVars["Mult"].IntValue - 1));
+        WithCalculatedVar("Decrease", 0, (c, _) => Math.Max(0, c.DynamicVars["Mult"].IntValue - 1));
         WithKeyword(CardKeyword.Innate, UpgradeType.Add);
     }
 

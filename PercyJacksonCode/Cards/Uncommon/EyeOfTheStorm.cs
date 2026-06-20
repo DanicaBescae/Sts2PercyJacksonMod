@@ -16,9 +16,9 @@ public class EyeOfTheStorm: PercyJacksonCard
 {
     private bool _needApplyNoTide;
     
-    public EyeOfTheStorm() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public EyeOfTheStorm() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithVar("BlockAmt", 3, 1);
+        WithVar("BlockAmt", 5, 2);
         WithCalculatedBlock(0,
             (c, _) => c.Owner.PlayerCombatState.Tide().CurrentTide * c.DynamicVars["BlockAmt"].IntValue);
         WithKeyword(TideKeyword);

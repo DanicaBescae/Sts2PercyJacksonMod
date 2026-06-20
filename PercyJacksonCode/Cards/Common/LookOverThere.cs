@@ -12,7 +12,7 @@ public class LookOverThere: PercyJacksonCard
     {
         WithComboStarter();
         WithCards(1, 1);
-        WithPower<VulnerablePower>(1);
+        WithPower<VulnerablePower>(1, 1);
     }
 
     protected override async Task OnPlay(

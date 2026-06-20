@@ -27,7 +27,7 @@ public class UnexpectedStrategy : PercyJacksonCard
         var prefs = new CardSelectorPrefs(new LocString("cards", "PERCYJACKSON-UNEXPECTED_STRATEGY.selectionPrompt"),
             DynamicVars.Cards.IntValue);
         var cards = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs,
-            (card) => card.Type != CardType.Attack && !card.Keywords.Contains(ComboKeyword), this)).ToList();
+            (card) => !card.Keywords.Contains(ComboKeyword), this)).ToList();
         
         if (cards.Count == 0)
             return;

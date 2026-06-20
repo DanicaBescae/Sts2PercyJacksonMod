@@ -13,7 +13,7 @@ public class RainbowHorse : PercyJacksonCard, IAfterWaterActivated
     public RainbowHorse() : base(2, CardType.Attack,
         CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(15, 5);
+        WithDamage(13, 3);
         WithTip(typeof(Water));
     }
 

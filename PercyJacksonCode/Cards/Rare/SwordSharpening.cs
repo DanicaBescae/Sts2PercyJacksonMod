@@ -39,7 +39,7 @@ public class SwordSharpening: PercyJacksonCard
         WithVar("SharpeningAmount", 1);
         WithVar("Increase", 1);
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);
-        WithComboStarter();
+        WithKeyword(CardKeyword.Exhaust);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

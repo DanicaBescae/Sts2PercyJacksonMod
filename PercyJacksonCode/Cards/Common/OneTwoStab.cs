@@ -14,6 +14,8 @@ public class OneTwoStab : PercyJacksonCard
             upgrade: 3);
     }
 
+    protected override bool ShouldGlowGoldInternal => IsComboComplete(this);
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)

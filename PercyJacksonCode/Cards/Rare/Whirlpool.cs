@@ -10,7 +10,7 @@ public class Whirlpool: PercyJacksonCard
 {
     public Whirlpool() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
     {
-        WithDamage(5, 2);
+        WithDamage(5, 3);
     }
 
     protected override async Task OnPlay(

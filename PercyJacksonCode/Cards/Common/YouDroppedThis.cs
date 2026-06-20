@@ -12,7 +12,7 @@ public class YouDroppedThis : PercyJacksonCard
     public YouDroppedThis() : base(1, CardType.Attack,
         CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(9, 2);
+        WithDamage(9, 3);
     }
 
     protected override async Task OnPlay(

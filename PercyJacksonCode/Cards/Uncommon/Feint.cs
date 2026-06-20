@@ -11,7 +11,7 @@ public class Feint: PercyJacksonCard
     public Feint() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithComboStarter();
-        WithBlock(9, 11);
+        WithBlock(7, 4);
         WithPower<VigorPower>(3);
     }
 

@@ -51,8 +51,8 @@
   "PERCYJACKSON-WAVE_PUNCH_POWER.smartDescription": "At the start of your turn, deal damage equal to {Amount:plural:|[blue]{Amount}[/blue] x }the total [gold]Tide[/gold] gained this combat to a random enemy.",
   "PERCYJACKSON-WAVE_PUNCH_POWER.title": "Wave Punch",
   
-  "PERCYJACKSON-SWORD_SHARPENING_POWER.description": "All attacks in the following [gold]Combo[/gold] deal extra damage.",
-  "PERCYJACKSON-SWORD_SHARPENING_POWER.smartDescription": "All attacks in the following [gold]Combo[/gold] deal [blue]{Amount}[/blue] more damage.",
+  "PERCYJACKSON-SWORD_SHARPENING_POWER.description": "All attacks this turn deal extra damage.",
+  "PERCYJACKSON-SWORD_SHARPENING_POWER.smartDescription": "All attacks this turn deal [blue]{Amount}[/blue] more damage.",
   "PERCYJACKSON-SWORD_SHARPENING_POWER.title": "Sword Sharpening",
   
   "PERCYJACKSON-SWORD_MASTERY_POWER.description": "Every 3rd [gold]Combo[/gold] card now has extra effectiveness.",
@@ -87,8 +87,8 @@
   "PERCYJACKSON-HURRICANE_FORM_POWER.smartDescription": "Whenever you deal unblocked attack damage to an enemy, deal [blue]{Amount}[/blue] damage to a random enemy.",
   "PERCYJACKSON-HURRICANE_FORM_POWER.title": "Hurricane Form",
 
-  "PERCYJACKSON-TEAMWORK_POWER.description": "At the start of your turn, add a random [gold]Combo[/gold]-related card to your hand.",
-  "PERCYJACKSON-TEAMWORK_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a|[blue]{Amount}[/blue]} random [gold]Combo[/gold]-related card{Amount:plural:|s} to your hand.",
+  "PERCYJACKSON-TEAMWORK_POWER.description": "At the start of your turn, add a random [gold]Combo[/gold]-related card to your hand that costs {energyPrefix:energyIcons()} until played.",
+  "PERCYJACKSON-TEAMWORK_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a|[blue]{Amount}[/blue]} random [gold]Combo[/gold]-related card{Amount:plural:|s} to your hand that cost{Amount:plural:s|} {energyPrefix:energyIcons()} until played.",
   "PERCYJACKSON-TEAMWORK_POWER.title": "Teamwork",
 
   "PERCYJACKSON-SON_OF_NEPTUNE_POWER.description": "All [gold]Tide[/gold] gain and maximum [gold]Tide[/gold] gain is increased. At the start of your turn, lower the maximum [gold]Tide[/gold].",

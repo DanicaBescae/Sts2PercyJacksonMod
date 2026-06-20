@@ -10,7 +10,7 @@ public class UnseenBlade: PercyJacksonCard
 {
     public UnseenBlade() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(6, 2);
+        WithDamage(6, 3);
         WithVar("IncreasedEnergy", 1);
     }
 

@@ -11,8 +11,8 @@ public class Arc: PercyJacksonCard
 {
     public Arc() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        WithDamage(5, 2);
-        WithPower<WoundedPower>(1, 1);
+        WithDamage(5, 3);
+        WithPower<WoundedPower>(1);
     }
 
     protected override async Task OnPlay(

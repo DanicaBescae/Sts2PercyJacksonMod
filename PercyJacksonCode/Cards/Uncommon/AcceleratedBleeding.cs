@@ -1,4 +1,5 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+﻿using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using PercyJackson.PercyJacksonCode.Cards;
@@ -11,6 +12,7 @@ public class AcceleratedBleeding : PercyJacksonCard
     public AcceleratedBleeding() : base(1, CardType.Skill,
         CardRarity.Uncommon, TargetType.AnyEnemy)
     {
+        WithBlock(7);
         WithVar("HitCount", 2, 1);
         WithTip(typeof(WoundedPower));
     }
@@ -19,6 +21,7 @@ public class AcceleratedBleeding : PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await CommonActions.CardBlock(this, play);
         if (!play.Target.HasPower<WoundedPower>()) return;
         var woundedPower = play.Target.GetPower<WoundedPower>();
         for (var i = 0; i < DynamicVars["HitCount"].IntValue; i++)

@@ -11,7 +11,7 @@ public class HurricaneForm : PercyJacksonCard
     public HurricaneForm() : base(3, CardType.Power,
         CardRarity.Rare, TargetType.Self)
     {
-        WithVar("DamageAmount", 2, 1);
+        WithVar("DamageAmount", 2, 2);
     }
 
     protected override async Task OnPlay(

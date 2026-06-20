@@ -10,7 +10,7 @@ public class Bubble: PercyJacksonCard
     public Bubble() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithKeyword(TideKeyword);
-        WithBlock(3, 1);
+        WithBlock(3, 2);
     }
 
     protected override async Task OnPlay(

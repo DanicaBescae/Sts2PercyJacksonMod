@@ -5,11 +5,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
+namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
 public class WolfStare: PercyJacksonCard
 {
-    public WolfStare() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public WolfStare() : base(1, CardType.Skill, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithVar("BuffAndRemove", 1, 1);
         WithKeyword(CardKeyword.Exhaust);

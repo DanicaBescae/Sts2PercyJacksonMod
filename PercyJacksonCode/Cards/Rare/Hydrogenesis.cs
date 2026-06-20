@@ -21,7 +21,7 @@ public class Hydrogenesis : PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<HydrogenesisPower>(choiceContext, Owner.Creature, DynamicVars["Stack"].BaseValue,
+        await PowerCmd.Apply<HydrogenesisPower>(choiceContext, Owner.Creature, DynamicVars["Stacks"].BaseValue,
             Owner.Creature, this);
     }
 }

@@ -14,7 +14,7 @@ public class YouDrool : PercyJacksonCard
         CardRarity.Common, TargetType.Self)
     {
         WithEnergy(2, 1);
-        WithPower<VigorPower>(2);
+        WithPower<VigorPower>(2, 1);
     }
 
     protected override async Task OnPlay(

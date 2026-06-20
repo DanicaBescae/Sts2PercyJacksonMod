@@ -16,34 +16,21 @@ public class Absorb : PercyJacksonCard
         WithKeyword(TideKeyword);
         WithTip(CardKeyword.Exhaust);
         WithCards(1);
+        WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (IsUpgraded)
+        var prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, DynamicVars.Cards.IntValue);
+        var cards = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this)).ToList();
+        if (cards.Count == 0)
+            return;
+        foreach (var card in cards)
         {
-            var prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, DynamicVars.Cards.IntValue);
-            var cards = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this)).ToList();
-            if (cards.Count == 0)
-                return;
-            foreach (var card in cards)
-            {
-                await TideManager.UpdateTide(Owner, card.EnergyCost.Canonical);
-                await CardCmd.Exhaust(choiceContext, card);
-            }
-        }
-        else
-        {
-            for (var i = 0; i < DynamicVars.Cards.IntValue; i++) {
-                var pile = PileType.Hand.GetPile(Owner);
-                var card = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards);
-                if (card == null)
-                    return;
-                await TideManager.UpdateTide(Owner, card.EnergyCost.Canonical);
-                await CardCmd.Exhaust(choiceContext, card);
-            }
+            await TideManager.UpdateTide(Owner, card.EnergyCost.Canonical);
+            await CardCmd.Exhaust(choiceContext, card);
         }
     }
 }

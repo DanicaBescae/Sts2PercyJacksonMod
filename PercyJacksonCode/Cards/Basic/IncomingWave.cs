@@ -20,8 +20,10 @@ public class IncomingWave: PercyJacksonCard, ITranscendenceCard
     public IncomingWave() : base(0, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
         WithTide(1, 1);
+        WithVar("Mult", 2);
         WithCalculatedDamage(1,
-            (c, _) => TideManager.GetNewTide(c.Owner, c.DynamicVars["Tide"].IntValue, out var _));
+            (c, _) => TideManager.GetNewTide(c.Owner, c.DynamicVars["Tide"].IntValue, out var _) *
+                      c.DynamicVars["Mult"].BaseValue);
     }
 
     protected override async Task OnPlay(
