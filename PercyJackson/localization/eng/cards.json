@@ -52,7 +52,7 @@
   "PERCYJACKSON-SURFING_LESSONS.description": "Deal {Damage:diff()} damage.\nRaise the [gold]Tide[/gold] by the unblocked damage dealt.",
   "PERCYJACKSON-SURFING_LESSONS.title": "Surfing Lessons",
   
-  "PERCYJACKSON-ABSORB.description": "Exhaust {Cards:diff()} card{Cards:plural:|s}.\nGain [gold]Tide[/gold] equal to the exhausted {Cards:plural:card's|cards'} cost.",
+  "PERCYJACKSON-ABSORB.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold]. Exhaust {Cards:diff()} card{Cards:plural:|s}.\nGain [gold]Tide[/gold] equal to the exhausted {Cards:plural:card's|cards'} cost.",
   "PERCYJACKSON-ABSORB.title": "Absorb",
   
   "PERCYJACKSON-CAPTURE_THE_FLAG.description": "Deal {Damage:diff()} damage {HitCount:diff()} time{HitCount:plural:|s}.\nIncrease the number of times this attack hits by {HitIncrease:diff()} this combat.",
@@ -152,7 +152,7 @@
   "PERCYJACKSON-OPENED_SORES.description": "Apply {WoundedPower:diff()} [gold]Wounded[/gold].",
   "PERCYJACKSON-OPENED_SORES.title": "Opened Sores",
   
-  "PERCYJACKSON-SWORD_MASTERY.description": "Every 3rd [gold]Combo[/gold] card now has {SwordMasteryPower:diff()}% extra effectiveness instead of 25%.",
+  "PERCYJACKSON-SWORD_MASTERY.description": "[gold]Combo[/gold] increases damage and [gold]Block[/gold] per stack by an additional {SwordMasteryPower:diff()}%.",
   "PERCYJACKSON-SWORD_MASTERY.title": "Sword Mastery",
   
   "PERCYJACKSON-CANT_SIT_STILL.description": "Deal {Damage:diff()} damage {HitCount:diff()} time{HitCount:plural:|s}.\nHits once for each time you attacked the enemy this turn.",

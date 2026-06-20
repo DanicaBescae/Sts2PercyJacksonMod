@@ -8,9 +8,9 @@ namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class LifeBuoy: PercyJacksonCard
 {
-    public LifeBuoy() : base(1, CardType.Attack, CardRarity.Common, TargetType.Self)
+    public LifeBuoy() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.Self)
     {
-        WithBlock(7, 3);
+        WithBlock(6, 3);
         WithCards(1);
     }
 

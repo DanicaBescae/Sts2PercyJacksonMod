@@ -11,7 +11,7 @@ public class TideSwept: PercyJacksonCard
 {
     public TideSwept() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithBlock(7, 3);
+        WithBlock(6, 3);
         WithTip(typeof(Water));
     }
     

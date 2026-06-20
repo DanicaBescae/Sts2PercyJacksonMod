@@ -48,7 +48,7 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         CardModel? cardSource)
     {
         if (!props.IsPoweredAttack() || cardSource == null ||
-            dealer != cardSource.Owner.Creature && dealer != cardSource.Owner.Osty || dealer == null || target == null)
+            dealer != cardSource.Owner.Creature && dealer != cardSource.Owner.Osty || dealer == null)
             return 1M;
 
         var combo = cardSource.Owner.PlayerCombatState.Combo();

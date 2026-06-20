@@ -13,8 +13,8 @@ public class DeepCuts: PercyJacksonCard
 {
     public DeepCuts() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(7, 10);
-        WithPower<WoundedPower>(5);
+        WithDamage(6, 2);
+        WithPower<WoundedPower>(2,1);
     }
 
     protected override async Task OnPlay(

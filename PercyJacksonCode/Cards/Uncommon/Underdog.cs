@@ -42,7 +42,7 @@ public class Underdog: PercyJacksonCard
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer,
         CardModel? cardSource)
     {
-        return cardSource != this || target == null || dealer != this.Owner.Creature || !props.IsPoweredAttack() ||
+        return cardSource != this || target == null || dealer != Owner.Creature || !props.IsPoweredAttack() ||
                target.Monster is { IntendsToAttack: true }
             ? 1M
             : 2M;

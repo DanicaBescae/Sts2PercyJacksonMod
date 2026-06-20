@@ -17,7 +17,7 @@ public class PenCap : PercyJacksonCard
     {
         WithComboStarter();
         WithKeyword(CardKeyword.Innate);
-        WithDamage(5, 3);
+        WithDamage(4, 3);
     }
     
     protected override async Task OnPlay(

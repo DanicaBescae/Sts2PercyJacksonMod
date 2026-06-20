@@ -15,8 +15,8 @@ public class SeasEmbrace : PercyJacksonCard
 {
     public SeasEmbrace() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithBlock(10, 2);
-        WithPower<VigorPower>(2);
+        WithBlock(8, 2);
+        WithPower<VigorPower>(3, 1);
         WithTip(typeof(Water));
     }
 

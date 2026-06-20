@@ -12,7 +12,7 @@ public class CaptureTheFlag: PercyJacksonCard
 {
     public CaptureTheFlag() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(5,3);
+        WithDamage(5,2);
         WithTide(1);
         WithVar("HitCount", 1);
         WithVar("HitIncrease", 1);
