@@ -6,13 +6,13 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
-public class LookOverThere: PercyJacksonCard
+public class WindUp: PercyJacksonCard
 {
-    public LookOverThere() : base(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
+    public WindUp() : base(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithComboStarter();
-        WithCards(1, 1);
         WithPower<VulnerablePower>(1, 1);
+        WithPower<VigorPower>(2, 1);
     }
 
     protected override async Task OnPlay(
@@ -20,6 +20,6 @@ public class LookOverThere: PercyJacksonCard
         CardPlay play)
     {
         await PowerCmd.Apply<VulnerablePower>(choiceContext, play.Target, DynamicVars["VulnerablePower"].IntValue, Owner.Creature, this);
-        await CommonActions.Draw(this, choiceContext);
+        await PowerCmd.Apply<VigorPower>(choiceContext, play.Target, DynamicVars["VigorPower"].IntValue, Owner.Creature, this);
     }
 }

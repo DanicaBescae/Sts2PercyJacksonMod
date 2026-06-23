@@ -17,8 +17,8 @@ public class TideBreaker() : PercyJacksonRelic
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner) return;
-        TideManager.UpdateMaxTide(player, 1);
-        await TideManager.UpdateTide(player, 1);
+        if (player != Owner || Owner.PlayerCombatState.TurnNumber > 1) return;
+        TideManager.UpdateMaxTide(player, 3);
+        await TideManager.UpdateTide(player, 3);
     }
 }

@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Cards;
 using PercyJackson.PercyJacksonCode.Models;
@@ -19,7 +19,7 @@ public class Eruption : PercyJacksonCard
     public Eruption() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithPower<WoundedPower>(2);
-        WithDamage(4, 2);
+        WithDamage(6, 2);
         WithVar("HitCount", 2);
     }
 
@@ -29,8 +29,10 @@ public class Eruption : PercyJacksonCard
     {
         foreach (var enemy in CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WoundedPower>(choiceContext, enemy, DynamicVars["WoundedPower"].BaseValue, Owner.Creature,
-                this);
+            if (enemy.Powers.Any(p => p is { Type: PowerType.Debuff, StackType: PowerStackType.Counter }))
+                await PowerCmd.Apply<WoundedPower>(choiceContext, enemy, DynamicVars["WoundedPower"].BaseValue,
+                    Owner.Creature,
+                    this);
         }
 
         await CommonActions.CardAttack(this, play.Target, DynamicVars.Damage.BaseValue, ValueProp.Move,

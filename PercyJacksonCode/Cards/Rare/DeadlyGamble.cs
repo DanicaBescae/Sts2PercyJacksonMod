@@ -9,12 +9,11 @@ namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
 public class DeadlyGamble: PercyJacksonCard
 {
-    public DeadlyGamble() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public DeadlyGamble() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithCards(2, 1);
-        WithPower<IntangiblePower>(2);
+        WithPower<IntangiblePower>(1);
         WithPower<PoisonPower>(5);
-        WithKeyword(CardKeyword.Exhaust);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -27,16 +26,13 @@ public class DeadlyGamble: PercyJacksonCard
 
         await CardPileCmd.Shuffle(choiceContext, Owner);
         await CommonActions.Draw(this, choiceContext);
-        var drewNonAttack = false;
-        foreach (var card in PileType.Hand.GetPile(Owner).Cards.ToList())
-        {
-            if (card.Type is CardType.Skill or CardType.Power) drewNonAttack = true;
-        }
+        var drewNonAttack = PileType.Hand.GetPile(Owner).Cards.ToList().Any(card => card.Type != CardType.Attack);
 
         if (drewNonAttack)
             await PowerCmd.Apply<IntangiblePower>(choiceContext, Owner.Creature,
                 DynamicVars["IntangiblePower"].BaseValue, Owner.Creature, this);
-        else await PowerCmd.Apply<PoisonPower>(choiceContext, Owner.Creature,
-            DynamicVars["PoisonPower"].BaseValue, Owner.Creature, this);
+        else
+            await PowerCmd.Apply<PoisonPower>(choiceContext, Owner.Creature, DynamicVars["PoisonPower"].BaseValue,
+                Owner.Creature, this);
     }
 }

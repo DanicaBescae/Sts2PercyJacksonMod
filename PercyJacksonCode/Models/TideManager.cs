@@ -34,6 +34,7 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         foreach (var player in participants.Where(c => c.IsPlayer))
         {
             ClearTempMaxTide(player.Player);
+            player.Player.PlayerCombatState.Tide().TideGainedThisTurn = 0;
         }
 
         return Task.CompletedTask;
@@ -65,14 +66,17 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         else if (negative) await LowerTide(player, tideChange);
     }
 
-    public static void UpdateMaxTide(Player player, int tideChange, bool temporary = false, bool negative = false)
+    public static async Task UpdateMaxTide(Player player, int tideChange, bool temporary = false, bool negative = false)
     {
         var tide = player.PlayerCombatState.Tide();
+        var actualTideChange = negative ? tideChange * -1 : tideChange;
         
-        if (negative && tide.CurrentTide == tide.MaxTide) tide.CurrentTide -= 1;
+        if (negative && tide.CurrentTide == tide.MaxTide) tide.CurrentTide += actualTideChange;
         
-        if (temporary) tide.TempMaxTide = tide.MaxTide + tideChange;
-        else tide.MaxTide += tideChange;
+        if (temporary) tide.TempMaxTide = tide.MaxTide + actualTideChange;
+        else tide.MaxTide += actualTideChange;
+
+        await PercyJacksonHooks.OnMaxTideChanged(player.Creature.CombatState, new ThrowingPlayerChoiceContext(), player);
     }
 
     private static Task ClearTempMaxTide(Player player)
@@ -88,6 +92,7 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
             await IncreaseMaxTideFromOverflow(player, tideChange);
         else tideCombatState.CurrentTide += tideChange;
         tideCombatState.TideGainedThisCombat += tideChange;
+        tideCombatState.TideGainedThisTurn += tideChange;
     }
 
     private static async Task LowerTide(Player player, int tideChange)
@@ -108,8 +113,8 @@ public class TideManager(): CustomSingletonModel(HookType.Combat)
         {
             tideLeft -= maxTide;
             tideCombatState.MaxTide += 1;
-            await PercyJacksonHooks.OnTideOverflowed(player.Creature.CombatState, new ThrowingPlayerChoiceContext(),
-                player);
+            await PercyJacksonHooks.OnMaxTideChanged(player.Creature.CombatState, new ThrowingPlayerChoiceContext(),
+                player, true);
             maxTide = tideCombatState.MaxTide;
         }
 

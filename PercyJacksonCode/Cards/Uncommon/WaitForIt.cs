@@ -12,7 +12,7 @@ public class WaitForIt : PercyJacksonCard
     public WaitForIt() : base(1, CardType.Skill,
         CardRarity.Uncommon, TargetType.Self)
     {
-        WithVar("VigorAmount", 2, 2);
+        WithVar("VigorAmount", 3, 2);
         WithTip(typeof(VigorPower));
     }
 

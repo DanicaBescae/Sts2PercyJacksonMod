@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace PercyJackson.PercyJacksonCode.Hooks;
 
-public interface IOnTideOverflowed
+public interface IOnMaxTideChanged
 {
-    public Task OnTideOverflowed(PlayerChoiceContext choiceContext, Player player);
+    public Task OnMaxTideChanged(PlayerChoiceContext choiceContext, Player player, bool fromOverflow = false);
 }

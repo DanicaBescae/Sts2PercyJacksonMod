@@ -28,7 +28,6 @@ public class TeamworkPower() : PercyJacksonPower
                 player.RunState.Rng.CombatCardGeneration).FirstOrDefault();
             if (card == null) continue;
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner.Player);
-            card.EnergyCost.SetUntilPlayed(0);
         }
     }
 }

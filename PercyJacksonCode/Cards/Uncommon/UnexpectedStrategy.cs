@@ -13,10 +13,9 @@ public class UnexpectedStrategy : PercyJacksonCard
 {
     public UnexpectedStrategy() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithCostUpgradeBy(-1);
         WithTip(ComboStarter);
         WithKeyword(ComboKeyword);
-        WithKeyword(CardKeyword.Exhaust);
+        WithKeyword(CardKeyword.Retain, UpgradeType.Add);
         WithCards(1);
     }
     

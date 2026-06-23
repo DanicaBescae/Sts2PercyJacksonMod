@@ -16,11 +16,11 @@ public class PoseidonsBlessing() : PercyJacksonRelic
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(PercyJacksonCard.TideKeyword)];
 
-    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner) return;
-        Flash();
-        await TideManager.UpdateTide(player, 1);
+        if (player != Owner || Owner.PlayerCombatState.TurnNumber > 1) return Task.CompletedTask;
+        TideManager.UpdateMaxTide(player, 3);
+        return Task.CompletedTask;
     }
     
     public override RelicModel GetUpgradeReplacement()

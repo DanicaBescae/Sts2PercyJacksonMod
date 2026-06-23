@@ -11,7 +11,7 @@ public class Arc: PercyJacksonCard
 {
     public Arc() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        WithDamage(5, 3);
+        WithDamage(4, 2);
         WithPower<WoundedPower>(1);
     }
 

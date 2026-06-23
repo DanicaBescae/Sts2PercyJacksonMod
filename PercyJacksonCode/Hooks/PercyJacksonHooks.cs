@@ -47,13 +47,14 @@ public static class PercyJacksonHooks
         return Dispatch<IAfterWaterActivated>(combatState, choiceContext,
             model => model.AfterWaterActivated(choiceContext, card));
     }
-    
-    public static Task OnTideOverflowed(ICombatState combatState, PlayerChoiceContext choiceContext, Player player)
+
+    public static Task OnMaxTideChanged(ICombatState combatState, PlayerChoiceContext choiceContext, Player player,
+        bool fromOverflow = false)
     {
-        return Dispatch<IOnTideOverflowed>(combatState, choiceContext,
-            model => model.OnTideOverflowed(choiceContext, player));
+        return Dispatch<IOnMaxTideChanged>(combatState, choiceContext,
+            model => model.OnMaxTideChanged(choiceContext, player, fromOverflow));
     }
-    
+
     public static bool ShouldGainTide(ICombatState combatState, PlayerChoiceContext choiceContext, Player player)
     {
         foreach (var model in combatState.IterateHookListeners().OfType<IShouldGainTide>())

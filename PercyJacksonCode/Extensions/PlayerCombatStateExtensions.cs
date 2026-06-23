@@ -77,6 +77,8 @@ public static class PlayerCombatStateExtensions
 
         public int TideGainedThisCombat;
 
+        public int TideGainedThisTurn;
+
         public event Action<int, int>? TideChanged;
         public event Action<int, int>? MaxTideChanged;
     }

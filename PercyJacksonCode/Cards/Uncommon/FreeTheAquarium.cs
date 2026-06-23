@@ -15,15 +15,12 @@ public class FreeTheAquarium: PercyJacksonCard
         WithKeyword(CardKeyword.Exhaust);
         WithCards(1);
         WithVar("Copies", 1, 1);
-        WithTide(1);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        TideManager.UpdateMaxTide(Owner, DynamicVars["Tide"].IntValue, negative: true);
-
         var prefs = new CardSelectorPrefs(new LocString("cards", "PERCYJACKSON-FREE_THE_AQUARIUM.selectionPrompt"),
             DynamicVars.Cards.IntValue);
         var cards = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs,

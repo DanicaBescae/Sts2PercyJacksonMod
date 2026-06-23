@@ -56,10 +56,6 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         if (combo == null) return 1M;
 
         var currentComboMult = 1 + ((_multPerCombo * combo.CurrentComboCount) / 100);
-        var masteryPower = dealer.GetPower<SwordMasteryPower>();
-        if (masteryPower != null)
-            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, combo.CurrentComboCount,
-                props, dealer, cardSource);
 
         if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
 
@@ -85,10 +81,6 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         if (combo == null) return 1M;
 
         var currentComboMult = 1 + ((_multPerCombo * combo.CurrentComboCount) / 100);
-        var masteryPower = cardSource.Owner.Creature.GetPower<SwordMasteryPower>();
-        if (masteryPower != null)
-            currentComboMult = masteryPower.ModifyComboMultiplier(target, currentComboMult, combo.CurrentComboCount,
-                props, cardSource.Owner.Creature, cardSource);
 
         if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
 

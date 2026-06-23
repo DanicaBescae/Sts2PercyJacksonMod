@@ -11,7 +11,7 @@ public class RideTheWave: PercyJacksonCard
 {
     public RideTheWave() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithTide(2, 2);
+        WithTide(4, 2);
         WithCards(2);
     }
 

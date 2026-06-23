@@ -3,10 +3,6 @@
   "PERCYJACKSON-NO_SWEAT_POWER.smartDescription": "Whenever you end a [gold]Combo[/gold], gain {Amount:energyIcons()}.",
   "PERCYJACKSON-NO_SWEAT_POWER.title": "No Sweat",
   
-  "PERCYJACKSON-RAISING_THE_TIBER_POWER.description": "At the start of your turn, raise the maximum [gold]Tide[/gold].",
-  "PERCYJACKSON-RAISING_THE_TIBER_POWER.smartDescription": "At the start of your turn, raise the maximum [gold]Tide[/gold] by [blue]{Amount}[/blue].",
-  "PERCYJACKSON-RAISING_THE_TIBER_POWER.title": "Raising The Tiber",
-  
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.description": "You may not raise the [gold]Tide[/gold] this turn.",
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.smartDescription": "You may not raise the [gold]Tide[/gold] this turn.",
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.title": "No Tide",
@@ -55,10 +51,6 @@
   "PERCYJACKSON-SWORD_SHARPENING_POWER.smartDescription": "All attacks this turn deal [blue]{Amount}[/blue] more damage.",
   "PERCYJACKSON-SWORD_SHARPENING_POWER.title": "Sword Sharpening",
   
-  "PERCYJACKSON-SWORD_MASTERY_POWER.description": "Every 3rd [gold]Combo[/gold] card now has extra effectiveness.",
-  "PERCYJACKSON-SWORD_MASTERY_POWER.smartDescription": "Every 3rd [gold]Combo[/gold] card now has [blue]{Amount}[/blue]% extra effectiveness instead of 25%.",
-  "PERCYJACKSON-SWORD_MASTERY_POWER.title": "Sword Mastery",
-  
   "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.description": "Gain [gold]Vigor[/gold] next turn.",
   "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Vigor[/gold] next turn.",
   "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.title": "Invigorated",
@@ -87,8 +79,8 @@
   "PERCYJACKSON-HURRICANE_FORM_POWER.smartDescription": "Whenever you deal unblocked attack damage to an enemy, deal [blue]{Amount}[/blue] damage to a random enemy.",
   "PERCYJACKSON-HURRICANE_FORM_POWER.title": "Hurricane Form",
 
-  "PERCYJACKSON-TEAMWORK_POWER.description": "At the start of your turn, add a random [gold]Combo[/gold]-related card to your hand that costs {energyPrefix:energyIcons()} until played.",
-  "PERCYJACKSON-TEAMWORK_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a|[blue]{Amount}[/blue]} random [gold]Combo[/gold]-related card{Amount:plural:|s} to your hand that cost{Amount:plural:s|} {energyPrefix:energyIcons()} until played.",
+  "PERCYJACKSON-TEAMWORK_POWER.description": "At the start of your turn, add a random [gold]Combo[/gold]-related card to your hand.",
+  "PERCYJACKSON-TEAMWORK_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a|[blue]{Amount}[/blue]} random [gold]Combo[/gold]-related card{Amount:plural:|s} to your hand.",
   "PERCYJACKSON-TEAMWORK_POWER.title": "Teamwork",
 
   "PERCYJACKSON-SON_OF_NEPTUNE_POWER.description": "All [gold]Tide[/gold] gain and maximum [gold]Tide[/gold] gain is increased. At the start of your turn, lower the maximum [gold]Tide[/gold].",
@@ -105,5 +97,17 @@
 
   "PERCYJACKSON-ANAKLUSMOS_POWER.description": "The first Attack you play each turn hits additional times.",
   "PERCYJACKSON-ANAKLUSMOS_POWER.smartDescription": "The first Attack you play each turn hits [blue]{Amount}[/blue] additional time{Amount:plural:|s}.",
-  "PERCYJACKSON-ANAKLUSMOS_POWER.title": "Anaklusmos"
+  "PERCYJACKSON-ANAKLUSMOS_POWER.title": "Anaklusmos",
+
+  "PERCYJACKSON-QUALITY_BRONZE_POWER.description": "Whenever you hit an enemy, apply Wounded.",
+  "PERCYJACKSON-QUALITY_BRONZE_POWER.smartDescription": "Whenever you hit an enemy, apply [blue]{Amount}[/blue] [gold]Wounded[/gold].",
+  "PERCYJACKSON-QUALITY_BRONZE_POWER.title": "Quality Bronze",
+
+  "PERCYJACKSON-SURFACE_TENSION_POWER.description": "At the start of your turn, raise the [gold]Tide[/gold].",
+  "PERCYJACKSON-SURFACE_TENSION_POWER.smartDescription": "At the start of your turn, raise the [gold]Tide[/gold] by [blue]{Amount}[/blue].",
+  "PERCYJACKSON-SURFACE_TENSION_POWER.title": "Surface Tension",
+
+  "PERCYJACKSON-SUPERIOR_SWIMMING_POWER.description": "Whenever you raise the maximum [gold]Tide[/gold], all enemies lose [gold]Strength[/gold].",
+  "PERCYJACKSON-SUPERIOR_SWIMMING_POWER.smartDescription": "Whenever you raise the maximum [gold]Tide[/gold], all enemies lose [blue]{Amount}[/blue] [gold]Strength[/gold].",
+  "PERCYJACKSON-SUPERIOR_SWIMMING_POWER.title": "Superior Swimming"
 }
