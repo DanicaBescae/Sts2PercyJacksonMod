@@ -7,9 +7,9 @@ using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
-public class Arc: PercyJacksonCard
+public class ZigZag: PercyJacksonCard
 {
-    public Arc() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
+    public ZigZag() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
         WithDamage(4, 2);
         WithPower<WoundedPower>(1);

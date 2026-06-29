@@ -11,7 +11,7 @@
   "PERCYJACKSON-BACKSWING.description": "Deal {Damage:diff()} damage.\n[gold]Combo[/gold] {ComboX:diff()}: Draw {Cards:diff()} card{Cards:plural:|s} for each previous card in this [gold]Combo[/gold].",
   "PERCYJACKSON-BACKSWING.title": "Backswing",
   
-  "PERCYJACKSON-NOBODY_TOUCH_HER.description": "Deal {Damage:diff()} damage to a random enemy {HitCount:diff()} time{HitCount:plural:|s}.\nRaise the [gold]Tide[/gold] by {Tide:diff()} for each enemy hit.",
+  "PERCYJACKSON-NOBODY_TOUCH_HER.description": "Deal {Damage:diff()} damage to a random enemy {HitCount:diff()} time{HitCount:plural:|s}. Raise the [gold]Tide[/gold] by {HitCount:diff()}.",
   "PERCYJACKSON-NOBODY_TOUCH_HER.title": "Nobody Touch Her!",
   
   "PERCYJACKSON-QUICK_PARRY.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Combo[/gold] {ComboX:diff()}: Gain {Block:diff()} [gold]Block[/gold] again.",
@@ -24,16 +24,16 @@
   "PERCYJACKSON-PEN_CAP.description": "Deal {Damage:diff()} damage.\nAfter playing {Cards:diff()} Attacks, return this card to your [gold]Hand[/gold].",
   "PERCYJACKSON-PEN_CAP.title": "Pen Cap",
   
-  "PERCYJACKSON-SEAS_EMBRACE.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {VigorPower:diff()} [gold]Vigor[/gold].\nTransform your [gold]Hand[/gold] into [gold]Water[/gold].",
+  "PERCYJACKSON-SEAS_EMBRACE.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {VigorPower:diff()} [gold]Vigor[/gold].\nTransform non-Attacks in your [gold]Hand[/gold] to [gold]Water[/gold].",
   "PERCYJACKSON-SEAS_EMBRACE.title": "Embrace of the Sea",
   
-  "PERCYJACKSON-NO_SWEAT.description": "Whenever you end a [gold]Combo[/gold], gain {Energy:energyIcons()}.",
+  "PERCYJACKSON-NO_SWEAT.description": "For every 4 cards you play in a [gold]Combo[/gold], gain {Energy:energyIcons()}.",
   "PERCYJACKSON-NO_SWEAT.title": "No Sweat",
   
   "PERCYJACKSON-INCOMING_WAVE.description": "Raise the [gold]Tide[/gold] by {Tide:diff()}.\nDeal damage equal to {Mult:plural:|{Mult:diff()} x }the new [gold]Tide[/gold].{InCombat:\n(Deals {CalculatedDamage:diff()} damage)}",
   "PERCYJACKSON-INCOMING_WAVE.title": "Incoming Wave",
   
-  "PERCYJACKSON-RIDE_THE_WAVE.description": "Raise the [gold]Tide[/gold] by {Tide:diff()}.\nDraw {Cards:diff()} card{Cards:plural:|s}.",
+  "PERCYJACKSON-RIDE_THE_WAVE.description": "Raise the [gold]Tide[/gold] by {Tide:diff()}.\nDraw {Cards:diff()} card{Cards:plural:|s}.\nNext turn, draw {Cards:diff()} card{Cards:plural:|s}.",
   "PERCYJACKSON-RIDE_THE_WAVE.title": "Ride The Wave",
   
   "PERCYJACKSON-ST_LOUIS_ARCH.description": "Raise the maximum [gold]Tide[/gold] by {Tide:diff()}.\nGain {Block:diff()} [gold]Block[/gold].",
@@ -49,35 +49,32 @@
   "PERCYJACKSON-HIGH_TIDE.description": "Raise the maximum [gold]Tide[/gold] and [gold]Tide[/gold] by {Tide:diff()}.\nDeal damage equal to {Mult:diff()} times the maximum [gold]Tide[/gold].{InCombat:\n(Deals {CalculatedDamage:diff()} damage)}",
   "PERCYJACKSON-HIGH_TIDE.title": "High Tide",
   
-  "PERCYJACKSON-SURFING_LESSONS.description": "Deal damage equal to the [gold]Tide[/gold] gained this turn.\n[gold]Combo {ComboX:diff()}: Raise the [gold]Tide[/gold] by the unblocked damage dealt.{InCombat:\n(Deals {CalculatedDamage:diff()} damage)}",
+  "PERCYJACKSON-SURFING_LESSONS.description": "Deal damage equal to the [gold]Tide[/gold] gained this turn.\nRaise the [gold]Tide[/gold] by the unblocked damage dealt.{InCombat:\n(Deals {CalculatedDamage:diff()} damage)}",
   "PERCYJACKSON-SURFING_LESSONS.title": "Surfing Lessons",
   
-  "PERCYJACKSON-ABSORB.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold]. Exhaust {Cards:diff()} card{Cards:plural:|s}.\nGain [gold]Tide[/gold] equal to the exhausted {Cards:plural:card's|cards'} cost.",
+  "PERCYJACKSON-ABSORB.description": "Gain {Energy:energyIcons()} for each level of [gold]Tide[/gold].\nLose all [gold]Tide[/gold].",
   "PERCYJACKSON-ABSORB.title": "Absorb",
   
   "PERCYJACKSON-CAPTURE_THE_FLAG.description": "Deal {Damage:diff()} damage {HitCount:diff()} time{HitCount:plural:|s}.\nIncrease the number of times this attack hits by {HitIncrease:diff()} this combat.",
   "PERCYJACKSON-CAPTURE_THE_FLAG.title": "Capture The Flag",
   
-  "PERCYJACKSON-STORMBRINGER.description": "Apply X{PlusDamage:cond:>0?|+{PlusDamage:diff()}} [gold]Wounded[/gold].\nRaise the [gold]Tide[/gold] by X{PlusDamage:cond:>0?|+{PlusDamage:diff()}}.",
+  "PERCYJACKSON-STORMBRINGER.description": "Raise the maximum [gold]Tide[/gold] by X{PlusDamage:cond:>0?+1|}.\nSet the [gold]Tide[/gold] to its maximum.",
   "PERCYJACKSON-STORMBRINGER.title": "Stormbringer",
   
-  "PERCYJACKSON-EYE_OF_THE_STORM.description": "Gain {BlockAmt:diff()} [gold]Block[/gold] for every level of [gold]Tide[/gold].\nNext turn, gain the same amount of [gold]Block[/gold].\n",
-  "PERCYJACKSON-EYE_OF_THE_STORM.title": "Eye Of The Storm",
-  
-  "PERCYJACKSON-GETTING_SERIOUS.description": "Convert {IfUpgraded:show:|half of }your [gold]Vigor[/gold] into [gold]Strength[/gold].",
+  "PERCYJACKSON-GETTING_SERIOUS.description": "Convert {IfUpgraded:hide:|half of }your [gold]Vigor[/gold] into [gold]Strength[/gold].",
   "PERCYJACKSON-GETTING_SERIOUS.title": "Getting Serious",
   
   "PERCYJACKSON-WIND_UP.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\nGain {VigorPower:diff()} [gold]Vigor[/gold].",
   "PERCYJACKSON-WIND_UP.title": "Wind Up",
   
-  "PERCYJACKSON-FREE_THE_AQUARIUM.description": "Choose {Cards:diff()} card{Cards:plural:|s} in your [gold]Hand[/gold] that you can't play.\nAdd {Copies:diff()} {Copies:plural:copy|copies} into your [gold]Draw Pile[/gold] that cost {energyPrefix:energyIcons(0)} until played.",
+  "PERCYJACKSON-FREE_THE_AQUARIUM.description": "Choose {Cards:diff()} card{Cards:plural:|s} in your [gold]Hand[/gold] that you can't play.\nIf the card was an Attack or Skill, add a copy into your [gold]Draw Pile[/gold] that costs {energyPrefix:energyIcons(0)} until played{IfUpgraded:hide: and [gold]Exhaust[/gold] this}.",
   "PERCYJACKSON-FREE_THE_AQUARIUM.title": "Free The Aquarium",
   "PERCYJACKSON-FREE_THE_AQUARIUM.selectionPrompt": "Choose {Amount:plural:a card|[blue]{Amount}[/blue] cards} to copy.",
   
-  "PERCYJACKSON-WAVE_PUNCH.description": "{IfUpgraded:show:Raise the [gold]Tide[/gold] by {Tide:diff()}.\n|}At the start of your turn, deal damage equal to the total Tide gained this combat to a random enemy.",
+  "PERCYJACKSON-WAVE_PUNCH.description": "Deal {Damage:diff()} damage.\nDeals {TideDamage:diff()} additional damage for all [gold]Tide[/gold] gained this combat.",
   "PERCYJACKSON-WAVE_PUNCH.title": "Wave Punch",
   
-  "PERCYJACKSON-ERUPTION.description": "Deal {Damage:diff()} damage to ALL enemies {HitCount:diff()} time{HitCount:plural:|s}.\nApply {WoundedPower:diff()} [gold]Wounded[/gold] to each debuffed enemy hit.",
+  "PERCYJACKSON-ERUPTION.description": "Apply {WoundedPower:diff()} [gold]Wounded[/gold] and {WeakPower:diff()} [gold]Weak[/gold] to ALL enemies.",
   "PERCYJACKSON-ERUPTION.title": "Eruption",
   
   "PERCYJACKSON-WHIRLPOOL.description": "Lower the [gold]Tide[/gold] to 0.\nDeal {Damage:diff()} damage to ALL enemies a number of times equal to the [gold]Tide[/gold] lost.",
@@ -92,10 +89,10 @@
   "PERCYJACKSON-UNWAVERING.description": "The first {Times:plural:time|{Times:diff()} times} you consume [gold]Vigor[/gold] each turn, reapply your [gold]Vigor[/gold].",
   "PERCYJACKSON-UNWAVERING.title": "Unwavering",
   
-  "PERCYJACKSON-IMMERSION.description": "Add a [gold]Water[/gold] to your [gold]Hand[/gold], [gold]Draw Pile[/gold], and [gold]Discard Pile[/gold].\nGain {Energy:energyIcons()}.",
+  "PERCYJACKSON-IMMERSION.description": "Add a [gold]Water[/gold] to all [gold]Combat Piles[/gold].\nActivate all [gold]Water[/gold] in your [gold]Hand[/gold].\nGain {Energy:energyIcons()}.",
   "PERCYJACKSON-IMMERSION.title": "Immersion",
   
-  "PERCYJACKSON-FEINT.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {VigorPower:diff()} [gold]Vigor[/gold].",
+  "PERCYJACKSON-FEINT.description": "Deal {Damage:diff()} damage.\nThe next card in this [gold]Combo[/gold] costs {energyPrefix:energyIcons(0)}.",
   "PERCYJACKSON-FEINT.title": "Feint",
   
   "PERCYJACKSON-GREEK_STYLE_IMPROV.description": "Next turn, all cards are [gold]Combo[/gold] cards and ignore [gold]Combo[/gold] count restrictions.",
@@ -104,7 +101,7 @@
   "PERCYJACKSON-REFINED_TECHNIQUE.description": "[gold]Combo[/gold] {ComboX:diff()}: Deal {Damage:diff()} damage {HitCount:diff()} time{HitCount:plural:|s}.\nHits once for each previous card in this [gold]Combo[/gold].\nEnd your [gold]Combo[/gold].",
   "PERCYJACKSON-REFINED_TECHNIQUE.title": "Refined Technique",
   
-  "PERCYJACKSON-LIFE_BUOY.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever this card re-enters your [gold]Draw Pile[/gold], draw {Cards:diff()} card{Cards:plural:|s}.",
+  "PERCYJACKSON-LIFE_BUOY.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut this card on top of your [gold]Draw Pile[/gold].",
   "PERCYJACKSON-LIFE_BUOY.title": "Life Buoy",
   
   "PERCYJACKSON-DEADLY_GAMBLE.description": "Shuffle ALL cards into your [gold]Draw Pile[/gold].\nDraw {Cards:diff()} card{Cards:plural:|s}. If you drew a non-Attack, gain {IntangiblePower:diff()} [gold]Intangible[/gold]. Otherwise, gain {PoisonPower:diff()} [gold]Poison[/gold].",
@@ -137,8 +134,8 @@
   "PERCYJACKSON-TIDE_SWEPT.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd a [gold]Water[/gold] on top of your [gold]Draw Pile[/gold].",
   "PERCYJACKSON-TIDE_SWEPT.title": "Tide Swept",
   
-  "PERCYJACKSON-SHRUG.description": "Gain {Block:diff()} [gold]Block[/gold].\nDraw {Cards:diff()} card{Cards:plural:|s}.",
-  "PERCYJACKSON-SHRUG.title": "Shrug",
+  "PERCYJACKSON-UNSEEN_STRIKE.description": "Deal {Damage:diff()} damage.\nAdd a copy of this card that costs an extra {IncreasedEnergy:energyIcons()} to your hand.",
+  "PERCYJACKSON-UNSEEN_STRIKE.title": "Unseen Strike",
   
   "PERCYJACKSON-SWORD_SHARPENING.description": "All attacks this turn deal {SharpeningAmount:diff()} more damage.\nPermanently increase this damage by {Increase:diff()}.",
   "PERCYJACKSON-SWORD_SHARPENING.title": "Sword Sharpening",
@@ -146,11 +143,8 @@
   "PERCYJACKSON-WATER.description": "Plays when drawn.\nDraw {Cards:diff()} card{Cards:plural:|s}.",
   "PERCYJACKSON-WATER.title": "Water",
   
-  "PERCYJACKSON-ARC.description": "Deal {Damage:diff()} damage and apply {WoundedPower:diff()} [gold]Wounded[/gold] to ALL enemies.",
-  "PERCYJACKSON-ARC.title": "Arc",
-  
-  "PERCYJACKSON-OPENED_SORES.description": "Apply {WoundedPower:diff()} [gold]Wounded[/gold].",
-  "PERCYJACKSON-OPENED_SORES.title": "Opened Sores",
+  "PERCYJACKSON-ZIG_ZAG.description": "Deal {Damage:diff()} damage and apply {WoundedPower:diff()} [gold]Wounded[/gold] to ALL enemies.",
+  "PERCYJACKSON-ZIG_ZAG.title": "Zig-Zag",
   
   "PERCYJACKSON-CANT_SIT_STILL.description": "Deal {Damage:diff()} damage {HitCount:diff()} time{HitCount:plural:|s}.\nHits once for each time you attacked the enemy this turn.",
   "PERCYJACKSON-CANT_SIT_STILL.title": "Can't Sit Still",
@@ -158,17 +152,17 @@
   "PERCYJACKSON-YOU_DROOL.description": "Next turn, gain {VigorPower:diff()} [gold]Vigor[/gold] and {Energy:energyIcons()}.",
   "PERCYJACKSON-YOU_DROOL.title": "You Drool",
   
-  "PERCYJACKSON-VAPORIZE.description": "Deal {Damage:diff()} damage to ALL enemies.\nIf a minion was hit for at least half of its Max HP, kill them instantly.",
+  "PERCYJACKSON-VAPORIZE.description": "Deal {Damage:diff()} damage to ALL enemies.\nIf an enemy is left with less than 10% of their Max HP, kill them instantly.",
   "PERCYJACKSON-VAPORIZE.title": "Vaporize",
   
-  "PERCYJACKSON-ANCHOR.description": "Deal {Damage:diff()} damage.\nWhenever you shuffle your draw pile, reduce the cost of this card by {EnergyDecrease:diff()}.",
+  "PERCYJACKSON-ANCHOR.description": "Deal {Damage:diff()} damage.\nWhenever you draw an [gold]Unplayable[/gold] card, reduce the cost of this card by {EnergyDecrease:diff()}.",
   "PERCYJACKSON-ANCHOR.title": "Anchor",
   
   "PERCYJACKSON-THRUST.description": "Deal {Damage:diff()} damage.\n[gold]Combo[/gold] {ComboX:diff()}: Apply {WoundedPower:diff()} [gold]Wounded[/gold] and ignore [gold]Block[/gold].",
   "PERCYJACKSON-THRUST.title": "Thrust",
   
-  "PERCYJACKSON-SURFACED_TREASURE.description": "[gold]Water[/gold] draws {Cards:diff()} extra card{Cards:plural:|s}.{IfUpgraded:show:\nAdd a [gold]Water[/gold] into your [gold]Draw Pile[/gold].|}",
-  "PERCYJACKSON-SURFACED_TREASURE.title": "Surfaced Treasure",
+  "PERCYJACKSON-DEEP_SEA_TREASURE.description": "At the end of your turn, reduce the cost of a random card in your [gold]Discard Pile[/gold] to {energyPrefix:energyIcons(0)} until played.",
+  "PERCYJACKSON-DEEP_SEA_TREASURE.title": "Deep Sea Treasure",
 
   "PERCYJACKSON-ACCELERATED_BLEEDING.description": "Gain {Block:diff()} [gold]Block[/gold].\nTrigger the enemy's [gold]Wounded[/gold] {HitCount:diff()} time{HitCount:plural:|s} and remove it.",
   "PERCYJACKSON-ACCELERATED_BLEEDING.title": "Accelerated Bleeding",
@@ -185,8 +179,8 @@
   "PERCYJACKSON-CATEGORY_FIVE.description": "Can only be played after shuffling your [gold]Draw Pile[/gold] {ShuffleCount:diff()} time{ShuffleCount:plural:|s}.\nDeal {Damage:diff()} damage to ALL enemies.",
   "PERCYJACKSON-CATEGORY_FIVE.title": "Category Five",
 
-  "PERCYJACKSON-PURE_DESTRUCTION.description": "Untargeted attacks deal {DamageBoost:diff()} additional damage.",
-  "PERCYJACKSON-PURE_DESTRUCTION.title": "Pure Destruction",
+  "PERCYJACKSON-LET_IT_BE.description": "Whenever you draw an [gold]Unplayable[/gold] card, draw {Cards:diff()} card{Cards:plural:|s}.",
+  "PERCYJACKSON-LET_IT_BE.title": "Let It Be",
 
   "PERCYJACKSON-TETANUS.description": "Every 3 times you apply [gold]Wounded[/gold], apply an equal amount of [gold]Poison[/gold].",
   "PERCYJACKSON-TETANUS.title": "Tetanus",
@@ -200,15 +194,15 @@
   "PERCYJACKSON-HURRICANE_FORM.description": "Whenever you deal unblocked attack damage to an enemy, deal {DamageAmount:diff()} damage to a random enemy.",
   "PERCYJACKSON-HURRICANE_FORM.title": "Hurricane Form",
 
-  "PERCYJACKSON-WAIT_FOR_IT.description": "Next turn, gain {VigorAmount:diff()} [gold]Vigor[/gold].\n[gold]Retain[/gold] your [gold]Hand[/gold] this turn.",
+  "PERCYJACKSON-WAIT_FOR_IT.description": "[gold]Retain[/gold] your [gold]Hand[/gold] this turn.\nNext turn, gain {Energy:energyIcons()}.",
   "PERCYJACKSON-WAIT_FOR_IT.title": "Wait For It",
 
-  "PERCYJACKSON-TEAMWORK.description": "At the start of your turn, add a random [gold]Combo[/gold]-related card to your hand.",
+  "PERCYJACKSON-TEAMWORK.description": "Whenever you end a [gold]Combo[/gold], draw {Cards:diff()} card{Cards:plural:|s} for each card in the [gold]Combo[/gold].",
   "PERCYJACKSON-TEAMWORK.title": "Teamwork",
 
-  "PERCYJACKSON-YOU_DROPPED_THIS.description": "Deal {Damage:diff()} damage.\nPut a card from your [gold]Discard Pile[/gold] on top of your [gold]Draw Pile[/gold].",
+  "PERCYJACKSON-YOU_DROPPED_THIS.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut {Cards:diff()} card{Cards:plural:|s} from your [gold]Discard Pile[/gold] on top of your [gold]Draw Pile[/gold].",
   "PERCYJACKSON-YOU_DROPPED_THIS.title": "You Dropped This",
-  "PERCYJACKSON-YOU_DROPPED_THIS.selectionScreenPrompt": "Choose a card to return from the Discard Pile.",
+  "PERCYJACKSON-YOU_DROPPED_THIS.selectionScreenPrompt": "Choose cards to return from the Discard Pile.",
 
   "PERCYJACKSON-IVE_SEEN_HELL.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold].\nGains {AdditionalBlock:diff()} additional [gold]Block[/gold] for each stack of buffs that you have.",
   "PERCYJACKSON-IVE_SEEN_HELL.title": "I've Seen Hell",
@@ -221,7 +215,7 @@
   "PERCYJACKSON-SON_OF_NEPTUNE.description": "All [gold]Tide[/gold] gain and maximum [gold]Tide[/gold] gain is multiplied by {Mult:diff()}.\nAt the start of your turn, lower the maximum [gold]Tide[/gold] by {Decrease:diff()}.",
   "PERCYJACKSON-SON_OF_NEPTUNE.title": "Son Of Neptune",
 
-  "PERCYJACKSON-WAVE_AFTER_WAVE.description": "Deal {Damage:diff()} damage to ALL enemies and add [gold]Water[/gold] to your hand {HitCount:diff()} time{HitCount:plural:|s}.",
+  "PERCYJACKSON-WAVE_AFTER_WAVE.description": "Add {Cards:diff()} [gold]Water[/gold] to your [gold]Hand[/gold].\nDeal {Damage:diff()} damage to ALL enemies a number of times equal to the cards in your [gold]Hand[/gold].{InCombat:\n(Hits {HitCount:diff()} time{HitCount:plural:|s})}",
   "PERCYJACKSON-WAVE_AFTER_WAVE.title": "Wave After Wave",
 
   "PERCYJACKSON-SLASH_EM.description": "Apply {WoundedPower:diff()} [gold]Wounded[/gold] and deal {Damage:diff()} damage X times.",
@@ -239,22 +233,43 @@
   "PERCYJACKSON-ANAKLUSMOS.description": "The first Attack you play each turn hits an additional time.",
   "PERCYJACKSON-ANAKLUSMOS.title": "Anaklusmos",
 
-  "PERCYJACKSON-TSUNAMI.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {BonusDamage:diff()} additional damage for each [gold]Water[/gold] in your {IfUpgraded:show:[gold]Draw Pile[/gold] and |}[gold]Exhaust Pile[/gold].",
+  "PERCYJACKSON-TSUNAMI.description": "Exhaust ALL [gold]Unplayable[/gold] cards.\nDeal {Damage:diff()} damage for each [gold]Unplayable[/gold] card in your [gold]Exhaust Pile[/gold].{InCombat:\n(Hits {HitCount:diff()} time{HitCount:plural:|s})}",
   "PERCYJACKSON-TSUNAMI.title": "Tsunami",
 
   "PERCYJACKSON-PRECAUTION.description": "Gain {Block:diff()} [gold]Block[/gold].\nReturn a card from your [gold]Hand[/gold] back to your [gold]Draw Pile[/gold].",
   "PERCYJACKSON-PRECAUTION.title": "Precaution",
   "PERCYJACKSON-PRECAUTION.selectionScreenPrompt": "Choose a card to return to your Draw Pile.",
 
-  "PERCYJACKSON-WAVE_SHIELD.description": "Gain {Block:diff()} [gold]Block[/gold].\nApply {WeakPower:diff()} [gold]Weak[/gold] to ALL enemies.",
+  "PERCYJACKSON-WAVE_SHIELD.description": "Gain {Block:diff()} [gold]Block[/gold].\nApply [gold]Slow[/gold] to attackers this turn.",
   "PERCYJACKSON-WAVE_SHIELD.title": "Wave Shield",
 
   "PERCYJACKSON-SAFE_SAILING.description": "Gain {Block:diff()} [gold]Block[/gold].\nIf you manually drew a card this turn, gain {Block:diff()} [gold]Block[/gold] again.",
   "PERCYJACKSON-SAFE_SAILING.title": "Safe Sailing",
 
-  "PERCYJACKSON-QUALITY_BRONZE.description": "Whenever you hit an enemy, apply {WoundedPower:diff()} [gold]Wounded[/gold].",
-  "PERCYJACKSON-QUALITY_BRONZE.title": "Quality Bronze",
-
   "PERCYJACKSON-SUPERIOR_SWIMMING.description": "Whenever you raise the maximum [gold]Tide[/gold], all enemies lose {StrengthPower:diff()} [gold]Strength[/gold].",
-  "PERCYJACKSON-SUPERIOR_SWIMMING.title": "Superior Swimming"
+  "PERCYJACKSON-SUPERIOR_SWIMMING.title": "Superior Swimming",
+
+  "PERCYJACKSON-SEEING_RED.description": "Deal {Damage:diff()} damage to ALL enemies {HitCount:diff()} time{HitCount:plural:|s}.",
+  "PERCYJACKSON-SEEING_RED.title": "Seeing Red",
+
+  "PERCYJACKSON-HIGH_BUOYANCY.description": "Deal {Damage:diff()} damage.\nAdd [gold]Retain[/gold] to a card in your [gold]Hand[/gold].",
+  "PERCYJACKSON-HIGH_BUOYANCY.title": "High Buoyancy",
+
+  "PERCYJACKSON-HOLDING_THE_SKY.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold]. Gains {ExtraBlock:diff()} [gold]Block[/gold] for each card in your [gold]Draw Pile[/gold].",
+  "PERCYJACKSON-HOLDING_THE_SKY.title": "Holding The Sky",
+
+  "PERCYJACKSON-PIERCING_STRIKE.description": "Apply {WoundedPower:diff()} [gold]Wounded[/gold].\nDeal {Damage:diff()} damage {HitCount:diff()} time{HitCount:plural:|s}.",
+  "PERCYJACKSON-PIERCING_STRIKE.title": "Piercing Strike",
+
+  "PERCYJACKSON-PHLEGETHONS_WATERS.description": "Add {Cards:diff()} [gold]Burn{Cards:plural:|s}[/gold] to your [gold]Draw Pile[/gold].\nGain {DexterityPower:diff()} [gold]Dexterity[/gold].\nGain {StrengthPower:diff()} [gold]Strength[/gold].",
+  "PERCYJACKSON-PHLEGETHONS_WATERS.title": "Phlegethon's Waters",
+
+  "PERCYJACKSON-BLADE_TRICKS.description": "Every 2nd [gold]Combo[/gold] card you play gains [gold]Retain[/gold].",
+  "PERCYJACKSON-BLADE_TRICKS.title": "Blade Tricks",
+
+  "PERCYJACKSON-FRENZY.description": "Deal {Damage:diff()} damage for each multi-hit attack played this combat.{InCombat:\n(Hits {HitCount:diff()} time{HitCount:plural:|s})}",
+  "PERCYJACKSON-FRENZY.title": "Frenzy",
+
+  "PERCYJACKSON-TRUE_FINISHER.description": "Deal {Damage:diff()} damage.\nGain {Block:diff()} [gold]Block[/gold].\nCombo multipliers affect this card twice.",
+  "PERCYJACKSON-TRUE_FINISHER.title": "True Finisher"
 }

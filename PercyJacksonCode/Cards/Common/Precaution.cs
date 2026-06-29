@@ -13,7 +13,7 @@ public class Precaution : PercyJacksonCard
     public Precaution() : base(1, CardType.Skill,
         CardRarity.Common, TargetType.Self)
     {
-        WithBlock(5, 3);
+        WithBlock(8, 3);
     }
 
     protected override async Task OnPlay(

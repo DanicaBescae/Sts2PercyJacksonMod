@@ -10,8 +10,8 @@ public class NobodyTouchHer : PercyJacksonCard
 {
     public NobodyTouchHer() : base(1, CardType.Attack, CardRarity.Common, TargetType.RandomEnemy)
     {
-        WithDamage(3, 1);
-        WithVar("HitCount", 3);
+        WithDamage(3);
+        WithVar("HitCount", 3, 4);
         WithTide(1);
     }
 
@@ -20,20 +20,9 @@ public class NobodyTouchHer : PercyJacksonCard
         CardPlay play)
     {
         var results = (await CommonActions
-            .CardAttack(this, play.Target, hitCount: DynamicVars["HitCount"].IntValue, vfx: "vfx/vfx_attack_blunt",
-                tmpSfx: "blunt_attack.mp3")
+            .CardAttack(this, play.Target, hitCount: DynamicVars["HitCount"].IntValue, vfx: "vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3")
             .Execute(choiceContext)).Results;
 
-        var enemies = new HashSet<Creature>();
-
-        foreach (var result in results)
-        {
-            foreach (var result1 in result)
-            {
-                _ = enemies.Add(result1.Receiver);
-            }
-        }
-
-        await TideManager.UpdateTide(Owner, enemies.Count);
+        await TideManager.UpdateTide(Owner, DynamicVars["HitCount"].IntValue);
     }
 }

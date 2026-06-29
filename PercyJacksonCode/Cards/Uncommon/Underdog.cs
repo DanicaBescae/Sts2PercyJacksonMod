@@ -11,9 +11,9 @@ namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class Underdog: PercyJacksonCard
 {
-    public Underdog() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public Underdog() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(12, 2);
+        WithDamage(9, 11);
         WithPower<VulnerablePower>(2);
     }
     

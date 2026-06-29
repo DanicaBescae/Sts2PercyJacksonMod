@@ -7,15 +7,17 @@ using PercyJackson.PercyJacksonCode.Hooks;
 
 namespace PercyJackson.PercyJacksonCode.Powers;
 
-public class NoSweatPower : PercyJacksonPower, IAfterComboEnded
+public class NoSweatPower : PercyJacksonPower, IAfterComboIncreased
 {
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public Task AfterComboEnded(PlayerChoiceContext choiceContext, Player player, int combo)
+    private const int CardsBeforeEnergy = 4;
+
+    public async Task AfterComboIncreased(PlayerChoiceContext choiceContext, Player player, int newCombo)
     {
-        Flash();
-        return PlayerCmd.GainEnergy(Amount, Owner.Player);
+        if (player != Owner.Player) return;
+        if (newCombo % CardsBeforeEnergy == 0) await PlayerCmd.GainEnergy(Amount, player);
     }
 }

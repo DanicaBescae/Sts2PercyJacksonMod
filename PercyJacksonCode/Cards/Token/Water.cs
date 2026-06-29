@@ -17,8 +17,10 @@ public class Water: ConstructedCardModel
     {
         WithKeyword(CardKeyword.Unplayable);
         WithKeyword(CardKeyword.Exhaust);
-        WithCards(2, 1);
+        WithCards(2);
     }
+
+    public override int MaxUpgradeLevel => 0;
 
     public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
@@ -27,7 +29,7 @@ public class Water: ConstructedCardModel
         await CardCmd.Exhaust(choiceContext, this);
     }
 
-    private async Task Activate(PlayerChoiceContext choiceContext)
+    public async Task Activate(PlayerChoiceContext choiceContext)
     {
         await PercyJacksonHooks.BeforeWaterActivated(CombatState, choiceContext, this);
         await CommonActions.Draw(this, choiceContext);

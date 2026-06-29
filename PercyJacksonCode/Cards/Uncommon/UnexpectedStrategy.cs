@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using PercyJackson.PercyJacksonCode.Character;
+using PercyJackson.PercyJacksonCode.Models;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
@@ -15,7 +16,9 @@ public class UnexpectedStrategy : PercyJacksonCard
     {
         WithTip(ComboStarter);
         WithKeyword(ComboKeyword);
-        WithKeyword(CardKeyword.Retain, UpgradeType.Add);
+        WithKeyword(CardKeyword.Retain);
+        WithKeyword(CardKeyword.Exhaust);
+        WithCostUpgradeBy(-1);
         WithCards(1);
     }
     
@@ -26,7 +29,7 @@ public class UnexpectedStrategy : PercyJacksonCard
         var prefs = new CardSelectorPrefs(new LocString("cards", "PERCYJACKSON-UNEXPECTED_STRATEGY.selectionPrompt"),
             DynamicVars.Cards.IntValue);
         var cards = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs,
-            (card) => !card.Keywords.Contains(ComboKeyword), this)).ToList();
+            (card) => !ComboManager.IsComboCard(card), this)).ToList();
         
         if (cards.Count == 0)
             return;

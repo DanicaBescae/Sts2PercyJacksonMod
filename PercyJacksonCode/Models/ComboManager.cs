@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using PercyJackson.PercyJacksonCode.Cards;
+using PercyJackson.PercyJacksonCode.Cards.Uncommon;
 using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Fields;
 using PercyJackson.PercyJacksonCode.Hooks;
@@ -55,14 +56,21 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
 
         if (combo == null) return 1M;
 
-        var currentComboMult = 1 + ((_multPerCombo * combo.CurrentComboCount) / 100);
-
-        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
+        if (_cardToIncrease != null)
+        {
+            return cardSource == _cardToIncrease
+                ? (_cardToIncrease is TrueFinisher
+                    ? CurrentComboMult(_cardToIncrease.Owner, 2, true)
+                    : CurrentComboMult(_cardToIncrease.Owner))
+                : 1M;
+        }
 
         var pile = cardSource.Pile;
-        return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
-               combo.CurrentComboCount > 0 && WillIncreaseCombo(cardSource)
-            ? currentComboMult
+        if (pile == null || pile.Type == PileType.Play) return 1M;
+        return combo.CurrentComboCount > 0 && WillIncreaseCombo(cardSource)
+            ? (cardSource is TrueFinisher
+                ? CurrentComboMult(_cardToIncrease.Owner, 2, true)
+                : CurrentComboMult(_cardToIncrease.Owner))
             : 1M;
     }
 
@@ -75,20 +83,36 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
     {
         if (props != ValueProp.Move || cardSource == null)
             return 1M;
-        
+
         var combo = cardSource.Owner.PlayerCombatState.Combo();
 
         if (combo == null) return 1M;
 
-        var currentComboMult = 1 + ((_multPerCombo * combo.CurrentComboCount) / 100);
-
-        if (_cardToIncrease != null) return cardSource == _cardToIncrease ? currentComboMult : 1M;
+        if (_cardToIncrease != null)
+        {
+            return cardSource == _cardToIncrease
+                ? (_cardToIncrease is TrueFinisher
+                    ? CurrentComboMult(_cardToIncrease.Owner, 2, true)
+                    : CurrentComboMult(_cardToIncrease.Owner))
+                : 1M;
+        }
 
         var pile = cardSource.Pile;
-        return (pile != null ? (pile.Type != PileType.Play ? 1 : 0) : 1) != 0 &&
-               combo.CurrentComboCount > 0 && WillIncreaseCombo(cardSource)
-            ? currentComboMult
+        if (pile == null || pile.Type == PileType.Play) return 1M;
+        return combo.CurrentComboCount > 0 && WillIncreaseCombo(cardSource)
+            ? (cardSource is TrueFinisher
+                ? CurrentComboMult(_cardToIncrease.Owner, 2, true)
+                : CurrentComboMult(_cardToIncrease.Owner))
             : 1M;
+    }
+
+    public decimal CurrentComboMult(Player player, decimal multMod = 1, bool multiplicativeMult = false)
+    {
+        if (multMod > 0 && multiplicativeMult)
+            return 1 + ((_multPerCombo * multMod * player.PlayerCombatState.Combo().CurrentComboCount) / 100);
+        if (multMod > 0 && !multiplicativeMult)
+            return 1 + (((_multPerCombo + multMod) * player.PlayerCombatState.Combo().CurrentComboCount) / 100);
+        return 1 + ((_multPerCombo * player.PlayerCombatState.Combo().CurrentComboCount) / 100);
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -118,6 +142,7 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
         if (_cardToIncrease != null && cardPlay.Card == _cardToIncrease) _cardToIncrease = null;
     }
     
+    /*
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (CombatManager.Instance.IsOverOrEnding || side != CombatSide.Player) return;
@@ -128,11 +153,18 @@ public class ComboManager(): CustomSingletonModel(HookType.Combat)
             var combo = player.Player.PlayerCombatState.Combo();
             await ClearCombo(choiceContext, combatState, combo);
         }
-    }
+    }*/
 
     public static bool IsComboChainCard(CardModel card)
     {
         return card.DynamicVars.ContainsKey("ComboX");
+    }
+
+    public static bool IsComboCard(CardModel card)
+    {
+        return IsComboChainCard(card) ||
+               card.Keywords.Contains(PercyJacksonCard.ComboStarter) ||
+               card.Owner.HasPower<ImprovisingPower>();
     }
 
     public static bool WillIncreaseCombo(CardModel card)

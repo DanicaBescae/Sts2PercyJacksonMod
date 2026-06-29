@@ -11,7 +11,7 @@ public class Disarm : PercyJacksonCard
 {
     public Disarm() : base(1, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithBlock(5, 2);
+        WithBlock(6, 2);
         WithVar("StrengthLoss", 1, 1);
         WithComboStarter();
         WithTip(typeof(StrengthPower));

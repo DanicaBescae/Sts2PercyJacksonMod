@@ -15,7 +15,7 @@ public class SeasEmbrace : PercyJacksonCard
 {
     public SeasEmbrace() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithBlock(8, 2);
+        WithBlock(10, 3);
         WithPower<VigorPower>(3, 1);
         WithTip(typeof(Water));
     }
@@ -28,7 +28,7 @@ public class SeasEmbrace : PercyJacksonCard
         await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["VigorPower"].BaseValue,
             Owner.Creature, this);
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        foreach (var original in PileType.Hand.GetPile(Owner).Cards.ToList())
+        foreach (var original in PileType.Hand.GetPile(Owner).Cards.Where(c => c.Type != CardType.Attack).ToList())
         {
             var card = CombatState.CreateCard<Water>(Owner);
             await CardCmd.Transform(original, card);

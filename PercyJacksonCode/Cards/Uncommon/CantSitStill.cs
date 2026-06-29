@@ -14,7 +14,7 @@ public class CantSitStill : PercyJacksonCard
     public CantSitStill() : base(1, CardType.Attack,
         CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(4, 2);
+        WithDamage(6, 2);
         WithCalculatedVar("HitCount", 0,
             (card, target) => CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>()
                 .Count(e =>

@@ -12,6 +12,7 @@ public class Teamwork : PercyJacksonCard
         CardRarity.Rare, TargetType.Self)
     {
         WithKeyword(ComboKeyword);
+        WithCards(1);
         WithCostUpgradeBy(-1);
     }
 
@@ -19,6 +20,6 @@ public class Teamwork : PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<TeamworkPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        await PowerCmd.Apply<TeamworkPower>(choiceContext, Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
     }
 }

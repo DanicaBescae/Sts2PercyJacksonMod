@@ -24,16 +24,23 @@ public static class PercyJacksonHooks
         }
     }
     
-    public static Task AfterComboEnded(ICombatState combatState, PlayerChoiceContext choiceContext, Player player, int combo)
-    {
-        return Dispatch<IAfterComboEnded>(combatState, choiceContext,
-            model => model.AfterComboEnded(choiceContext, player, combo));
-    }
-    
     public static Task AfterComboStarted(ICombatState combatState, PlayerChoiceContext choiceContext, CardModel card)
     {
         return Dispatch<IAfterComboStarted>(combatState, choiceContext,
             model => model.AfterComboStarted(choiceContext, card));
+    }
+
+    public static Task AfterComboIncreased(ICombatState combatState, PlayerChoiceContext choiceContext, Player player,
+        int newCombo)
+    {
+        return Dispatch<IAfterComboIncreased>(combatState, choiceContext,
+            model => model.AfterComboIncreased(choiceContext, player, newCombo));
+    }
+
+    public static Task AfterComboEnded(ICombatState combatState, PlayerChoiceContext choiceContext, Player player, int combo)
+    {
+        return Dispatch<IAfterComboEnded>(combatState, choiceContext,
+            model => model.AfterComboEnded(choiceContext, player, combo));
     }
     
     public static Task BeforeWaterActivated(ICombatState combatState, PlayerChoiceContext choiceContext, CardModel card)

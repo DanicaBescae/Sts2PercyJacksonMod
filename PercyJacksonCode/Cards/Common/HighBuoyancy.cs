@@ -3,17 +3,18 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using PercyJackson.PercyJacksonCode.Cards;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Common;
 
-public class YouDroppedThis : PercyJacksonCard
+public class HighBuoyancy : PercyJacksonCard
 {
-    public YouDroppedThis() : base(1, CardType.Skill,
+    public HighBuoyancy() : base(1, CardType.Attack,
         CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithBlock(5);
-        WithCards(1, 1);
+        WithDamage(7, 10);
+        WithKeyword(CardKeyword.Retain);
     }
 
     protected override async Task OnPlay(
@@ -21,11 +22,10 @@ public class YouDroppedThis : PercyJacksonCard
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play).Execute(choiceContext);
-        var prefs = new CardSelectorPrefs(SelectionScreenPrompt, DynamicVars.Cards.IntValue);
-        var discardedCards =
-            (await CardSelectCmd.FromCombatPile(choiceContext, PileType.Discard.GetPile(Owner), Owner, prefs)).ToList();
-        if (discardedCards.Count == 0)
+        var prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
+        var card = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, c => !c.Keywords.Contains(CardKeyword.Retain), this)).FirstOrDefault();
+        if (card == null)
             return;
-        await CardPileCmd.Add(discardedCards, PileType.Draw, CardPilePosition.Top);
+        CardCmd.ApplyKeyword(card, CardKeyword.Retain);
     }
 }

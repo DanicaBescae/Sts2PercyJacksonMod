@@ -6,20 +6,20 @@ using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
-public class TerrifiedAnticipation : PercyJacksonCard
+public class BladeTricks : PercyJacksonCard
 {
-    public TerrifiedAnticipation() : base(1, CardType.Power,
+    public BladeTricks() : base(1, CardType.Power,
         CardRarity.Uncommon, TargetType.Self)
     {
         WithKeyword(ComboKeyword);
-        WithVar("DamageAmount", 2, 1);
+        WithTip(CardKeyword.Retain);
+        WithKeyword(CardKeyword.Innate, UpgradeType.Add);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<TerrifiedAnticipationPower>(choiceContext, Owner.Creature,
-            DynamicVars["DamageAmount"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<BladeTricksPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 }

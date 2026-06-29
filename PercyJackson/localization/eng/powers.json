@@ -1,6 +1,6 @@
 {
-  "PERCYJACKSON-NO_SWEAT_POWER.description": "Whenever you end a [gold]Combo[/gold], gain [gold]Energy[/gold].",
-  "PERCYJACKSON-NO_SWEAT_POWER.smartDescription": "Whenever you end a [gold]Combo[/gold], gain {Amount:energyIcons()}.",
+  "PERCYJACKSON-NO_SWEAT_POWER.description": "For every 4 cards you play in a [gold]Combo[/gold], gain [gold]Energy[/gold].",
+  "PERCYJACKSON-NO_SWEAT_POWER.smartDescription": "For every 4 cards you play in a [gold]Combo[/gold], gain {Amount:energyIcons()}.",
   "PERCYJACKSON-NO_SWEAT_POWER.title": "No Sweat",
   
   "PERCYJACKSON-NO_TIDE_GAIN_POWER.description": "You may not raise the [gold]Tide[/gold] this turn.",
@@ -43,10 +43,6 @@
   "PERCYJACKSON-WOUNDED_POWER.smartDescription": "Loses [blue]{Amount}[/blue] HP when taking unblocked attack damage.",
   "PERCYJACKSON-WOUNDED_POWER.title": "Wounded",
   
-  "PERCYJACKSON-WAVE_PUNCH_POWER.description": "At the start of your turn, deal damage proportional to the total [gold]Tide[/gold] gained this combat to a random enemy.",
-  "PERCYJACKSON-WAVE_PUNCH_POWER.smartDescription": "At the start of your turn, deal damage equal to {Amount:plural:|[blue]{Amount}[/blue] x }the total [gold]Tide[/gold] gained this combat to a random enemy.",
-  "PERCYJACKSON-WAVE_PUNCH_POWER.title": "Wave Punch",
-  
   "PERCYJACKSON-SWORD_SHARPENING_POWER.description": "All attacks this turn deal extra damage.",
   "PERCYJACKSON-SWORD_SHARPENING_POWER.smartDescription": "All attacks this turn deal [blue]{Amount}[/blue] more damage.",
   "PERCYJACKSON-SWORD_SHARPENING_POWER.title": "Sword Sharpening",
@@ -55,32 +51,28 @@
   "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Vigor[/gold] next turn.",
   "PERCYJACKSON-VIGOR_NEXT_TURN_POWER.title": "Invigorated",
   
-  "PERCYJACKSON-SURFACED_TREASURE_POWER.description": "Water draws extra cards.",
-  "PERCYJACKSON-SURFACED_TREASURE_POWER.smartDescription": "Water draws [blue]{Amount}[/blue] extra card{Amount:plural:|s}.",
-  "PERCYJACKSON-SURFACED_TREASURE_POWER.title": "Surfaced Treasure",
+  "PERCYJACKSON-DEEP_SEA_TREASURE_POWER.description": "At the end of your turn, reduce the cost of a random card in your [gold]Discard Pile[/gold] to {energyPrefix:energyIcons(0)} until played.",
+  "PERCYJACKSON-DEEP_SEA_TREASURE_POWER.smartDescription": "At the end of your turn, reduce the cost of {Amount:plural:a|[blue]{Amount}[/blue]} random card{Amount:plural:|s} in your [gold]Discard Pile[/gold] to {energyPrefix:energyIcons(0)} until played.",
+  "PERCYJACKSON-DEEP_SEA_TREASURE_POWER.title": "Deep Sea Treasure",
 
   "PERCYJACKSON-PERMANENT_SCARRING_POWER.description": "[gold]Wounded[/gold] enemies take damage equal to their [gold]Wounded[/gold] at the start of the turn.",
   "PERCYJACKSON-PERMANENT_SCARRING_POWER.smartDescription": "[gold]Wounded[/gold] enemies take damage equal to their [gold]Wounded[/gold] {Amount:plural:|[blue]{Amount}[/blue] times }at the start of the turn.",
   "PERCYJACKSON-PERMANENT_SCARRING_POWER.title": "Permanent Scarring",
 
-  "PERCYJACKSON-PURE_DESTRUCTION_POWER.description": "Untargeted attacks deal additional damage.",
-  "PERCYJACKSON-PURE_DESTRUCTION_POWER.smartDescription": "Untargeted attacks deal [blue]{Amount}[/blue] additional damage.",
-  "PERCYJACKSON-PURE_DESTRUCTION_POWER.title": "Pure Destruction",
+  "PERCYJACKSON-LET_IT_BE_POWER.description": "Whenever you draw an [gold]Unplayable[/gold] card, draw a card.",
+  "PERCYJACKSON-LET_IT_BE_POWER.smartDescription": "Whenever you draw an [gold]Unplayable[/gold] card, draw {Amount:plural:a|[blue]{Amount}[/blue]} card{Amount:plural:|s}.",
+  "PERCYJACKSON-LET_IT_BE_POWER.title": "Let It Be",
 
   "PERCYJACKSON-TETANUS_POWER.description": "Every [blue]3[/blue] times you apply [gold]Wounded[/gold], apply an equal amount of [gold]Poison[/gold].",
   "PERCYJACKSON-TETANUS_POWER.smartDescription": "Every [blue]3[/blue] times you apply [gold]Wounded[/gold], apply an equal amount of [gold]Poison[/gold]{Amount:plural:| [blue]{Amount}[/blue] times}.",
   "PERCYJACKSON-TETANUS_POWER.title": "Tetanus",
 
-  "PERCYJACKSON-TERRIFIED_ANTICIPATION_POWER.description": "The first time you start a [gold]Combo[/gold] each turn, deal damage to ALL enemies.",
-  "PERCYJACKSON-TERRIFIED_ANTICIPATION_POWER.smartDescription": "The first time you start a [gold]Combo[/gold] each turn, deal [blue]{Amount}[/blue] damage to ALL enemies.",
-  "PERCYJACKSON-TERRIFIED_ANTICIPATION_POWER.title": "Terrified Anticipation",
-
   "PERCYJACKSON-HURRICANE_FORM_POWER.description": "Whenever you deal unblocked attack damage to an enemy, deal damage to a random enemy.",
   "PERCYJACKSON-HURRICANE_FORM_POWER.smartDescription": "Whenever you deal unblocked attack damage to an enemy, deal [blue]{Amount}[/blue] damage to a random enemy.",
   "PERCYJACKSON-HURRICANE_FORM_POWER.title": "Hurricane Form",
 
-  "PERCYJACKSON-TEAMWORK_POWER.description": "At the start of your turn, add a random [gold]Combo[/gold]-related card to your hand.",
-  "PERCYJACKSON-TEAMWORK_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a|[blue]{Amount}[/blue]} random [gold]Combo[/gold]-related card{Amount:plural:|s} to your hand.",
+  "PERCYJACKSON-TEAMWORK_POWER.description": "Whenever you end a [gold]Combo[/gold], draw cards proportional to the [gold]Combo[/gold] count.",
+  "PERCYJACKSON-TEAMWORK_POWER.smartDescription": "Whenever you end a [gold]Combo[/gold], draw {Amount:plural:a|[blue]{Amount}[/blue]} card{Amount:plural:|s} for each card in the [gold]Combo[/gold].",
   "PERCYJACKSON-TEAMWORK_POWER.title": "Teamwork",
 
   "PERCYJACKSON-SON_OF_NEPTUNE_POWER.description": "All [gold]Tide[/gold] gain and maximum [gold]Tide[/gold] gain is increased. At the start of your turn, lower the maximum [gold]Tide[/gold].",
@@ -99,15 +91,27 @@
   "PERCYJACKSON-ANAKLUSMOS_POWER.smartDescription": "The first Attack you play each turn hits [blue]{Amount}[/blue] additional time{Amount:plural:|s}.",
   "PERCYJACKSON-ANAKLUSMOS_POWER.title": "Anaklusmos",
 
-  "PERCYJACKSON-QUALITY_BRONZE_POWER.description": "Whenever you hit an enemy, apply Wounded.",
-  "PERCYJACKSON-QUALITY_BRONZE_POWER.smartDescription": "Whenever you hit an enemy, apply [blue]{Amount}[/blue] [gold]Wounded[/gold].",
-  "PERCYJACKSON-QUALITY_BRONZE_POWER.title": "Quality Bronze",
-
   "PERCYJACKSON-SURFACE_TENSION_POWER.description": "At the start of your turn, raise the [gold]Tide[/gold].",
   "PERCYJACKSON-SURFACE_TENSION_POWER.smartDescription": "At the start of your turn, raise the [gold]Tide[/gold] by [blue]{Amount}[/blue].",
   "PERCYJACKSON-SURFACE_TENSION_POWER.title": "Surface Tension",
 
   "PERCYJACKSON-SUPERIOR_SWIMMING_POWER.description": "Whenever you raise the maximum [gold]Tide[/gold], all enemies lose [gold]Strength[/gold].",
   "PERCYJACKSON-SUPERIOR_SWIMMING_POWER.smartDescription": "Whenever you raise the maximum [gold]Tide[/gold], all enemies lose [blue]{Amount}[/blue] [gold]Strength[/gold].",
-  "PERCYJACKSON-SUPERIOR_SWIMMING_POWER.title": "Superior Swimming"
+  "PERCYJACKSON-SUPERIOR_SWIMMING_POWER.title": "Superior Swimming",
+
+  "PERCYJACKSON-FEINT_POWER.description": "Your next cards in your [gold]Combo[/gold] cost {energyPrefix:energyIcons(0)}.",
+  "PERCYJACKSON-FEINT_POWER.smartDescription": "Your next [blue]{Amount}[/blue] card{Amount:plural:|s} in your [gold]Combo[/gold] cost {energyPrefix:energyIcons(0)}.",
+  "PERCYJACKSON-FEINT_POWER.title": "Feint",
+
+  "PERCYJACKSON-BLADE_TRICKS_POWER.description": "Every 2nd [gold]Combo[/gold] card you play gains [gold]Retain[/gold].",
+  "PERCYJACKSON-BLADE_TRICKS_POWER.smartDescription": "Every 2nd [gold]Combo[/gold] card you play gains [gold]Retain[/gold].",
+  "PERCYJACKSON-BLADE_TRICKS_POWER.title": "Blade Tricks",
+
+  "PERCYJACKSON-WAVE_SHIELD_POWER.description": "Attackers gain [gold]Slow[/gold] for a turn.",
+  "PERCYJACKSON-WAVE_SHIELD_POWER.smartDescription": "Attackers gain [gold]Slow[/gold] for a turn.",
+  "PERCYJACKSON-WAVE_SHIELD_POWER.title": "Wave Shield",
+
+  "PERCYJACKSON-WAVE_SHIELD_SLOW_POWER.description": "At the start of this creature's next turn, loses [gold]Slow[/gold].",
+  "PERCYJACKSON-WAVE_SHIELD_SLOW_POWER.smartDescription": "At the start of this creature's next turn, loses [gold]Slow[/gold].",
+  "PERCYJACKSON-WAVE_SHIELD_SLOW_POWER.title": "Temporary Slow"
 }

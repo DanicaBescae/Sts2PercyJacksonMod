@@ -18,7 +18,7 @@ public class SurfaceTension: PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<SurfaceTensionPower>(choiceContext, Owner.Creature, DynamicVars["WoundedPower"].BaseValue,
+        await PowerCmd.Apply<SurfaceTensionPower>(choiceContext, Owner.Creature, DynamicVars["Tide"].BaseValue,
             Owner.Creature, this);
     }
 }

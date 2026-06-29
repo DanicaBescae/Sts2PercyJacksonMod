@@ -7,22 +7,22 @@ using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Models;
 using PercyJackson.PercyJacksonCode.Powers;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Rare;
+namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class WavePunch: PercyJacksonCard
 {
-    public WavePunch() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public WavePunch() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithTide(0, 3);
-        WithPower<WavePunchPower>(1);
+        WithKeyword(TideKeyword);
+        WithVar("TideDamage", 2, 1);
+        WithCalculatedDamage(6,
+            (c, _) => c.Owner.PlayerCombatState.Tide().TideGainedThisCombat * c.DynamicVars["TideDamage"].BaseValue);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (IsUpgraded) await TideManager.UpdateTide(Owner, 3);
-        await PowerCmd.Apply<WavePunchPower>(choiceContext, Owner.Creature, DynamicVars["WavePunchPower"].BaseValue,
-            Owner.Creature, this);
+        await CommonActions.CardAttack(this, play).Execute(choiceContext);
     }
 }

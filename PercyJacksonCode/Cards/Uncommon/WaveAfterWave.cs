@@ -9,11 +9,14 @@ namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class WaveAfterWave : PercyJacksonCard
 {
-    public WaveAfterWave() : base(1, CardType.Attack,
+    public WaveAfterWave() : base(2, CardType.Attack,
         CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithDamage(3);
-        WithVar("HitCount", 3, 1);
+        WithDamage(6);
+        WithCards(2, 3);
+        WithCalculatedVar("HitCount", 0,
+            (c, _) => Math.Min(CardPile.MaxCardsInHand,
+                PileType.Hand.GetPile(c.Owner).Cards.Count + c.DynamicVars.Cards.IntValue));
         WithTip(typeof(Water));
     }
 
@@ -21,11 +24,15 @@ public class WaveAfterWave : PercyJacksonCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play, hitCount: DynamicVars["HitCount"].IntValue).Execute(choiceContext);
-        for (var i = 0; i < DynamicVars["HitCount"].IntValue; i++)
+        for (var i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
             var water = CombatState.CreateCard<Water>(Owner);
             await CardPileCmd.Add(water, PileType.Hand);
         }
+
+        await CommonActions
+            .CardAttack(this, play,
+                hitCount: Math.Min(CardPile.MaxCardsInHand, PileType.Hand.GetPile(Owner).Cards.Count))
+            .Execute(choiceContext);
     }
 }

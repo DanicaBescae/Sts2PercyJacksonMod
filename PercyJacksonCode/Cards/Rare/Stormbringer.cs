@@ -3,18 +3,18 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
+using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Models;
 using PercyJackson.PercyJacksonCode.Powers;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
+namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
 public class Stormbringer: PercyJacksonCard
 {
-    public Stormbringer() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public Stormbringer() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithKeyword(TideKeyword);
-        WithTip(typeof(WoundedPower));
-        WithVar("PlusDamage", 0, 1);
+        WithKeyword(CardKeyword.Exhaust);
     }
     
     protected override bool HasEnergyCostX => true;
@@ -22,8 +22,8 @@ public class Stormbringer: PercyJacksonCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var energy = ResolveEnergyXValue();
-        await PowerCmd.Apply<WoundedPower>(choiceContext, cardPlay.Target, energy + DynamicVars["PlusDamage"].IntValue,
-            Owner.Creature, this);
-        await TideManager.UpdateTide(Owner, energy + DynamicVars["PlusDamage"].IntValue);
+        await TideManager.UpdateMaxTide(Owner, energy + (IsUpgraded ? 0 : 1));
+        await TideManager.UpdateTide(Owner,
+            Owner.PlayerCombatState.Tide().MaxTide - Owner.PlayerCombatState.Tide().CurrentTide);
     }
 }

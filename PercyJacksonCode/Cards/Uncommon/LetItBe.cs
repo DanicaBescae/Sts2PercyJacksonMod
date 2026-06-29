@@ -6,19 +6,19 @@ using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
-public class PureDestruction : PercyJacksonCard
+public class LetItBe : PercyJacksonCard
 {
-    public PureDestruction() : base(1, CardType.Power,
+    public LetItBe() : base(1, CardType.Power,
         CardRarity.Uncommon, TargetType.Self)
     {
-        WithVar("DamageBoost", 2, 2);
+        WithCards(1, 1);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.Apply<PureDestructionPower>(choiceContext, Owner.Creature, this,
-            DynamicVars["DamageBoost"].BaseValue);
+        await CommonActions.Apply<LetItBePower>(choiceContext, Owner.Creature, this,
+            DynamicVars.Cards.BaseValue);
     }
 }

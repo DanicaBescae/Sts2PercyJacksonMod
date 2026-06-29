@@ -17,13 +17,12 @@ public class SurfingLessons: PercyJacksonCard
     {
         WithCalculatedDamage(0, (c, _) => c.Owner.PlayerCombatState.Tide().TideGainedThisTurn);
         WithKeyword(TideKeyword);
-        WithCombo(2);
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (IsComboComplete(this)) _needCheckDamageDealt = true;
+        _needCheckDamageDealt = true;
         await CommonActions.CardAttack(this, cardPlay.Target, DynamicVars.CalculatedDamage.BaseValue, ValueProp.Move,
             vfx: "vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
     }

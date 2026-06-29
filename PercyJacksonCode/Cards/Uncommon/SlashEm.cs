@@ -8,12 +8,12 @@ using MegaCrit.Sts2.Core.Models;
 using PercyJackson.PercyJacksonCode.Cards;
 using PercyJackson.PercyJacksonCode.Powers;
 
-namespace PercyJackson.PercyJacksonCode.Cards.Rare;
+namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
 public class SlashEm : PercyJacksonCard
 {
     public SlashEm() : base(0, CardType.Attack,
-        CardRarity.Rare, TargetType.AnyEnemy)
+        CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithDamage(4);
         WithPower<WoundedPower>(1, 1);

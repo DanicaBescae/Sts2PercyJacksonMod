@@ -11,7 +11,7 @@ public class NoSweat : PercyJacksonCard
     public NoSweat() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithEnergy(1);
-        WithKeyword(ComboStarter, UpgradeType.Add);
+        WithCostUpgradeBy(-1);
         WithKeyword(ComboKeyword);
     }
 

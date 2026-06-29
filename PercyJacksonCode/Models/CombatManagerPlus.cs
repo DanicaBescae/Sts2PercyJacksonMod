@@ -1,42 +1,47 @@
 ﻿using BaseLib.Abstracts;
+using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace PercyJackson.PercyJacksonCode.Models;
 
 public class CombatManagerPlus(): CustomSingletonModel(HookType.Combat)
 {
-    private static Dictionary<Player, int> timesShuffledThisCombat = new();
-    private static Dictionary<Player, int> cardsDrawnThisTurn = new();
+    // Note: in the future should turn these into SpireFields, extend combatmanager, or turn into combathistoryentries
+    // for more flexibility
+    private static readonly Dictionary<Player, int> TimesShuffledThisCombat = new();
+    private static readonly Dictionary<Player, int> MultiHitsPlayedThisCombat = new();
 
     public static int GetTimesShuffledThisCombat(Player player)
     {
-        return timesShuffledThisCombat.GetValueOrDefault(player, 0);
+        return TimesShuffledThisCombat.GetValueOrDefault(player, 0);
     }
     
-    public static int GetCardsDrawnThisTurn(Player player)
+    public static int GetMultiHitsPlayedThisCombat(Player player)
     {
-        return cardsDrawnThisTurn.GetValueOrDefault(player, 0);
+        return MultiHitsPlayedThisCombat.GetValueOrDefault(player, 0);
     }
 
-    public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    public override Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
-        if (fromHandDraw) return Task.CompletedTask;
-        if (!cardsDrawnThisTurn.TryAdd(card.Owner, 1)) cardsDrawnThisTurn[card.Owner]++;
+        if (command.Attacker?.Player is null || command.DamageProps != ValueProp.Move || command.Results.Count() <= 1)
+            return Task.CompletedTask;
+        MultiHitsPlayedThisCombat[command.Attacker.Player]++;
         return Task.CompletedTask;
     }
 
     public override Task AfterShuffle(PlayerChoiceContext choiceContext, Player shuffler)
     {
-        if (!timesShuffledThisCombat.TryAdd(shuffler, 1)) timesShuffledThisCombat[shuffler]++;
+        if (!TimesShuffledThisCombat.TryAdd(shuffler, 1)) TimesShuffledThisCombat[shuffler]++;
         return Task.CompletedTask;
     }
 
     public override Task AfterCombatEnd(CombatRoom room)
     {
-        timesShuffledThisCombat.Clear();
+        TimesShuffledThisCombat.Clear();
         return Task.CompletedTask;
     }
 }

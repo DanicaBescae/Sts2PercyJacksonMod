@@ -2,26 +2,26 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models.Powers;
 using PercyJackson.PercyJacksonCode.Cards;
+using PercyJackson.PercyJacksonCode.Extensions;
 using PercyJackson.PercyJacksonCode.Powers;
 
 namespace PercyJackson.PercyJacksonCode.Cards.Uncommon;
 
-public class WaveShield : PercyJacksonCard
+public class TrueFinisher : PercyJacksonCard
 {
-    public WaveShield() : base(2, CardType.Skill,
-        CardRarity.Uncommon, TargetType.Self)
+    public TrueFinisher() : base(1, CardType.Attack,
+        CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithBlock(13, 3);
-        WithPower<SlowPower>(1);
+        WithDamage(5, 2);
+        WithBlock(5, 2);
     }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await CommonActions.CardAttack(this, play).Execute(choiceContext);
         await CommonActions.CardBlock(this, play);
-        await CommonActions.Apply<WaveShieldPower>(choiceContext, Owner.Creature, this, 1);
     }
 }

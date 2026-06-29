@@ -8,10 +8,10 @@ namespace PercyJackson.PercyJacksonCode.Cards.Rare;
 
 public class Anaklusmos : PercyJacksonCard
 {
-    public Anaklusmos() : base(3, CardType.Power,
+    public Anaklusmos() : base(2, CardType.Power,
         CardRarity.Rare, TargetType.Self)
     {
-        WithCostUpgradeBy(-1);
+        WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
     }
 
     protected override async Task OnPlay(

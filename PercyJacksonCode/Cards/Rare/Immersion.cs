@@ -11,7 +11,7 @@ public class Immersion: PercyJacksonCard
 {
     public Immersion() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
-        WithEnergy(3,1);
+        WithEnergy(1,1);
         WithTip(typeof(Water));
         WithKeyword(CardKeyword.Exhaust);
     }
@@ -26,6 +26,20 @@ public class Immersion: PercyJacksonCard
         await CardPileCmd.Add(waterHand, PileType.Hand);
         var waterDiscard = CombatState.CreateCard<Water>(Owner);
         await CardPileCmd.Add(waterDiscard, PileType.Discard);
+        var waterExhaust = CombatState.CreateCard<Water>(Owner);
+        await CardPileCmd.Add(waterExhaust, PileType.Exhaust);
+
+        var waterInHand = PileType.Hand.GetPile(Owner).Cards.Where(c => c is Water).ToList();
+
+        if (waterInHand.Count > 0)
+        {
+            foreach (var card in waterInHand)
+            {
+                if (card is not Water waterCard) continue;
+                await waterCard.Activate(choiceContext);
+            }
+        }
+        
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
     }
 }
